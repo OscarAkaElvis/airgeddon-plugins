@@ -48,7 +48,7 @@ If you have any other wireless card with a different Realtek chipset which is al
 
 > An airgeddon plugin to decreases security to accept any char as part of the password for Evil Twin Captive Portal attack.
 
-This plugin for [airgeddon] tool. To avoid injections, `airgeddon` by default is filtering some dangerous chars `*&/?<>` as a part of the password while using Evil Twin Captive Portal attack. That might some attacks to fail if the password of the target network is using one of these filtered chars as part of the password. Using this plugin, any character will be accepted as part of the password.
+This plugin is for [airgeddon] tool. To avoid injections on the Captive Portal, `airgeddon` by default is filtering some dangerous chars `*&/?<>` as a part of the password while using Evil Twin Captive Portal attack. That might the attack to fail if the password of the target network is using one of these filtered chars. Using this plugin, any character will be accepted as part of the password.
 
 [airgeddon]: https://github.com/v1s1t0r1sh3r3/airgeddon
 [here]: https://github.com/v1s1t0r1sh3r3/airgeddon/wiki/Cards%20and%20Chipsets
