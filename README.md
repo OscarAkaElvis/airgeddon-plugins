@@ -1,7 +1,7 @@
 # airgeddon-plugins
 Plugins for airgeddon
 
-## airgeddon Realtek chipset fixer
+## airgeddon. Realtek chipset fixer
 
 > An airgeddon plugin to fix some problematic Realtek chipsets.
 
@@ -21,7 +21,7 @@ There are more cards and devices using the chipsets listed here. We listed only 
 
 #### Which versions was this designed for?
 
-This plugin was designed to be used on airgeddon v10.0 and is not needed if you are using airgeddon v10.01 or higher because since that version, the compatibility problem was already addressed by default.
+This plugin was designed to be used on airgeddon v10.0 and __is not needed if you are using airgeddon v10.01 or higher__ because since that version, the compatibility problem was already addressed by default.
 
 #### How to install an airgeddon plugin?
 
@@ -44,7 +44,7 @@ This known problems are not related to airgeddon and can't be fixed on airgeddon
 
 If you have any other wireless card with a different Realtek chipset which is also messing up with airgeddon, feel free to contact me by [IRC] or on #airgeddon channel at Discord. Join clicking on the [Public Invitation link].
 
-## airgeddon All chars accepted on Captive Portal
+## airgeddon. All chars accepted on Captive Portal
 
 > An airgeddon plugin to decreases security to accept any char as part of the password for Evil Twin Captive Portal attack.
 
