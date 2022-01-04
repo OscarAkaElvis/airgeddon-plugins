@@ -1,6 +1,12 @@
 # airgeddon-plugins
 Plugins for [airgeddon]
 
+## airgeddon. All chars accepted on Captive Portal
+
+> An airgeddon plugin to decrease security to accept any char as part of the password for Evil Twin Captive Portal attack.
+
+This plugin is for [airgeddon] tool. To avoid injections on the Captive Portal, `airgeddon` by default is filtering some dangerous chars `*&/?<>` as a part of the password while using Evil Twin Captive Portal attack. That might the attack to fail if the password of the target network is using one of these filtered chars. Using this plugin, any character will be accepted as part of the password.
+
 ## airgeddon. Realtek chipset fixer
 
 > An airgeddon plugin to fix some problematic Realtek chipsets.
@@ -50,12 +56,6 @@ VIF (Virtual Interface) compatibility is a hardware problem.
 #### Contact / Improvements / Extension to other Realtek chipsets
 
 If you have any other wireless card with a different Realtek chipset which is also messing up with airgeddon, feel free to contact me by [IRC] or on #airgeddon channel at Discord. Join clicking on the [Public Invitation link].
-
-## airgeddon. All chars accepted on Captive Portal
-
-> An airgeddon plugin to decrease security to accept any char as part of the password for Evil Twin Captive Portal attack.
-
-This plugin is for [airgeddon] tool. To avoid injections on the Captive Portal, `airgeddon` by default is filtering some dangerous chars `*&/?<>` as a part of the password while using Evil Twin Captive Portal attack. That might the attack to fail if the password of the target network is using one of these filtered chars. Using this plugin, any character will be accepted as part of the password.
 
 [airgeddon]: https://github.com/v1s1t0r1sh3r3/airgeddon
 [here]: https://github.com/v1s1t0r1sh3r3/airgeddon/wiki/Cards%20and%20Chipsets
