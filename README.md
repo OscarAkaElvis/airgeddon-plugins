@@ -52,7 +52,7 @@ Plugins system feature is available from `airgeddon>=10.0`.
 
 Basically, this fix for the listed Realtek cards the ability to switch mode from monitor to managed and viceversa from airgeddon menus.
 
-Known problems even using the plugin depending of your driver version and Kernel:
+Known problems even using the plugin depending on your driver version and Kernel:
 
  - WPS wash scanning
  - VIF (Virtual Interface) problem. It affects to DoS during Evil Twin attacks (while the interface is splitted into two logical interfaces)
