@@ -1,6 +1,14 @@
 # airgeddon-plugins
 Plugins for [airgeddon]
 
+## airgeddon. WPA3 online attack
+
+> An airgeddon plugin to perform a dictionary online attack over WPA3 wireless networks.
+
+This plugin is for [airgeddon] tool. Using a modified and pre-compiled wpa_supplicant binary, the system is able to distinguish AP responses in order to validate if the attack was successful or not. `airgeddon` is adding a new menu option for this dictionary online attack over WPA3 wireless networks.
+
+It is based on the [Wacker] script. Credits to the authors: [https://github.com/blunderbuss-wctf/wacker](https://github.com/blunderbuss-wctf/wacker)
+
 ## airgeddon. All chars accepted on Captive Portal
 
 > An airgeddon plugin to decrease security to accept any char as part of the password for Evil Twin Captive Portal attack.
@@ -62,3 +70,4 @@ If you have any other wireless card with a different Realtek chipset which is al
 [this section]: https://github.com/v1s1t0r1sh3r3/airgeddon/wiki/Plugins%20System#how-can-i-install-a-plugin-already-done-by-somebody
 [IRC]: https://webchat.freenode.net/
 [Public Invitation link]: https://discord.gg/sQ9dgt9
+[Wacker]: https://github.com/blunderbuss-wctf/wacker
