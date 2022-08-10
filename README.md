@@ -68,6 +68,6 @@ If you have any other wireless card with a different Realtek chipset which is al
 [airgeddon]: https://github.com/v1s1t0r1sh3r3/airgeddon
 [here]: https://github.com/v1s1t0r1sh3r3/airgeddon/wiki/Cards%20and%20Chipsets
 [this section]: https://github.com/v1s1t0r1sh3r3/airgeddon/wiki/Plugins%20System#how-can-i-install-a-plugin-already-done-by-somebody
-[IRC]: https://webchat.freenode.net/
+[IRC]: https://web.libera.chat/
 [Public Invitation link]: https://discord.gg/sQ9dgt9
 [Wacker]: https://github.com/blunderbuss-wctf/wacker
