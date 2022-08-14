@@ -15,6 +15,14 @@ plugin_minimum_ag_affected_version="11.02"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
 
+#Custom function. Execute WPA3 online dictionary attack
+function exec_wpa3_online_dictionary_attack() {
+
+	debug_print
+
+	python3 "${scriptfolder}${plugins_dir}wpa3_online_attack.py"
+}
+
 #Custom function. Validate a WPA3 network
 function validate_wpa3_network() {
 
@@ -23,6 +31,21 @@ function validate_wpa3_network() {
 	if [ "${enc}" != "WPA3" ]; then
 		echo
 		language_strings "${language}" "wpa3_online_attack_6" "red"
+		language_strings "${language}" 115 "read"
+		return 1
+	fi
+
+	return 0
+}
+
+#Custom function. Validate if the needed plugin python file exists
+function python3_script_validation() {
+
+	debug_print
+
+	if ! [ -f "${scriptfolder}${plugins_dir}wpa3_online_attack.py" ]; then
+		echo
+		language_strings "${language}" "wpa3_online_attack_8" "red"
 		language_strings "${language}" 115 "read"
 		return 1
 	fi
@@ -46,8 +69,8 @@ function python3_validation() {
 	return 0
 }
 
-#Custom function. Execute WPA3 online dictionary attack
-function execute_wpa3_online_dictionary_attack() {
+#Custom function. Prepare WPA3 online dictionary attack
+function wpa3_online_dictionary_attack_option() {
 
 	debug_print
 
@@ -71,11 +94,23 @@ function execute_wpa3_online_dictionary_attack() {
 		return 1
 	fi
 
+	#TODO add dictionary validation
+
 	if ! python3_validation; then
 		return 1
 	fi
 
-	#TODO
+	if ! python3_script_validation; then
+		return 1
+	fi
+
+	echo
+	language_strings "${language}" 32 "green"
+	echo
+	language_strings "${language}" 33 "yellow"
+	language_strings "${language}" 4 "read"
+
+	exec_wpa3_online_dictionary_attack
 }
 
 #Custom function. Create the WPA3 attacks menu
@@ -117,7 +152,7 @@ function wpa3_attacks_menu() {
 			explore_for_targets_option "WPA3"
 		;;
 		5)
-			execute_wpa3_online_dictionary_attack
+			wpa3_online_dictionary_attack_option
 		;;
 		*)
 			invalid_menu_option
@@ -253,6 +288,19 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_7"]="\${pending_of_translation} Für diesen Angriff muss python3 auf dem System installiert sein"
 	arr["TURKISH","wpa3_online_attack_7"]="\${pending_of_translation} Bu saldırı, sistemde python3'ün kurulu olmasını gerektirir."
 	arr["ARABIC","wpa3_online_attack_7"]="\${pending_of_translation} يتطلب هذا الهجوم تثبيت python3 على النظام"
+
+	arr["ENGLISH","wpa3_online_attack_8"]="The python3 script required as part of this plugin to run this attack is missing. Please make sure that the file \"\${normal_color}wpa3_online_attack.py\${red_color}\" exists and that it is in the plugins dir next to the \"\${normal_color}wpa3_online_attack.sh\${red_color}\" file"
+	arr["SPANISH","wpa3_online_attack_8"]="El script de python3 requerido como parte de este plugin para ejecutar este ataque no se encuentra. Por favor, asegúrate de que existe el fichero \"\${normal_color}wpa3_online_attack.py\${red_color}\" y que está en la carpeta de plugins junto al fichero \"\${normal_color}wpa3_online_attack.sh\${red_color}\""
+	arr["FRENCH","wpa3_online_attack_8"]="\${pending_of_translation} Le script python3 requis dans le cadre de ce plugin pour exécuter cette attaque est manquant. Assurez-vous que le fichier \"\${normal_color}wpa3_online_attack.py\${red_color}\" existe et qu'il se trouve dans le dossier plugins à côté du fichier \"\${normal_color}wpa3_online_attack.sh\${red_color}\""
+	arr["CATALAN","wpa3_online_attack_8"]="\${pending_of_translation} El script de python3 requerit com a part d'aquest plugin per executar aquest atac no es troba. Assegureu-vos que existeix el fitxer \"\${normal_color}wpa3_online_attack.py\${red_color}\" i que està a la carpeta de plugins al costat del fitxer \"\${normal_color}wpa3_online_attack.sh\${red_color}\""
+	arr["PORTUGUESE","wpa3_online_attack_8"]="\${pending_of_translation} O script python3 necessário como parte deste plugin para executar este ataque está ausente. Verifique se o arquivo \"\${normal_color}wpa3_online_attack.py\${red_color}\" existe e se está na pasta de plugins ao lado do arquivo \"\${normal_color}wpa3_online_attack.sh\${red_color}\""
+	arr["RUSSIAN","wpa3_online_attack_8"]="\${pending_of_translation} Сценарий python3, необходимый как часть этого плагина для запуска этой атаки, отсутствует. Убедитесь, что файл \"\${normal_color}wpa3_online_attack.py\${red_color}\" существует и находится в папке плагинов рядом с файлом \"\${normal_color}wpa3_online_attack.sh\${red_color}\"."
+	arr["GREEK","wpa3_online_attack_8"]="\${pending_of_translation} Το σενάριο python3 που απαιτείται ως μέρος αυτής της προσθήκης για την εκτέλεση αυτής της επίθεσης λείπει. Βεβαιωθείτε ότι το αρχείο \"\${normal_color}wpa3_online_attack.py\${red_color}\" υπάρχει και ότι βρίσκεται στον φάκελο προσθηκών δίπλα στο αρχείο \"\${normal_color}wpa3_online_attack.sh\${red_color}\""
+	arr["ITALIAN","wpa3_online_attack_8"]="\${pending_of_translation} Lo script python3 richiesto come parte di questo plugin per eseguire questo attacco è mancante. Assicurati che il file \"\${normal_color}wpa3_online_attack.py\${red_color}\" esista e che sia nella cartella dei plugin accanto al file \"\${normal_color}wpa3_online_attack.sh\${red_color}\""
+	arr["POLISH","wpa3_online_attack_8"]="\${pending_of_translation} Brakuje skryptu python3 wymaganego jako część tej wtyczki do uruchomienia tego ataku. Upewnij się, że plik \"\${normal_color}wpa3_online_attack.py\${red_color}\" istnieje i znajduje się w folderze wtyczek obok pliku \"\${normal_color}wpa3_online_attack.sh\${red_color}\""
+	arr["GERMAN","wpa3_online_attack_8"]="\${pending_of_translation} Das python3-Skript, das als Teil dieses Plugins erforderlich ist, um diesen Angriff auszuführen, fehlt. Bitte stellen Sie sicher, dass die Datei \"\${normal_color}wpa3_online_attack.py\${red_color}\" existiert und dass sie sich im Plugin-Ordner neben der Datei \"\${normal_color}wpa3_online_attack.sh\${red_color}\" befindet."
+	arr["TURKISH","wpa3_online_attack_8"]="\${pending_of_translation} Bu saldırıyı çalıştırmak için bu eklentinin bir parçası olarak gereken python3 betiği eksik. Lütfen \"\${normal_color}wpa3_online_attack.py\${red_color}\" dosyasının var olduğundan ve eklentiler klasöründe \"\${normal_color}wpa3_online_attack.sh\${red_color}\" dosyasının yanında olduğundan emin olun."
+	arr["ARABIC","wpa3_online_attack_8"]="\${pending_of_translation} سكربت python3 المطلوب كجزء من هذا البرنامج المساعد لتشغيل هذا الهجوم مفقود. يرجى التأكد من أن الملف \"\${normal_color}wpa3_online_attack.py\${red_color}\" موجود وأنه موجود في مجلد المكونات الإضافية بجوار الملف \"\${normal_color}wpa3_online_attack.sh\${red_color}\""
 }
 
 #Override initialize_menu_and_print_selections function to add the new WPA3 menu
