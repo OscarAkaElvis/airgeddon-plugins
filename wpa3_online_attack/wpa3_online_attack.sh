@@ -152,6 +152,19 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_4"]="\${pending_of_translation} WPA3-Filter beim Scannen aktiviert. Nach den Start, drücken Sie [Ctrl+C], um es zu stoppen..."
 	arr["TURKISH","wpa3_online_attack_4"]="\${pending_of_translation} WPA3 filtesi taraması etkin. Başladıktan sonra, durdurmak için [Ctrl+C] tuşlayınız..."
 	arr["ARABIC","wpa3_online_attack_4"]="\${pending_of_translation} ...للإيقاف [Ctrl+C] في المسح. عند البدء ، اضغط على WPA3 تم تفعيل مرشح"
+
+	arr["ENGLISH","wpa3_online_attack_5"]="WPA3 online dictionary attack takes considerably longer than an offline decryption attack, so it is recommended to only perform it over pure WPA3 networks. If your target network is in WPA2/WPA3 \"Mixed Mode\", it is recommended to carry out the traditional WPA2 attacks (Handshake, PMKID) instead of the online attack"
+	arr["SPANISH","wpa3_online_attack_5"]="El ataque de diccionario online de WPA3 tarda bastante más tiempo que un ataque de descifrado offline, por lo que se recomienda solo realizarlo sobre redes puras WPA3. Si tu red objetivo está en WPA2/WPA3 \"Mixed Mode\", lo recomendable es realizar los ataques tradicionales de WPA2 (Handshake, PMKID) en lugar del ataque online "
+	arr["FRENCH","wpa3_online_attack_5"]="\${pending_of_translation} L'attaque par dictionnaire en ligne WPA3 prend beaucoup plus de temps qu'une attaque de décryptage hors ligne, il est donc recommandé de ne l'exécuter que sur des réseaux WPA3 purs. Si votre réseau cible est en WPA2/WPA3 \"Mixed Mode\", il est recommandé d'effectuer les attaques WPA2 traditionnelles (Handshake, PMKID) au lieu de l'attaque en ligne"
+	arr["CATALAN","wpa3_online_attack_5"]="\${pending_of_translation} L'atac de diccionari online de WPA3 triga força més temps que un atac de desxifrat offline, per la qual cosa es recomana només fer-ho sobre xarxes pures WPA3. Si la teva xarxa objectiu està a WPA2/WPA3 \"Mixed Mode\", el recomanable és realitzar els atacs tradicionals de WPA2 (Handshake, PMKID) en lloc de l'atac en línia"
+	arr["PORTUGUESE","wpa3_online_attack_5"]="\${pending_of_translation} O ataque de dicionário online WPA3 demora consideravelmente mais do que um ataque de descriptografia offline, portanto, é recomendável executá-lo apenas em redes WPA3 puras. Se a sua rede alvo estiver em WPA2/WPA3 \"Mixed Mode\", é recomendável realizar os ataques WPA2 tradicionais (Handshake, PMKID) em vez do ataque online"
+	arr["RUSSIAN","wpa3_online_attack_5"]="\${pending_of_translation} Онлайн-атака по словарю WPA3 занимает значительно больше времени, чем офлайн-атака с дешифрованием, поэтому рекомендуется выполнять ее только в чистых сетях WPA3. Если ваша целевая сеть находится в WPA2/WPA3 \"Mixed Mode\", рекомендуется проводить традиционные атаки WPA2 (рукопожатие, PMKID) вместо онлайн-атаки."
+	arr["GREEK","wpa3_online_attack_5"]="\${pending_of_translation} Η επίθεση διαδικτυακού λεξικού WPA3 διαρκεί πολύ περισσότερο από μια επίθεση αποκρυπτογράφησης εκτός σύνδεσης, επομένως συνιστάται να εκτελείται μόνο μέσω καθαρών δικτύων WPA3. Εάν το δίκτυο-στόχος σας είναι σε WPA2/WPA3 \"Mixed Mode\", συνιστάται να πραγματοποιήσετε τις παραδοσιακές επιθέσεις WPA2 (Handshake, PMKID) αντί για την online επίθεση"
+	arr["ITALIAN","wpa3_online_attack_5"]="\${pending_of_translation} L'attacco del dizionario online WPA3 richiede molto più tempo di un attacco di decrittazione offline, quindi si consiglia di eseguirlo solo su reti WPA3 pure. Se la rete di destinazione è in WPA2/WPA3 \"Modalità mista\", si consiglia di eseguire i tradizionali attacchi WPA2 (Handshake, PMKID) anziché l'attacco online"
+	arr["POLISH","wpa3_online_attack_5"]="\${pending_of_translation} Atak słownikowy WPA3 online trwa znacznie dłużej niż atak z odszyfrowaniem offline, dlatego zaleca się przeprowadzanie go tylko w czystych sieciach WPA3. Jeśli Twoja sieć docelowa jest w trybie WPA2/WPA3 \"Mixed Mode\", zaleca się przeprowadzenie tradycyjnych ataków WPA2 (Handshake, PMKID) zamiast ataków online"
+	arr["GERMAN","wpa3_online_attack_5"]="\${pending_of_translation} Der WPA3-Online-Wörterbuchangriff dauert erheblich länger als ein Offline-Entschlüsselungsangriff, daher wird empfohlen, ihn nur über reine WPA3-Netzwerke durchzuführen. Wenn sich Ihr Zielnetzwerk im WPA2/WPA3 \"Mixed Mode\", befindet, empfiehlt es sich, anstelle des Online-Angriffs die traditionellen WPA2-Angriffe (Handshake, PMKID) durchzuführen"
+	arr["TURKISH","wpa3_online_attack_5"]="\${pending_of_translation} WPA3 çevrimiçi sözlük saldırısı, çevrimdışı bir şifre çözme saldırısından çok daha uzun sürer, bu nedenle yalnızca saf WPA3 ağları üzerinden gerçekleştirilmesi önerilir. Hedef ağınız WPA2/WPA3 \"Mixed Mode\", daysa, çevrimiçi saldırı yerine geleneksel WPA2 saldırılarını (Handshake, PMKID) gerçekleştirmeniz önerilir."
+	arr["ARABIC","wpa3_online_attack_5"]="\${pending_of_translation} يستغرق هجوم القاموس عبر الإنترنت WPA3 وقتًا أطول بكثير من هجوم فك التشفير في وضع عدم الاتصال ، لذلك يوصى بأدائه عبر شبكات WPA3 فقط. إذا كانت شبكتك المستهدفة في \"Mixed Mode\" WPA2/WPA3 ،WPA2 التقليدية (Handshake ،PMKID) بدلاً من الهجوم عبر الإنترنت"
 }
 
 #Override initialize_menu_and_print_selections function to add the new WPA3 menu
@@ -261,6 +274,144 @@ function wpa3_online_attack_override_initialize_menu_and_print_selections() {
 			print_all_target_vars
 		;;
 	esac
+}
+
+#Override print_hint function to print custom messages related to WPA3 on WPA3 menu
+function wpa3_online_attack_override_print_hint() {
+
+	debug_print
+
+	declare -A hints
+
+	declare wpa3_hints=(128 134 437 438 442 445 516 590 626 660 697 699 "wpa3_online_attack_5")
+
+	case ${1} in
+		"wpa3_attacks_menu")
+			store_array hints wpa3_hints "${wpa3_hints[@]}"
+			hintlength=${#wpa3_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[wpa3_hints|${randomhint}]}
+		;;
+		"main_menu")
+			store_array hints main_hints "${main_hints[@]}"
+			hintlength=${#main_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[main_hints|${randomhint}]}
+		;;
+		"dos_attacks_menu")
+			store_array hints dos_hints "${dos_hints[@]}"
+			hintlength=${#dos_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[dos_hints|${randomhint}]}
+		;;
+		"handshake_pmkid_tools_menu")
+			store_array hints handshake_pmkid_hints "${handshake_pmkid_hints[@]}"
+			hintlength=${#handshake_pmkid_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[handshake_pmkid_hints|${randomhint}]}
+		;;
+		"dos_handshake_menu")
+			store_array hints dos_handshake_hints "${dos_handshake_hints[@]}"
+			hintlength=${#dos_handshake_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[dos_handshake_hints|${randomhint}]}
+		;;
+		"decrypt_menu")
+			store_array hints decrypt_hints "${decrypt_hints[@]}"
+			hintlength=${#decrypt_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[decrypt_hints|${randomhint}]}
+		;;
+		"personal_decrypt_menu")
+			store_array hints personal_decrypt_hints "${personal_decrypt_hints[@]}"
+			hintlength=${#personal_decrypt_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[personal_decrypt_hints|${randomhint}]}
+		;;
+		"enterprise_decrypt_menu")
+			store_array hints enterprise_decrypt_hints "${enterprise_decrypt_hints[@]}"
+			hintlength=${#enterprise_decrypt_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[enterprise_decrypt_hints|${randomhint}]}
+		;;
+		"select_interface_menu")
+			store_array hints select_interface_hints "${select_interface_hints[@]}"
+			hintlength=${#select_interface_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[select_interface_hints|${randomhint}]}
+		;;
+		"language_menu")
+			store_array hints language_hints "${language_hints[@]}"
+			hintlength=${#language_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[language_hints|${randomhint}]}
+		;;
+		"option_menu")
+			store_array hints option_hints "${option_hints[@]}"
+			hintlength=${#option_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[option_hints|${randomhint}]}
+		;;
+		"evil_twin_attacks_menu")
+			store_array hints evil_twin_hints "${evil_twin_hints[@]}"
+			hintlength=${#evil_twin_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[evil_twin_hints|${randomhint}]}
+		;;
+		"et_dos_menu")
+			store_array hints evil_twin_dos_hints "${evil_twin_dos_hints[@]}"
+			hintlength=${#evil_twin_dos_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[evil_twin_dos_hints|${randomhint}]}
+		;;
+		"wps_attacks_menu"|"offline_pin_generation_menu")
+			store_array hints wps_hints "${wps_hints[@]}"
+			hintlength=${#wps_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[wps_hints|${randomhint}]}
+		;;
+		"wep_attacks_menu")
+			store_array hints wep_hints "${wep_hints[@]}"
+			hintlength=${#wep_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[wep_hints|${randomhint}]}
+		;;
+		"beef_pre_menu")
+			store_array hints beef_hints "${beef_hints[@]}"
+			hintlength=${#beef_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[beef_hints|${randomhint}]}
+		;;
+		"enterprise_attacks_menu")
+			store_array hints enterprise_hints "${enterprise_hints[@]}"
+			hintlength=${#enterprise_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[enterprise_hints|${randomhint}]}
+		;;
+	esac
+
+	if "${AIRGEDDON_PRINT_HINTS:-true}"; then
+		print_simple_separator
+		language_strings "${language}" "${strtoprint}" "hint"
+	fi
+	print_simple_separator
 }
 
 #Override main_menu function to add the new WPA3 attack category
