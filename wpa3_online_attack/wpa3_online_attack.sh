@@ -15,6 +15,49 @@ plugin_minimum_ag_affected_version="11.02"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
 
+#Custom function. Validate a WPA3 network
+function validate_wpa3_network() {
+
+	debug_print
+
+	if [ "${enc}" != "WPA3" ]; then
+		echo
+		language_strings "${language}" "wpa3_online_attack_6" "red"
+		language_strings "${language}" 115 "read"
+		return 1
+	fi
+
+	return 0
+}
+
+#Custom function. Execute WPA3 online dictionary attack
+function execute_wpa3_online_dictionary_attack() {
+
+	debug_print
+
+	if [[ -z ${bssid} ]] || [[ -z ${essid} ]] || [[ -z ${channel} ]] || [[ "${essid}" = "(Hidden Network)" ]]; then
+		echo
+		language_strings "${language}" 125 "yellow"
+		language_strings "${language}" 115 "read"
+		if ! explore_for_targets_option "WPA3"; then
+			return 1
+		fi
+	fi
+
+	if ! check_monitor_enabled "${interface}"; then
+		echo
+		language_strings "${language}" 14 "red"
+		language_strings "${language}" 115 "read"
+		return 1
+	fi
+
+	if ! validate_wpa3_network; then
+		return 1
+	fi
+
+	#TODO
+}
+
 #Custom function. Create the WPA3 attacks menu
 function wpa3_attacks_menu() {
 
@@ -54,8 +97,7 @@ function wpa3_attacks_menu() {
 			explore_for_targets_option "WPA3"
 		;;
 		5)
-			#TODO
-			:
+			execute_wpa3_online_dictionary_attack
 		;;
 		*)
 			invalid_menu_option
@@ -127,18 +169,18 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["TURKISH","wpa3_online_attack_2"]="\${pending_of_translation} WPA3 saldırılar menüsü"
 	arr["ARABIC","wpa3_online_attack_2"]="\${pending_of_translation} WPA3 قائمة هجمات"
 
-	arr["ENGLISH","wpa3_online_attack_3"]="5. WPA3 online dictionary attack"
-	arr["SPANISH","wpa3_online_attack_3"]="5. Ataque de diccionario online de WPA3"
-	arr["FRENCH","wpa3_online_attack_3"]="\${pending_of_translation} 5. Attaque par dictionnaire online WPA3"
-	arr["CATALAN","wpa3_online_attack_3"]="\${pending_of_translation} 5. Atac de diccionari online de WPA3"
-	arr["PORTUGUESE","wpa3_online_attack_3"]="\${pending_of_translation} 5. Ataque de dicionário online WPA3"
-	arr["RUSSIAN","wpa3_online_attack_3"]="\${pending_of_translation} 5. Атака по онлайн-словарю WPA3"
-	arr["GREEK","wpa3_online_attack_3"]="\${pending_of_translation} 5. Επίθεση σε διαδικτυακό λεξικό WPA3"
-	arr["ITALIAN","wpa3_online_attack_3"]="\${pending_of_translation} 5. Attacco al dizionario online WPA3"
-	arr["POLISH","wpa3_online_attack_3"]="\${pending_of_translation} 5. Atak słownikowy online WPA3"
-	arr["GERMAN","wpa3_online_attack_3"]="\${pending_of_translation} 5. WPA3-Angriff auf das Online-Wörterbuch"
-	arr["TURKISH","wpa3_online_attack_3"]="\${pending_of_translation} 5. WPA3 çevrimiçi sözlük saldırısı"
-	arr["ARABIC","wpa3_online_attack_3"]="\${pending_of_translation} 5. هجوم WPA3 القاموس على الإنترنت"
+	arr["ENGLISH","wpa3_online_attack_3"]="5.  WPA3 online dictionary attack"
+	arr["SPANISH","wpa3_online_attack_3"]="5.  Ataque de diccionario online de WPA3"
+	arr["FRENCH","wpa3_online_attack_3"]="\${pending_of_translation} 5.  Attaque par dictionnaire online WPA3"
+	arr["CATALAN","wpa3_online_attack_3"]="\${pending_of_translation} 5.  Atac de diccionari online de WPA3"
+	arr["PORTUGUESE","wpa3_online_attack_3"]="\${pending_of_translation} 5.  Ataque de dicionário online WPA3"
+	arr["RUSSIAN","wpa3_online_attack_3"]="\${pending_of_translation} 5.  Атака по онлайн-словарю WPA3"
+	arr["GREEK","wpa3_online_attack_3"]="\${pending_of_translation} 5.  Επίθεση σε διαδικτυακό λεξικό WPA3"
+	arr["ITALIAN","wpa3_online_attack_3"]="\${pending_of_translation} 5.  Attacco al dizionario online WPA3"
+	arr["POLISH","wpa3_online_attack_3"]="\${pending_of_translation} 5.  Atak słownikowy online WPA3"
+	arr["GERMAN","wpa3_online_attack_3"]="\${pending_of_translation} 5.  WPA3-Angriff auf das Online-Wörterbuch"
+	arr["TURKISH","wpa3_online_attack_3"]="\${pending_of_translation} 5.  WPA3 çevrimiçi sözlük saldırısı"
+	arr["ARABIC","wpa3_online_attack_3"]="\${pending_of_translation} 5.  هجوم WPA3 القاموس على الإنترنت"
 
 	arr["ENGLISH","wpa3_online_attack_4"]="WPA3 filter enabled in scan. When started, press [Ctrl+C] to stop..."
 	arr["SPANISH","wpa3_online_attack_4"]="Filtro WPA3 activado en escaneo. Una vez empezado, pulse [Ctrl+C] para pararlo..."
@@ -165,6 +207,19 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_5"]="\${pending_of_translation} Der WPA3-Online-Wörterbuchangriff dauert erheblich länger als ein Offline-Entschlüsselungsangriff, daher wird empfohlen, ihn nur über reine WPA3-Netzwerke durchzuführen. Wenn sich Ihr Zielnetzwerk im WPA2/WPA3 \"Mixed Mode\", befindet, empfiehlt es sich, anstelle des Online-Angriffs die traditionellen WPA2-Angriffe (Handshake, PMKID) durchzuführen"
 	arr["TURKISH","wpa3_online_attack_5"]="\${pending_of_translation} WPA3 çevrimiçi sözlük saldırısı, çevrimdışı bir şifre çözme saldırısından çok daha uzun sürer, bu nedenle yalnızca saf WPA3 ağları üzerinden gerçekleştirilmesi önerilir. Hedef ağınız WPA2/WPA3 \"Mixed Mode\", daysa, çevrimiçi saldırı yerine geleneksel WPA2 saldırılarını (Handshake, PMKID) gerçekleştirmeniz önerilir."
 	arr["ARABIC","wpa3_online_attack_5"]="\${pending_of_translation} يستغرق هجوم القاموس عبر الإنترنت WPA3 وقتًا أطول بكثير من هجوم فك التشفير في وضع عدم الاتصال ، لذلك يوصى بأدائه عبر شبكات WPA3 فقط. إذا كانت شبكتك المستهدفة في \"Mixed Mode\" WPA2/WPA3 ،WPA2 التقليدية (Handshake ،PMKID) بدلاً من الهجوم عبر الإنترنت"
+
+	arr["ENGLISH","wpa3_online_attack_6"]="The selected network is invalid. The target network must be WPA3 or WPA2/WPA3 in \"Mixed Mode\""
+	arr["SPANISH","wpa3_online_attack_6"]="La red seleccionada no es válida. La red objetivo debe ser WPA3 o WPA2/WPA3 en \"Mixed Mode\""
+	arr["FRENCH","wpa3_online_attack_6"]="\${pending_of_translation} Le réseau sélectionné n'est pas valide. Le réseau cible doit être WPA3 ou WPA2/WPA3 en \"Mixed Mode\""
+	arr["CATALAN","wpa3_online_attack_6"]="\${pending_of_translation} La xarxa seleccionada no és vàlida. La xarxa objectiu ha de ser WPA3 o WPA2/WPA3 a \"Mixed Mode\""
+	arr["PORTUGUESE","wpa3_online_attack_6"]="\${pending_of_translation} A rede selecionada é inválida. A rede de destino deve ser WPA3 ou WPA2/WPA3 em \"Mixed Mode\""
+	arr["RUSSIAN","wpa3_online_attack_6"]="\${pending_of_translation} Выбранная сеть недействительна. Целевая сеть должна быть WPA3 или WPA2/WPA3 в \"Mixed Mode\""
+	arr["GREEK","wpa3_online_attack_6"]="\${pending_of_translation} Το επιλεγμένο δίκτυο δεν είναι έγκυρο. Το δίκτυο προορισμού πρέπει να είναι WPA3 ή WPA2/WPA3 σε \"Mixed Mode\""
+	arr["ITALIAN","wpa3_online_attack_6"]="\${pending_of_translation} La rete selezionata non è valida. La rete di destinazione deve essere WPA3 o WPA2/WPA3 in \"Mixed Mode\""
+	arr["POLISH","wpa3_online_attack_6"]="\${pending_of_translation} Wybrana sieć jest nieprawidłowa. Sieć docelowa musi być WPA3 lub WPA2/WPA3 w \"Mixed Mode\""
+	arr["GERMAN","wpa3_online_attack_6"]="\${pending_of_translation} Das ausgewählte Netzwerk ist ungültig. Das Zielnetzwerk muss WPA3 oder WPA2/WPA3 im \"Mixed Mode\" sein"
+	arr["TURKISH","wpa3_online_attack_6"]="\${pending_of_translation} Seçilen ağ geçersiz. Hedef ağ, \"Mixed Mode\" da WPA3 veya WPA2/WPA3 olmalıdır"
+	arr["ARABIC","wpa3_online_attack_6"]="\${pending_of_translation} الشبكة المحددة غير صالحة. يجب أن تكون الشبكة المستهدفة WPA3 أو WPA2/WPA3 \"Mixed Mode\""
 }
 
 #Override initialize_menu_and_print_selections function to add the new WPA3 menu
