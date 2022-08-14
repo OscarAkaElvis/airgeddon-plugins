@@ -31,7 +31,7 @@ function wpa3_attacks_menu() {
 	language_strings "${language}" 48
 	language_strings "${language}" 55
 	language_strings "${language}" 56
-	language_strings "${language}" 49 wash_scan_dependencies[@] #TODO
+	language_strings "${language}" 49
 	language_strings "${language}" 50 "separator"
 	language_strings "${language}" "wpa3_online_attack_3"
 	print_hint ${current_menu}
