@@ -30,6 +30,22 @@ function validate_wpa3_network() {
 	return 0
 }
 
+#Custom function. Validate if the system has python3 installed
+function python3_validation() {
+
+	debug_print
+
+	if ! hash python3; then
+		python_version=$(python -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\).*/\1\2/')
+		if [ "${python_version}" -lt "30" ]; then
+			language_strings "${language}" "wpa3_online_attack_7" "red"
+		fi
+		return 1
+	fi
+
+	return 0
+}
+
 #Custom function. Execute WPA3 online dictionary attack
 function execute_wpa3_online_dictionary_attack() {
 
@@ -52,6 +68,10 @@ function execute_wpa3_online_dictionary_attack() {
 	fi
 
 	if ! validate_wpa3_network; then
+		return 1
+	fi
+
+	if ! python3_validation; then
 		return 1
 	fi
 
@@ -220,6 +240,19 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_6"]="\${pending_of_translation} Das ausgewählte Netzwerk ist ungültig. Das Zielnetzwerk muss WPA3 oder WPA2/WPA3 im \"Mixed Mode\" sein"
 	arr["TURKISH","wpa3_online_attack_6"]="\${pending_of_translation} Seçilen ağ geçersiz. Hedef ağ, \"Mixed Mode\" da WPA3 veya WPA2/WPA3 olmalıdır"
 	arr["ARABIC","wpa3_online_attack_6"]="\${pending_of_translation} الشبكة المحددة غير صالحة. يجب أن تكون الشبكة المستهدفة WPA3 أو WPA2/WPA3 \"Mixed Mode\""
+
+	arr["ENGLISH","wpa3_online_attack_7"]="This attack requires to have python3 installed on your system"
+	arr["SPANISH","wpa3_online_attack_7"]="Este ataque requiere tener python3 instalado en el sistema"
+	arr["FRENCH","wpa3_online_attack_7"]="\${pending_of_translation} Cette attaque nécessite d'avoir python3 installé sur le système"
+	arr["CATALAN","wpa3_online_attack_7"]="\${pending_of_translation} Aquest atac requereix tenir python3 instal·lat al sistema"
+	arr["PORTUGUESE","wpa3_online_attack_7"]="\${pending_of_translation} Este ataque requer ter python3 instalado no sistema"
+	arr["RUSSIAN","wpa3_online_attack_7"]="\${pending_of_translation} Эта атака требует, чтобы в системе был установлен python3."
+	arr["GREEK","wpa3_online_attack_7"]="\${pending_of_translation} Αυτή η επίθεση απαιτεί την εγκατάσταση του python3 στο σύστημα"
+	arr["ITALIAN","wpa3_online_attack_7"]="\${pending_of_translation} Questo attacco richiede che python3 sia installato sul sistema"
+	arr["POLISH","wpa3_online_attack_7"]="\${pending_of_translation} Ten atak wymaga zainstalowania w systemie python3"
+	arr["GERMAN","wpa3_online_attack_7"]="\${pending_of_translation} Für diesen Angriff muss python3 auf dem System installiert sein"
+	arr["TURKISH","wpa3_online_attack_7"]="\${pending_of_translation} Bu saldırı, sistemde python3'ün kurulu olmasını gerektirir."
+	arr["ARABIC","wpa3_online_attack_7"]="\${pending_of_translation} يتطلب هذا الهجوم تثبيت python3 على النظام"
 }
 
 #Override initialize_menu_and_print_selections function to add the new WPA3 menu
