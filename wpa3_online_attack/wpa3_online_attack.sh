@@ -15,6 +15,49 @@ plugin_minimum_ag_affected_version="11.02"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
 
+#Custom function. Validate if right custom wpa_supplicant binary file exist
+function custom_wpa_supplicant_validation() {
+
+	debug_print
+
+	custom_wpa_supplicant_binaries_dir="wpa_supplicant_binaries/"
+
+	if [ "${is_arm}" -eq 1 ]; then
+		if uname -m | grep -Ei "armv61" > /dev/null; then
+			if ! [ -f "${scriptfolder}${plugins_dir}${custom_wpa_supplicant_binaries_dir}wpa_supplicant_armhf" ]; then
+				echo
+				language_strings "${language}" "wpa3_online_attack_9" "red"
+				language_strings "${language}" 115 "read"
+				return 1
+			fi
+		elif uname -m | grep -Ei "aarch64|aarch64_be|armv8b|armv8l" > /dev/null; then
+			:
+			#TODO arm64
+		else
+			:
+			#TODO armel
+		fi
+	else
+		if uname -m | grep -Ei "x86_64" > /dev/null; then
+			if ! [ -f "${scriptfolder}${plugins_dir}${custom_wpa_supplicant_binaries_dir}wpa_supplicant_amd64" ]; then
+				echo
+				language_strings "${language}" "wpa3_online_attack_9" "red"
+				language_strings "${language}" 115 "read"
+				return 1
+			fi
+		else
+			if ! [ -f "${scriptfolder}${plugins_dir}${custom_wpa_supplicant_binaries_dir}wpa_supplicant_i386" ]; then
+				echo
+				language_strings "${language}" "wpa3_online_attack_9" "red"
+				language_strings "${language}" 115 "read"
+				return 1
+			fi
+		fi
+	fi
+
+	return 0
+}
+
 #Custom function. Execute WPA3 online dictionary attack
 function exec_wpa3_online_dictionary_attack() {
 
@@ -101,6 +144,10 @@ function wpa3_online_dictionary_attack_option() {
 	fi
 
 	if ! python3_script_validation; then
+		return 1
+	fi
+
+	if ! custom_wpa_supplicant_validation; then
 		return 1
 	fi
 
@@ -301,6 +348,19 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_8"]="\${pending_of_translation} Das python3-Skript, das als Teil dieses Plugins erforderlich ist, um diesen Angriff auszuführen, fehlt. Bitte stellen Sie sicher, dass die Datei \"\${normal_color}wpa3_online_attack.py\${red_color}\" existiert und dass sie sich im Plugin-Ordner neben der Datei \"\${normal_color}wpa3_online_attack.sh\${red_color}\" befindet."
 	arr["TURKISH","wpa3_online_attack_8"]="\${pending_of_translation} Bu saldırıyı çalıştırmak için bu eklentinin bir parçası olarak gereken python3 betiği eksik. Lütfen \"\${normal_color}wpa3_online_attack.py\${red_color}\" dosyasının var olduğundan ve eklentiler klasöründe \"\${normal_color}wpa3_online_attack.sh\${red_color}\" dosyasının yanında olduğundan emin olun."
 	arr["ARABIC","wpa3_online_attack_8"]="\${pending_of_translation} سكربت python3 المطلوب كجزء من هذا البرنامج المساعد لتشغيل هذا الهجوم مفقود. يرجى التأكد من أن الملف \"\${normal_color}wpa3_online_attack.py\${red_color}\" موجود وأنه موجود في مجلد المكونات الإضافية بجوار الملف \"\${normal_color}wpa3_online_attack.sh\${red_color}\""
+
+	arr["ENGLISH","wpa3_online_attack_9"]="The precompiled custom wpa_supplicant binary file needed to execute this attack is missing. Please make sure that the binary according to your processor architecture exists in the \"\${normal_color}wpa_supplicant_binaries\${red_color}\" dir which is inside the plugins dir"
+	arr["SPANISH","wpa3_online_attack_9"]="El fichero binario personalizado y precompilado de wpa_supplicant necesario para ejecutar este ataque no se encuentra. Por favor, asegúrate de que existe el binario acorde a to arquitectura de procesador existe en la carpeta \"\${normal_color}wpa_supplicant_binaries\${red_color}\" dentro de la carpeta de plugins"
+	arr["FRENCH","wpa3_online_attack_9"]="\${pending_of_translation} Le fichier binaire personnalisé précompilé de wpa_supplicant nécessaire pour exécuter cette attaque est manquant. Assurez-vous que le binaire correspondant à l'architecture de votre processeur existe dans le dossier \"\${normal_color}wpa_supplicant_binaries\${red_color}\" à l'intérieur du dossier plugins"
+	arr["CATALAN","wpa3_online_attack_9"]="\${pending_of_translation} El fitxer binari personalitzat i precompilat de wpa_supplicant necessari per executar aquest atac no es troba. Assegureu-vos que existeix el binari d'acord amb l'arquitectura de processador a la carpeta \"\${normal_color}wpa_supplicant_binaries\${red_color}\" dins de la carpeta de connectors"
+	arr["PORTUGUESE","wpa3_online_attack_9"]="\${pending_of_translation} O arquivo binário personalizado pré-compilado de wpa_supplicant necessário para executar este ataque está ausente. Certifique-se de que o binário de acordo com a arquitetura do seu processador existe na pasta \"\${normal_color}wpa_supplicant_binaries\${red_color}\" dentro da pasta de plugins"
+	arr["RUSSIAN","wpa3_online_attack_9"]="\${pending_of_translation} Предварительно скомпилированный пользовательский двоичный файл wpa_supplicant, необходимый для выполнения этой атаки, отсутствует. Убедитесь, что двоичный файл, соответствующий архитектуре вашего процессора, существует в папке \"\${normal_color}wpa_supplicant_binaries\${red_color}\" внутри папки плагинов."
+	arr["GREEK","wpa3_online_attack_9"]="\${pending_of_translation} Το προμεταγλωττισμένο προσαρμοσμένο δυαδικό αρχείο του wpa_supplicant που απαιτείται για την εκτέλεση αυτής της επίθεσης λείπει. Βεβαιωθείτε ότι το δυαδικό αρχείο σύμφωνα με την αρχιτεκτονική του επεξεργαστή σας υπάρχει στο φάκελο \"\${normal_color}wpa_supplicant_binaries\${red_color}\" μέσα στο φάκελο plugins"
+	arr["ITALIAN","wpa3_online_attack_9"]="\${pending_of_translation} Manca il file binario personalizzato precompilato di wpa_supplicant necessario per eseguire questo attacco. Assicurati che il file binario in base all'architettura del tuo processore esista nella cartella \"\${normal_color}wpa_supplicant_binaries\${red_color}\" all'interno della cartella dei plugin"
+	arr["POLISH","wpa3_online_attack_9"]="\${pending_of_translation} Brakuje prekompilowanego niestandardowego pliku binarnego wpa_supplicant potrzebnego do wykonania tego ataku. Upewnij się, że plik binarny zgodnie z architekturą Twojego procesora znajduje się w folderze \"\${normal_color}wpa_supplicant_binaries\${red_color}\" w folderze wtyczek"
+	arr["GERMAN","wpa3_online_attack_9"]="\${pending_of_translation} Die vorkompilierte benutzerdefinierte Binärdatei von wpa_supplicant, die zur Ausführung dieses Angriffs benötigt wird, fehlt. Bitte stellen Sie sicher, dass die Binärdatei entsprechend Ihrer Prozessorarchitektur im Ordner \"\${normal_color}wpa_supplicant_binaries\${red_color}\" innerhalb des Plugins-Ordners vorhanden ist"
+	arr["TURKISH","wpa3_online_attack_9"]="\${pending_of_translation} Bu saldırıyı gerçekleştirmek için gereken wpa_supplicant'ın önceden derlenmiş özel ikili dosyası eksik. Lütfen işlemci mimarinize göre ikili dosyanın, eklentiler klasörünün içindeki \"\${normal_color}wpa_supplicant_binaries\${red_color}\" klasöründe bulunduğundan emin olun."
+	arr["ARABIC","wpa3_online_attack_9"]="\${pending_of_translation} الملف الثنائي المخصص المترجم مسبقًا لـ wpa_supplicant المطلوب لتنفيذ هذا الهجوم مفقود. الرجاء التأكد من وجود الملف الثنائي وفقًا لبنية المعالج في المجلد \"* \${normal_color}wpa_supplicant_binaries\${red_color}\" داخل مجلد المكونات الإضافية"
 }
 
 #Override initialize_menu_and_print_selections function to add the new WPA3 menu
