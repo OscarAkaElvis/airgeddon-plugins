@@ -29,13 +29,27 @@ function custom_wpa_supplicant_validation() {
 				language_strings "${language}" "wpa3_online_attack_9" "red"
 				language_strings "${language}" 115 "read"
 				return 1
+			else
+				custom_wpa_supplicant_binary_path="${scriptfolder}${plugins_dir}${custom_wpa_supplicant_binaries_dir}wpa_supplicant_armhf"
 			fi
 		elif uname -m | grep -Ei "aarch64|aarch64_be|armv8b|armv8l" > /dev/null; then
-			:
-			#TODO arm64
+			if ! [ -f "${scriptfolder}${plugins_dir}${custom_wpa_supplicant_binaries_dir}wpa_supplicant_arm64" ]; then
+				echo
+				language_strings "${language}" "wpa3_online_attack_9" "red"
+				language_strings "${language}" 115 "read"
+				return 1
+			else
+				custom_wpa_supplicant_binary_path="${scriptfolder}${plugins_dir}${custom_wpa_supplicant_binaries_dir}wpa_supplicant_arm64"
+			fi
 		else
-			:
-			#TODO armel
+			if ! [ -f "${scriptfolder}${plugins_dir}${custom_wpa_supplicant_binaries_dir}wpa_supplicant_armel" ]; then
+				echo
+				language_strings "${language}" "wpa3_online_attack_9" "red"
+				language_strings "${language}" 115 "read"
+				return 1
+			else
+				custom_wpa_supplicant_binary_path="${scriptfolder}${plugins_dir}${custom_wpa_supplicant_binaries_dir}wpa_supplicant_armel"
+			fi
 		fi
 	else
 		if uname -m | grep -Ei "x86_64" > /dev/null; then
@@ -44,6 +58,8 @@ function custom_wpa_supplicant_validation() {
 				language_strings "${language}" "wpa3_online_attack_9" "red"
 				language_strings "${language}" 115 "read"
 				return 1
+			else
+				custom_wpa_supplicant_binary_path="${scriptfolder}${plugins_dir}${custom_wpa_supplicant_binaries_dir}wpa_supplicant_amdd64"
 			fi
 		else
 			if ! [ -f "${scriptfolder}${plugins_dir}${custom_wpa_supplicant_binaries_dir}wpa_supplicant_i386" ]; then
@@ -51,6 +67,8 @@ function custom_wpa_supplicant_validation() {
 				language_strings "${language}" "wpa3_online_attack_9" "red"
 				language_strings "${language}" 115 "read"
 				return 1
+			else
+				custom_wpa_supplicant_binary_path="${scriptfolder}${plugins_dir}${custom_wpa_supplicant_binaries_dir}wpa_supplicant_i386"
 			fi
 		fi
 	fi
