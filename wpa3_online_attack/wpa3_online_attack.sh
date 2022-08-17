@@ -155,7 +155,7 @@ function wpa3_online_dictionary_attack_option() {
 		return 1
 	fi
 
-	#TODO add dictionary validation
+	manage_asking_for_dictionary_file
 
 	if ! python3_validation; then
 		return 1
@@ -392,6 +392,9 @@ function wpa3_online_attack_override_initialize_menu_and_print_selections() {
 		"wpa3_attacks_menu")
 			print_iface_selected
 			print_all_target_vars
+			if [ -n "${DICTIONARY}" ]; then
+				language_strings "${language}" 182 "blue"
+			fi
 		;;
 		"main_menu")
 			print_iface_selected
