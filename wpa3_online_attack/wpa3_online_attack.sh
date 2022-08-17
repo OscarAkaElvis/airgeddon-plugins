@@ -81,7 +81,9 @@ function exec_wpa3_online_dictionary_attack() {
 
 	debug_print
 
-	python3 "${scriptfolder}${plugins_dir}wpa3_online_attack.py"
+	recalculate_windows_sizes
+	manage_output "+j -bg \"#000000\" -fg \"#FFC0CB\" -geometry ${g1_topright_window} -T \"wpa3 online dictionary attack\"" "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py" "wpa3 online dictionary attack" "active"
+	wait_for_process "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py" "wpa3 online dictionary attack"
 }
 
 #Custom function. Validate a WPA3 network
@@ -114,7 +116,7 @@ function python3_script_validation() {
 	return 0
 }
 
-#Custom function. Validate if the system has python3 installed
+#Custom function. Validate if the system has python3 installed and set python launcher
 function python3_validation() {
 
 	debug_print
@@ -123,8 +125,12 @@ function python3_validation() {
 		python_version=$(python -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\).*/\1\2/')
 		if [ "${python_version}" -lt "30" ]; then
 			language_strings "${language}" "wpa3_online_attack_7" "red"
+		else
+			python3="python"
 		fi
 		return 1
+	else
+		python3="python3"
 	fi
 
 	return 0
