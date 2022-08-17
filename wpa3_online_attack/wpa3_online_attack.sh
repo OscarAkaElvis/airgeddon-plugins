@@ -131,9 +131,13 @@ function exec_wpa3_online_dictionary_attack() {
 
 	freq="${channels_to_freq_correspondence[${channel}]}"
 
+	tmpfiles_toclean=1
+	rm -rf "${tmpdir}agwpa3"* > /dev/null 2>&1
+	mkdir "${tmpdir}agwpa3" > /dev/null 2>&1
+
 	recalculate_windows_sizes
-	manage_output "+j -bg \"#000000\" -fg \"#FFC0CB\" -geometry ${g1_topright_window} -T \"wpa3 online dictionary attack\"" "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py" "wpa3 online dictionary attack" "active"
-	wait_for_process "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py" "wpa3 online dictionary attack"
+	manage_output "+j -bg \"#000000\" -fg \"#FFC0CB\" -geometry ${g1_topright_window} -T \"wpa3 online dictionary attack\"" "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path}" "wpa3 online dictionary attack" "active"
+	wait_for_process "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path}" "wpa3 online dictionary attack"
 }
 
 #Custom function. Validate a WPA3 network
@@ -769,4 +773,10 @@ function wpa3_online_attack_override_main_menu() {
 	esac
 
 	main_menu
+}
+
+#Posthook clean_tmpfiles function to remove temp wpa3 attack files on exit
+function wpa3_online_attack_posthook_clean_tmpfiles() {
+
+	rm -rf "${tmpdir}agwpa3"* > /dev/null 2>&1
 }
