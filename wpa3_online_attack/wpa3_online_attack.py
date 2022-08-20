@@ -164,6 +164,19 @@ class airgeddon_wacker(object):
 			("GERMAN", 8): "Notieren Sie das gefundene Passwort. Das Fenster schließt sich nach Drücken der Taste",
 			("TURKISH", 8): "Bulunan şifreyi yazın. tuşuna bastıktan sonra pencere kapanacak",
 			("ARABIC", 8): "اكتب كلمة المرور التي تم العثور عليها. ستغلق النافذة بعد الضغط على المفتاح",
+
+			("ENGLISH", 9): "Unexpected error. Try to launch the attack",
+			("SPANISH", 9): "Error inesperado. Intenta lanzar el ataque de nuevo",
+			("FRENCH", 9): "Erreur inattendue. Essayez de relancer l'attaque",
+			("CATALAN", 9): "Error inesperat. Intenta tornar a llançar l'atac",
+			("PORTUGUESE", 9): "Erro inesperado. Tente lançar o ataque novamente",
+			("RUSSIAN", 9): "Неожиданная ошибка. Попробуйте начать атаку еще раз",
+			("GREEK", 9): "Απρόσμενο σφάλμα. Προσπαθήστε να ξεκινήσετε ξανά την επίθεση",
+			("ITALIAN", 9): "Errore inaspettato. Prova a lanciare di nuovo l'attacco",
+			("POLISH", 9): "Niespodziewany błąd. Spróbuj ponownie przeprowadzić atak",
+			("GERMAN", 9): "Unerwarteter Fehler. Versuchen Sie, den Angriff erneut zu starten",
+			("TURKISH", 9): "Beklenmeyen hata. Saldırıyı tekrar başlatmayı deneyin",
+			("ARABIC", 9): "خطأ غير متوقع. حاول شن الهجوم مرة أخرى",
 		}
 
 	def create_uds_endpoints(self):
@@ -222,7 +235,6 @@ class airgeddon_wacker(object):
 		while True:
 			datagram = self.sock.recv(2048)
 			if not datagram:
-				print('WTF!!!! datagram is null?!?!?! Exiting.')
 				return airgeddon_wacker.RETRY
 
 			data = datagram.decode().rstrip('\n')
@@ -230,11 +242,12 @@ class airgeddon_wacker(object):
 			if event == "<3>CTRL-EVENT-BRUTE-FAILURE":
 				self.print_stats(count)
 				self.send_to_server(f'DISABLE_NETWORK 0')
-				print('BRUTE ATTEMPT FAIL\n')
+				print('BRUTE ATTEMPT FAIL')
+				print()
 				return airgeddon_wacker.FAILURE
 			elif event == "<3>CTRL-EVENT-NETWORK-NOT-FOUND":
 				self.send_to_server(f'DISABLE_NETWORK 0')
-				print('NETWORK NOT FOUND\n')
+				print('NETWORK NOT FOUND')
 				return airgeddon_wacker.EXIT
 			elif event == "<3>CTRL-EVENT-SCAN-FAILED":
 				self.send_to_server(f'DISABLE_NETWORK 0')
@@ -242,10 +255,12 @@ class airgeddon_wacker(object):
 				return airgeddon_wacker.EXIT
 			elif event == "<3>CTRL-EVENT-BRUTE-SUCCESS":
 				self.print_stats(count)
-				print('BRUTE ATTEMPT SUCCESS\n')
+				print('BRUTE ATTEMPT SUCCESS')
+				print()
 				return airgeddon_wacker.SUCCESS
 			elif event == "<3>CTRL-EVENT-BRUTE-RETRY":
-				print('BRUTE ATTEMPT RETRY\n')
+				print('BRUTE ATTEMPT RETRY')
+				print()
 				self.send_to_server(f'DISABLE_NETWORK 0')
 				return airgeddon_wacker.RETRY
 
@@ -270,7 +285,9 @@ class airgeddon_wacker(object):
 		print(f'{lapse / 3600:5.3f} hours lapsed : {est / 3600:8.2f} hours to exhaust ({end})', end='\r')
 
 	def kill(self):
-		print('\nStop time: {}'.format(time.strftime('%d %b %Y %H:%M:%S', time.localtime(time.time()))))
+		print()
+		print('Stop time: {}'.format(time.strftime('%d %b %Y %H:%M:%S', time.localtime(time.time()))))
+		print()
 		os.kill(int(open(self.pid).read()), signal.SIGKILL)
 
 	def attempt(self, word, count):
@@ -279,6 +296,8 @@ class airgeddon_wacker(object):
 			result = self.listen(count)
 			if result == self.EXIT:
 				self.kill()
+				print(self.arr[(self.language, 9)])
+				exit(1)
 			elif result != self.RETRY:
 				return result
 
@@ -300,7 +319,6 @@ class airgeddon_wacker(object):
 					break
 
 		self.kill()
-		print()
 		print(self.arr[(self.language, 8)])
 		print()
 		print(self.arr[(self.language, 1)])
