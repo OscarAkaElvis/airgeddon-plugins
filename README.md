@@ -1,5 +1,29 @@
 # airgeddon-plugins
-Plugins for [airgeddon]
+
+Plugins for [airgeddon] tool. Made with love :heart: by [OscarAkaElvis].
+
+## airgeddon. Plugins installation
+
+A plugin can be a single `.sh` file or may contain a more complex structure. To deploy a plugin, you must deploy the `.sh` file inside your airgeddon's plugins dir. Depending on your Linux distribution it can be in different directories. Usually is at `/usr/share/airgeddon` or maybe in another location where you did the git clone command. If the plugin has more files like the _WPA3 online attack_ plugin, all the files should be deployed keeping the existing structure. Example:
+
+```
+~/airgeddon# tree
+.
+├── airgeddon.sh
+├── known_pins.db
+├── language_strings.sh
+└── plugins
+    ├── wpa3_online_attack.py
+    ├── wpa3_online_attack.sh
+    └── wpa_supplicant_binaries
+        ├── wpa_supplicant_amd64
+        ├── wpa_supplicant_arm64
+        ├── wpa_supplicant_armel
+        ├── wpa_supplicant_armhf
+        └── wpa_supplicant_i386
+```
+
+Plugins system feature is available from `airgeddon>=10.0`. More information about plugins at [Wiki] on original [airgeddon] Github repository.
 
 ## airgeddon. WPA3 online attack
 
@@ -42,12 +66,6 @@ There are more cards and devices using the chipsets listed here. We listed only 
 
 This plugin was designed to be used on airgeddon v10.0 and __is not needed if you are using airgeddon v10.01 or higher__ because since that version, the compatibility problem was already addressed by default in the core source code of airgeddon.
 
-#### How to install an airgeddon plugin?
-
-It is already explained on `airgeddon` Wiki on [this section] with more detail. Anyway, summarizing, it consists in just copying the plugin files to the airgeddon's plugins directory (usually is just a `.sh` file, but it could be more files if plugin is more complex).
-
-Plugins system feature is available from `airgeddon>=10.0`.
-
 #### What is fixed using this plugin?
 
 Basically, this fix for the listed Realtek cards the ability to switch mode from monitor to managed and viceversa from airgeddon menus.
@@ -67,7 +85,8 @@ If you have any other wireless card with a different Realtek chipset which is al
 
 [airgeddon]: https://github.com/v1s1t0r1sh3r3/airgeddon
 [here]: https://github.com/v1s1t0r1sh3r3/airgeddon/wiki/Cards%20and%20Chipsets
-[this section]: https://github.com/v1s1t0r1sh3r3/airgeddon/wiki/Plugins%20System#how-can-i-install-a-plugin-already-done-by-somebody
+[Wiki]: https://github.com/v1s1t0r1sh3r3/airgeddon/wiki/Plugins%20System#how-can-i-install-a-plugin-already-done-by-somebody
 [IRC]: https://web.libera.chat/
 [Public Invitation link]: https://discord.gg/sQ9dgt9
 [Wacker]: https://github.com/blunderbuss-wctf/wacker
+[OscarAkaElvis]: https://github.com/OscarAkaElvis
