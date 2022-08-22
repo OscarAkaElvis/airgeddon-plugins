@@ -345,7 +345,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["FRENCH","wpa3_online_attack_2"]="\${pending_of_translation} Menu d'attaque WPA3"
 	arr["CATALAN","wpa3_online_attack_2"]="Menú d'atacs WPA3"
 	arr["PORTUGUESE","wpa3_online_attack_2"]="\${pending_of_translation} Menu de ataques WPA3"
-	arr["RUSSIAN","wpa3_online_attack_2"]="11. Меню атак на WPA3"
+	arr["RUSSIAN","wpa3_online_attack_2"]="Меню атак на WPA3"
 	arr["GREEK","wpa3_online_attack_2"]="Μενού επιθέσεων WPA3"
 	arr["ITALIAN","wpa3_online_attack_2"]="\${pending_of_translation} Menu dell'attacco WPA3"
 	arr["POLISH","wpa3_online_attack_2"]="\${pending_of_translation} Menu ataków WPA3"
