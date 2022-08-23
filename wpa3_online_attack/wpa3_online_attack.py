@@ -89,7 +89,7 @@ class airgeddon_wacker(object):
 
 			("ENGLISH", 3): "Custom wpa_supplicant error",
 			("SPANISH", 3): "Error de wpa_supplicant personalizado",
-			("FRENCH", 3): "Erreur wpa_supplicant personnalisée",
+			("FRENCH", 3): "Erreur de wpa_supplicant personnalisée",
 			("CATALAN", 3): "Error de wpa_supplicant personalitzat",
 			("PORTUGUESE", 3): "Erro na versão personalizada do wpa_supplicant",
 			("RUSSIAN", 3): "Ошибка пользовательского wpa_supplicant",
@@ -102,7 +102,7 @@ class airgeddon_wacker(object):
 
 			("ENGLISH", 4): "Trying key: ",
 			("SPANISH", 4): "Probando contraseña: ",
-			("FRENCH", 4): "Mot de passe de test: ",
+			("FRENCH", 4): "Essayant mot de passe: ",
 			("CATALAN", 4): "Provant contrasenya: ",
 			("PORTUGUESE", 4): "Testando senha: ",
 			("RUSSIAN", 4): "Пробуем ключ: ",
@@ -115,7 +115,7 @@ class airgeddon_wacker(object):
 
 			("ENGLISH", 5): "Launching attack over WPA3 network",
 			("SPANISH", 5): "Lanzando ataque contra red WPA3",
-			("FRENCH", 5): "Lancer une attaque contre le réseau WPA3",
+			("FRENCH", 5): "Lancent une attaque contre le réseau WPA3",
 			("CATALAN", 5): "Llançant atac contra xarxa WPA3",
 			("PORTUGUESE", 5): "Iniciando ataque contra a rede WPA3",
 			("RUSSIAN", 5): "Запуск атаки на WPA3 сеть",
@@ -141,7 +141,7 @@ class airgeddon_wacker(object):
 
 			("ENGLISH", 7): "Dictionary finished. Password not found",
 			("SPANISH", 7): "Diccionario terminado. Contraseña no encontrada",
-			("FRENCH", 7): "Dictionnaire terminé. mot de passe introuvable",
+			("FRENCH", 7): "Dictionnaire terminé. Mot de passe pas trouvé",
 			("CATALAN", 7): "Diccionari acabat. Contrasenya no trobada",
 			("PORTUGUESE", 7): "Dicionário finalizado. Senha não encontrada",
 			("RUSSIAN", 7): "Словарь завершён. Пароль не найден",
