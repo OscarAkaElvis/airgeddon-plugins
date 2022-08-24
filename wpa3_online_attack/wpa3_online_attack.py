@@ -72,7 +72,7 @@ class airgeddon_wacker(object):
 			("POLISH", 1): "Naciśnij klawisz [Enter] aby kontynuować...",
 			("GERMAN", 1): "Drücken Sie die [Enter]-Taste, um fortzufahren...",
 			("TURKISH", 1): "Devam etmek için [Enter] tuşlayınız...",
-			("ARABIC", 1): "...للمتابعة [Enter] اضغط على مفتاح",
+			("ARABIC", 1): "...للاستمرار [Enter] اضغط على مفتاح",
 
 			("ENGLISH", 2): "Starting custom wpa_supplicant...",
 			("SPANISH", 2): "Arrancando wpa_supplicant personalizado...",
@@ -150,7 +150,7 @@ class airgeddon_wacker(object):
 			("POLISH", 7): "Słownik wyczerpany. Nie znaleziono hasła",
 			("GERMAN", 7): "Fertiges Wörterbuch. Passwort nicht gefunden",
 			("TURKISH", 7): "Bitmiş sözlük. şifre bulunamadı",
-			("ARABIC", 7): "القاموس النهائي. كلمة المرور لم يتم العثور",
+			("ARABIC", 7): "القاموس انتهى. كلمة المرور لم يتم العثور عليها",
 
 			("ENGLISH", 8): "Write down the found password. The window will be closed after pressing the key",
 			("SPANISH", 8): "Anota la contraseña encontrada. La ventana se cerrará tras pulsar la tecla",
