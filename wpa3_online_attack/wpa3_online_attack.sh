@@ -11,7 +11,7 @@ plugin_author="OscarAkaElvis"
 
 plugin_enabled=1
 
-plugin_minimum_ag_affected_version="11.02"
+plugin_minimum_ag_affected_version="11.10"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
 
@@ -301,18 +301,18 @@ function wpa3_online_attack_prehook_explore_for_targets_option() {
 #Prehook for remove_warnings function to modify existing strings
 function wpa3_online_attack_prehook_remove_warnings() {
 
-	arr["ENGLISH",60]="12. About & Credits"
-	arr["SPANISH",60]="12. Acerca de & Créditos"
-	arr["FRENCH",60]="12. A propos de & Crédits"
-	arr["CATALAN",60]="12. Sobre & Crédits"
-	arr["PORTUGUESE",60]="12. Sobre & Créditos"
-	arr["RUSSIAN",60]="12. О программе и Благодарности"
-	arr["GREEK",60]="12. Σχετικά με & Εύσημα"
-	arr["ITALIAN",60]="12. Informazioni & Credits"
-	arr["POLISH",60]="12. O programie & Podziękowania"
-	arr["GERMAN",60]="12. About & Credits"
-	arr["TURKISH",60]="12. Hakkında & Güven"
-	arr["ARABIC",60]="12. بشأن ومنسوبات"
+	arr["ENGLISH",60]="12. About & Credits / Sponsorship mentions"
+	arr["SPANISH",60]="12. Acerca de & Créditos / Menciones de patrocinadores"
+	arr["FRENCH",60]="\${pending_of_translation} 12. A propos de & Crédits / Mentions de parrainage"
+	arr["CATALAN",60]="\${pending_of_translation} 12. Sobre & Crédits / Mencions de sponsors"
+	arr["PORTUGUESE",60]="\${pending_of_translation} 12. Sobre & Créditos / Menções de patrocínio"
+	arr["RUSSIAN",60]="\${pending_of_translation} 12. О программе и Благодарности / Спонсорские упоминания"
+	arr["GREEK",60]="\${pending_of_translation} 12. Σχετικά με & Εύσημα / Αναφορές χορηγίας"
+	arr["ITALIAN",60]="\${pending_of_translation} 12. Informazioni & Credits / Menzioni di sponsorizzazione"
+	arr["POLISH",60]="\${pending_of_translation} 12. O programie & Podziękowania / Wzmianki sponsorskie"
+	arr["GERMAN",60]="\${pending_of_translation} 12. About & Credits / Sponsoring-Erwähnungen"
+	arr["TURKISH",60]="\${pending_of_translation} 12. Hakkında & Güven / Sponsorluk sözleri"
+	arr["ARABIC",60]="\${pending_of_translation} 12. رعاية مذكورة / بشأن ومنسوبات"
 
 	arr["ENGLISH",444]="13. Options and language menu"
 	arr["SPANISH",444]="13. Menú de opciones e idioma"
