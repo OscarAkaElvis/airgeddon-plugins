@@ -297,6 +297,7 @@ class airgeddon_wacker(object):
 			if result == self.EXIT:
 				self.kill()
 				print(self.arr[(self.language, 9)])
+				input()
 				exit(1)
 			elif result != self.RETRY:
 				return result
