@@ -179,10 +179,10 @@ function python3_validation() {
 		python_version=$(python -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\).*/\1\2/')
 		if [ "${python_version}" -lt "30" ]; then
 			language_strings "${language}" "wpa3_online_attack_7" "red"
+			return 1
 		else
 			python3="python"
 		fi
-		return 1
 	else
 		python3="python3"
 	fi
