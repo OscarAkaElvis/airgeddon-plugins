@@ -175,17 +175,20 @@ function python3_validation() {
 
 	debug_print
 
-	if ! hash python3; then
-		python_version=$(python -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\).*/\1\2/')
-		if [ "${python_version}" -lt "30" ]; then
+	if ! hash python3 2> /dev/null; then
+		if ! hash python 2> /dev/null; then
 			language_strings "${language}" "wpa3_online_attack_7" "red"
 			return 1
 		else
-			python3="python"
+			python_version=$(python -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\).*/\1\2/')
+			if [ "${python_version}" -lt "30" ]; then
+				language_strings "${language}" "wpa3_online_attack_7" "red"
+				return 1
+			fi
 		fi
-	else
-		python3="python3"
 	fi
+
+	python3="python3"
 
 	return 0
 }
