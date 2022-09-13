@@ -121,6 +121,8 @@ function custom_wpa_supplicant_validation() {
 		fi
 	fi
 
+	chmod +x "${custom_wpa_supplicant_binary_path}" 2> /dev/null
+
 	return 0
 }
 
