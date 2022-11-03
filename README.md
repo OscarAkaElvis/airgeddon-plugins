@@ -31,7 +31,7 @@ Plugins system feature is available from `airgeddon>=10.0`. More information abo
 
 This plugin is for [airgeddon] tool. Using a modified and pre-compiled wpa_supplicant binary, the system is able to distinguish AP responses in order to validate if the attack was successful or not. `airgeddon` is adding a new menu option for this dictionary online attack over WPA3 wireless networks. It works for `airgeddon>=11.10`.
 
-It is based on the [Wacker] script. Credits to the authors: [https://github.com/blunderbuss-wctf/wacker](https://github.com/blunderbuss-wctf/wacker)
+It is based on the [Wacker] script. Credits to the author/s: [https://github.com/blunderbuss-wctf/wacker](https://github.com/blunderbuss-wctf/wacker). Credits also for The staff of the [Ermine] tool for their contribution donating free use of their awesome statifier tool used in the WPA3 online attack plugin.
 
 ## airgeddon. All chars accepted on Captive Portal
 
@@ -90,3 +90,4 @@ If you have any other wireless card with a different Realtek chipset which is al
 [Public Invitation link]: https://discord.gg/sQ9dgt9
 [Wacker]: https://github.com/blunderbuss-wctf/wacker
 [OscarAkaElvis]: https://github.com/OscarAkaElvis
+[Ermine]: https://www.magicermine.com/
