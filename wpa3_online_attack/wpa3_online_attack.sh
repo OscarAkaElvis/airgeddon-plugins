@@ -71,7 +71,7 @@ function custom_wpa_supplicant_validation() {
 	custom_wpa_supplicant_binaries_dir="wpa_supplicant_binaries/"
 
 	if [ "${is_arm}" -eq 1 ]; then
-		if uname -m | grep -Ei "armv61" > /dev/null; then
+		if uname -m | grep -Ei "armv6l|armv7l" > /dev/null; then
 			if ! [ -f "${scriptfolder}${plugins_dir}${custom_wpa_supplicant_binaries_dir}wpa_supplicant_armhf" ]; then
 				echo
 				language_strings "${language}" "wpa3_online_attack_9" "red"
