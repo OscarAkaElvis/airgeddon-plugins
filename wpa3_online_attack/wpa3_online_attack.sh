@@ -172,25 +172,37 @@ function python3_script_validation() {
 	return 0
 }
 
-#Custom function. Validate if the system has python3 installed and set python launcher
+#Custom function. Validate if the system has python3.1+ installed and set python launcher
 function python3_validation() {
 
 	debug_print
 
 	if ! hash python3 2> /dev/null; then
 		if ! hash python 2> /dev/null; then
+			echo
 			language_strings "${language}" "wpa3_online_attack_7" "red"
+			language_strings "${language}" 115 "read"
 			return 1
 		else
 			python_version=$(python -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\).*/\1\2/')
-			if [ "${python_version}" -lt "30" ]; then
+			if [ "${python_version}" -lt "31" ]; then
+				echo
 				language_strings "${language}" "wpa3_online_attack_7" "red"
+				language_strings "${language}" 115 "read"
 				return 1
 			fi
+			python3="python"
 		fi
+	else
+		python_version=$(python3 -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\).*/\1\2/')
+		if [ "${python_version}" -lt "31" ]; then
+			echo
+			language_strings "${language}" "wpa3_online_attack_7" "red"
+			language_strings "${language}" 115 "read"
+			return 1
+		fi
+		python3="python3"
 	fi
-
-	python3="python3"
 
 	return 0
 }
@@ -410,18 +422,18 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["TURKISH","wpa3_online_attack_6"]="\${pending_of_translation} Seçilen ağ geçersiz. Hedef ağ, \"Mixed Mode\" da WPA3 veya WPA2/WPA3 olmalıdır"
 	arr["ARABIC","wpa3_online_attack_6"]="\"Mixed Mode\" WPA2/WPA3 او WPA3 الشبكة المحددة غير صالحة. يجب أن تكون الشبكة المستهدفة "
 
-	arr["ENGLISH","wpa3_online_attack_7"]="This attack requires to have python3 installed on your system"
-	arr["SPANISH","wpa3_online_attack_7"]="Este ataque requiere tener python3 instalado en el sistema"
-	arr["FRENCH","wpa3_online_attack_7"]="Cette attaque a besoin de python3 installé sur le système"
-	arr["CATALAN","wpa3_online_attack_7"]="Aquest atac requereix tenir python3 instal·lat al sistema"
-	arr["PORTUGUESE","wpa3_online_attack_7"]="Este ataque necessita do python3 instalado no sistema"
-	arr["RUSSIAN","wpa3_online_attack_7"]="Для этой атаки необходимо, чтобы в системе был установлен python3"
-	arr["GREEK","wpa3_online_attack_7"]="Αυτή η επίθεση απαιτεί την εγκατάσταση python3 στο σύστημά σας"
-	arr["ITALIAN","wpa3_online_attack_7"]="Questo attacco richiede che python3 sia installato nel sistema"
-	arr["POLISH","wpa3_online_attack_7"]="Ten atak wymaga zainstalowania w systemie python3"
-	arr["GERMAN","wpa3_online_attack_7"]="Für diesen Angriff muss python3 auf dem System installiert sein"
-	arr["TURKISH","wpa3_online_attack_7"]="\${pending_of_translation} Bu saldırı, sistemde python3'ün kurulu olmasını gerektirir."
-	arr["ARABIC","wpa3_online_attack_7"]="على النظام python3 يتطلب هذا الهجوم تثبيت"
+	arr["ENGLISH","wpa3_online_attack_7"]="This attack requires to have python3.1+ installed on your system"
+	arr["SPANISH","wpa3_online_attack_7"]="Este ataque requiere tener python3.1+ instalado en el sistema"
+	arr["FRENCH","wpa3_online_attack_7"]="Cette attaque a besoin de python3.1+ installé sur le système"
+	arr["CATALAN","wpa3_online_attack_7"]="Aquest atac requereix tenir python3.1+ instal·lat al sistema"
+	arr["PORTUGUESE","wpa3_online_attack_7"]="Este ataque necessita do python3.1+ instalado no sistema"
+	arr["RUSSIAN","wpa3_online_attack_7"]="Для этой атаки необходимо, чтобы в системе был установлен python3.1+"
+	arr["GREEK","wpa3_online_attack_7"]="Αυτή η επίθεση απαιτεί την εγκατάσταση python3.1+ στο σύστημά σας"
+	arr["ITALIAN","wpa3_online_attack_7"]="Questo attacco richiede che python3.1+ sia installato nel sistema"
+	arr["POLISH","wpa3_online_attack_7"]="Ten atak wymaga zainstalowania w systemie python3.1+"
+	arr["GERMAN","wpa3_online_attack_7"]="Für diesen Angriff muss python3.1+ auf dem System installiert sein"
+	arr["TURKISH","wpa3_online_attack_7"]="\${pending_of_translation} Bu saldırı, sistemde python3.1+'ün kurulu olmasını gerektirir."
+	arr["ARABIC","wpa3_online_attack_7"]="على النظام python3.1+ يتطلب هذا الهجوم تثبيت"
 
 	arr["ENGLISH","wpa3_online_attack_8"]="The python3 script required as part of this plugin to run this attack is missing. Please make sure that the file \"\${normal_color}wpa3_online_attack.py\${red_color}\" exists and that it is in the plugins dir next to the \"\${normal_color}wpa3_online_attack.sh\${red_color}\" file"
 	arr["SPANISH","wpa3_online_attack_8"]="El script de python3 requerido como parte de este plugin para ejecutar este ataque no se encuentra. Por favor, asegúrate de que existe el fichero \"\${normal_color}wpa3_online_attack.py\${red_color}\" y que está en la carpeta de plugins junto al fichero \"\${normal_color}wpa3_online_attack.sh\${red_color}\""
