@@ -123,7 +123,7 @@ class airgeddon_wacker(object):
 			("ITALIAN", 5): "Lanciando l'attacco contro la rete WPA3",
 			("POLISH", 5): "Rozpoczęcie ataku na sieć WPA3",
 			("GERMAN", 5): "Angriff gegen WPA3-Netzwerk starten",
-			("TURKISH", 5): "WPA3 ağına karşı saldırı başlatılıyor",
+			("TURKISH", 5): "WPA3 ağı üzerinden saldırı başlatılıyor",
 			("ARABIC", 5): "شن هجوم على شبكة WPA3",
 
 			("ENGLISH", 6): "Password found: ",
@@ -149,7 +149,7 @@ class airgeddon_wacker(object):
 			("ITALIAN", 7): "Dizionario finito. Password non trovata",
 			("POLISH", 7): "Słownik wyczerpany. Nie znaleziono hasła",
 			("GERMAN", 7): "Fertiges Wörterbuch. Passwort nicht gefunden",
-			("TURKISH", 7): "Bitmiş sözlük. şifre bulunamadı",
+			("TURKISH", 7): "Bitmiş sözlük. Şifre bulunamadı",
 			("ARABIC", 7): "القاموس انتهى. كلمة المرور لم يتم العثور عليها",
 
 			("ENGLISH", 8): "Write down the found password. The window will be closed after pressing the key",
@@ -162,7 +162,7 @@ class airgeddon_wacker(object):
 			("ITALIAN", 8): "Appunta la password trovata. La finestra si chiuderà dopo aver premuto il tasto",
 			("POLISH", 8): "Zapisz znalezione hasło. Okno zamknie się po naciśnięciu klawisza",
 			("GERMAN", 8): "Notieren Sie das gefundene Passwort. Das Fenster schließt sich nach Drücken der Taste",
-			("TURKISH", 8): "Bulunan şifreyi yazın. tuşuna bastıktan sonra pencere kapanacak",
+			("TURKISH", 8): "Bulunan şifreyi yazınız. Tuşa bastıktan sonra pencere kapanacaktır",
 			("ARABIC", 8): "اكتب كلمة المرور التي تم العثور عليها. ستغلق النافذة بعد الضغط على المفتاح",
 
 			("ENGLISH", 9): "Unexpected error. Try to launch the attack",
