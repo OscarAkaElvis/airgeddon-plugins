@@ -315,7 +315,6 @@ class airgeddon_wacker(object):
 						print(self.arr[(self.language, 6)] + word)
 						print()
 						print(self.arr[(self.language, 8)])
-						print()
 						break
 					count += 1
 				else:
