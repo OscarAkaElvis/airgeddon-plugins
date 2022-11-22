@@ -313,6 +313,9 @@ class airgeddon_wacker(object):
 					result = self.attempt(word, count)
 					if result == airgeddon_wacker.SUCCESS:
 						print(self.arr[(self.language, 6)] + word)
+						print()
+						print(self.arr[(self.language, 8)])
+						print()
 						break
 					count += 1
 				else:
@@ -320,8 +323,6 @@ class airgeddon_wacker(object):
 					break
 
 		self.kill()
-		print(self.arr[(self.language, 8)])
-		print()
 		print(self.arr[(self.language, 1)])
 		input()
 		exit(0)
