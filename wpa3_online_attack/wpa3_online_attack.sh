@@ -327,7 +327,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GREEK",60]="12. Σχετικά με & Εύσημα / Αναφορές χορηγίας"
 	arr["ITALIAN",60]="12. Informazioni & Crediti / Menzioni di sponsorizzazione"
 	arr["POLISH",60]="\${pending_of_translation} 12. O programie & Podziękowania / Wzmianki sponsorskie"
-	arr["GERMAN",60]="\${pending_of_translation} 12. About & Credits / Sponsoring-Erwähnungen"
+	arr["GERMAN",60]="12. About & Credits / Sponsoring-Erwähnungen"
 	arr["TURKISH",60]="12. Krediler ve Sponsorluk Hakkında"
 	arr["ARABIC",60]="12. فريق العمل برعاية"
 
@@ -381,7 +381,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["POLISH","wpa3_online_attack_3"]="5.  Atak słownikowy online WPA3"
 	arr["GERMAN","wpa3_online_attack_3"]="5.  WPA3-Angriff auf das Online-Wörterbuch"
 	arr["TURKISH","wpa3_online_attack_3"]="5.  WPA3 çevrimiçi sözlük saldırısı"
-	arr["ARABIC","wpa3_online_attack_3"]="5. WPA3 قاموس الهجوم علي الشبكة ل"
+	arr["ARABIC","wpa3_online_attack_3"]="5.  WPA3 قاموس الهجوم علي الشبكة ل"
 
 	arr["ENGLISH","wpa3_online_attack_4"]="WPA3 filter enabled in scan. When started, press [Ctrl+C] to stop..."
 	arr["SPANISH","wpa3_online_attack_4"]="Filtro WPA3 activado en escaneo. Una vez empezado, pulse [Ctrl+C] para pararlo..."
