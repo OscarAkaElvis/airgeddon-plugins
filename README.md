@@ -53,11 +53,11 @@ List of the compatible working cards can be found at `airgeddon` Wiki [here].
 
 For now, the known list of chipsets that this plugin fixes to be used with `airgeddon` tool is:
 
- - Realtek RTL8188EU/S <- _present in TP-Link TL-WN722N v2/v3 (2.4Ghz - USB)_
+ - Realtek RTL8188EU/S <- _present in TP-Link TL-WN722N v2/v3 / Alfa AWUS036NHV (2.4Ghz - USB)_
  - Realtek RTL8811AU <- _present in some unbranded cheap chinese dongles (2.4Ghz/5Ghz - USB)_
  - Realtek RTL8812AU <- _present in Alfa AWUS036ACH (2.4Ghz/5Ghz - USB)_
  - Realtek RTL8812BU <- _present in Comfast CF-913AC (2.4Ghz/5Ghz - USB)_
- - Realtek RTL8814AU <- _present in Alfa AWUS1900 (2.4Ghz/5Ghz - USB)_
+ - Realtek RTL8814AU <- _present in TP-LINK Archer T9UH / Alfa AWUS1900 (2.4Ghz/5Ghz - USB)_
  - Realtek RTL8821CE <- _present in Realtek RTL8821CE card (2.4Ghz/5Ghz - PCIe)_
 
 There are more cards and devices using the chipsets listed here. We listed only some examples of cards containing these chipsets.
