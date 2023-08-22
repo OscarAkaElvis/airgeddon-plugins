@@ -326,7 +326,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["RUSSIAN",60]="12. О программе и Благодарности / Спонсорские упоминания"
 	arr["GREEK",60]="12. Σχετικά με & Εύσημα / Αναφορές χορηγίας"
 	arr["ITALIAN",60]="12. Informazioni & Crediti / Menzioni di sponsorizzazione"
-	arr["POLISH",60]="\${pending_of_translation} 12. O programie & Podziękowania / Wzmianki sponsorskie"
+	arr["POLISH",60]="12. O programie & Podziękowania / Wzmianki sponsorskie"
 	arr["GERMAN",60]="12. About & Credits / Sponsoring-Erwähnungen"
 	arr["TURKISH",60]="12. Krediler ve Sponsorluk Hakkında"
 	arr["ARABIC",60]="12. فريق العمل برعاية"
