@@ -427,7 +427,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["POLISH","wpa3_online_attack_6"]="Wybrana sieć jest nieprawidłowa. Sieć docelowa musi być w trybie WPA3 lub \"Mixed Mode\" WPA2/WPA3"
 	arr["GERMAN","wpa3_online_attack_6"]="Das ausgewählte Netzwerk ist ungültig. Das Zielnetzwerk muss WPA3 oder WPA2/WPA3 im \"Mixed Mode\" sein"
 	arr["TURKISH","wpa3_online_attack_6"]="Seçilen ağ geçersiz. Hedef ağ, \"Mixed Mode\" da WPA3 veya WPA2/WPA3 olmalıdır"
-	arr["ARABIC","wpa3_online_attack_6"]="\"Mixed Mode\" WPA2/WPA3 او WPA3 الشبكة المحددة غير صالحة. يجب أن تكون الشبكة المستهدفة "
+	arr["ARABIC","wpa3_online_attack_6"]="\"Mixed Mode\" WPA2/WPA3 او WPA3 الشبكة المحددة غير صالحة. يجب أن تكون الشبكة المستهدفة"
 	arr["CHINESE","wpa3_online_attack_6"]="所选网络无效。目标网络必须是 WPA3 加密，或者“混合模式”下的 WPA2/WPA3"
 
 	arr["ENGLISH","wpa3_online_attack_7"]="This attack requires to have python3.1+ installed on your system"
