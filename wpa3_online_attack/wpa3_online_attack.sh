@@ -330,6 +330,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN",60]="12. About & Credits / Sponsoring-Erwähnungen"
 	arr["TURKISH",60]="12. Krediler ve Sponsorluk Hakkında"
 	arr["ARABIC",60]="12. فريق العمل برعاية"
+	arr["CHINESE",60]="12. 关于 & 鸣谢 / 赞助"
 
 	arr["ENGLISH",444]="13. Options and language menu"
 	arr["SPANISH",444]="13. Menú de opciones e idioma"
@@ -343,6 +344,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN",444]="13. Optionen und Sprachmenü"
 	arr["TURKISH",444]="13. Ayarlar ve dil menüsü"
 	arr["ARABIC",444]="13. الخيارات وقائمة اللغة"
+	arr["CHINESE",444]="13. 脚本设置和语言菜单"
 
 	arr["ENGLISH","wpa3_online_attack_1"]="11. WPA3 attacks menu"
 	arr["SPANISH","wpa3_online_attack_1"]="11. Menú de ataques WPA3"
@@ -356,6 +358,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_1"]="11. WPA3-Angriffsmenü"
 	arr["TURKISH","wpa3_online_attack_1"]="11. WPA3 saldırılar menüsü"
 	arr["ARABIC","wpa3_online_attack_1"]="11. WPA3 قائمة هجمات"
+	arr["CHINESE","wpa3_online_attack_1"]="11. WPA3 攻击菜单"
 
 	arr["ENGLISH","wpa3_online_attack_2"]="WPA3 attacks menu"
 	arr["SPANISH","wpa3_online_attack_2"]="Menú de ataques WPA3"
@@ -369,6 +372,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_2"]="WPA3-Angriffsmenü"
 	arr["TURKISH","wpa3_online_attack_2"]="WPA3 saldırılar menüsü"
 	arr["ARABIC","wpa3_online_attack_2"]="WPA3 قائمة هجمات"
+	arr["CHINESE","wpa3_online_attack_2"]="WPA3 攻击菜单"
 
 	arr["ENGLISH","wpa3_online_attack_3"]="5.  WPA3 online dictionary attack"
 	arr["SPANISH","wpa3_online_attack_3"]="5.  Ataque de diccionario online de WPA3"
@@ -382,6 +386,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_3"]="5.  WPA3-Angriff auf das Online-Wörterbuch"
 	arr["TURKISH","wpa3_online_attack_3"]="5.  WPA3 çevrimiçi sözlük saldırısı"
 	arr["ARABIC","wpa3_online_attack_3"]="5.  WPA3 قاموس الهجوم علي الشبكة ل"
+	arr["CHINESE","wpa3_online_attack_3"]="5.  WPA3 在线字典攻击"
 
 	arr["ENGLISH","wpa3_online_attack_4"]="WPA3 filter enabled in scan. When started, press [Ctrl+C] to stop..."
 	arr["SPANISH","wpa3_online_attack_4"]="Filtro WPA3 activado en escaneo. Una vez empezado, pulse [Ctrl+C] para pararlo..."
@@ -395,6 +400,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_4"]="WPA3-Filter beim Scannen aktiviert. Nach den Start, drücken Sie [Ctrl+C], um es zu stoppen..."
 	arr["TURKISH","wpa3_online_attack_4"]="WPA3 filtesi taramada etkin. Başladıktan sonra, durdurmak için [Ctrl+C] yapınız..."
 	arr["ARABIC","wpa3_online_attack_4"]="...للإيقاف [Ctrl+C] عند البدء ، اضغط على .WPA3 تم تفعيل المسح لشبكات"
+	arr["CHINESE","wpa3_online_attack_4"]="已在扫描时启用  WPA3 过滤器。启动中... 按 [Ctrl+C] 停止..."
 
 	arr["ENGLISH","wpa3_online_attack_5"]="WPA3 online dictionary attack takes considerably longer than an offline decryption attack, so it is recommended to only perform it over pure WPA3 networks. If your target network is in WPA2/WPA3 \"Mixed Mode\", it is recommended to carry out the traditional WPA2 attacks (Handshake, PMKID) instead of the online attack"
 	arr["SPANISH","wpa3_online_attack_5"]="El ataque de diccionario online de WPA3 tarda bastante más tiempo que un ataque de descifrado offline, por lo que se recomienda solo realizarlo sobre redes puras WPA3. Si tu red objetivo está en WPA2/WPA3 \"Mixed Mode\", lo recomendable es realizar los ataques tradicionales de WPA2 (Handshake, PMKID) en lugar del ataque online"
@@ -408,6 +414,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_5"]="Der WPA3-Online-Wörterbuchangriff dauert erheblich länger als ein Offline-Entschlüsselungsangriff, daher wird es empfohlen, ihn nur über reine WPA3-Netzwerke durchzuführen. Wenn sich Ihr Zielnetzwerk im WPA2/WPA3 \"Mixed Mode\", befindet, empfiehlt es sich, anstelle des Online-Angriffs die traditionellen WPA2-Angriffe (Handshake, PMKID) durchzuführen"
 	arr["TURKISH","wpa3_online_attack_5"]="WPA3 çevrimiçi sözlük saldırısı, çevrimdışı şifre çözme saldırısından çok daha uzun sürer, bu nedenle yalnızca saf WPA3 ağları üzerinden gerçekleştirilmesi önerilir. Hedef ağınız WPA2/WPA3 \"Mixed Mode\" da ise, çevrimiçi saldırı yerine geleneksel WPA2 saldırılarını (Handshake, PMKID) gerçekleştirmeniz önerilir"
 	arr["ARABIC","wpa3_online_attack_5"]="(Handshake, PMKID) WPA2 من الافضل ان تستخدم هجمات ال WPA2/WPA3 \"Mixed Mode\" يستغرق الكثير من الوقت ,إن كان هدفك شبكة  WPA3 قاموس الهجوم علي الشبكة ل"
+	arr["CHINESE","wpa3_online_attack_5"]="WPA3 在线字典攻击比离线字典解密攻击花费的时间要长得多，因此建议仅在使用纯  WPA3 加密方式网络上执行此攻击。如果您的目标网络处于  WPA2/WPA3 \"混合模式\"，建议进行传统的  WPA2 攻击 (握手、PMKID) 而不是在线攻击"
 
 	arr["ENGLISH","wpa3_online_attack_6"]="The selected network is invalid. The target network must be WPA3 or WPA2/WPA3 in \"Mixed Mode\""
 	arr["SPANISH","wpa3_online_attack_6"]="La red seleccionada no es válida. La red objetivo debe ser WPA3 o WPA2/WPA3 en \"Mixed Mode\""
@@ -421,6 +428,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_6"]="Das ausgewählte Netzwerk ist ungültig. Das Zielnetzwerk muss WPA3 oder WPA2/WPA3 im \"Mixed Mode\" sein"
 	arr["TURKISH","wpa3_online_attack_6"]="Seçilen ağ geçersiz. Hedef ağ, \"Mixed Mode\" da WPA3 veya WPA2/WPA3 olmalıdır"
 	arr["ARABIC","wpa3_online_attack_6"]="\"Mixed Mode\" WPA2/WPA3 او WPA3 الشبكة المحددة غير صالحة. يجب أن تكون الشبكة المستهدفة "
+	arr["CHINESE","wpa3_online_attack_6"]="所选网络无效。目标网络必须是 WPA3 加密，或者“混合模式”下的 WPA2/WPA3"
 
 	arr["ENGLISH","wpa3_online_attack_7"]="This attack requires to have python3.1+ installed on your system"
 	arr["SPANISH","wpa3_online_attack_7"]="Este ataque requiere tener python3.1+ instalado en el sistema"
@@ -434,6 +442,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_7"]="Für diesen Angriff muss python3.1+ auf dem System installiert sein"
 	arr["TURKISH","wpa3_online_attack_7"]="Bu saldırı için sisteminizde, python3.1+'ün kurulu olmasını gereklidir"
 	arr["ARABIC","wpa3_online_attack_7"]="على النظام python3.1+ يتطلب هذا الهجوم تثبيت"
+	arr["CHINESE","wpa3_online_attack_7"]="此攻击需要在您的系统上安装 python3.1+"
 
 	arr["ENGLISH","wpa3_online_attack_8"]="The python3 script required as part of this plugin to run this attack is missing. Please make sure that the file \"\${normal_color}wpa3_online_attack.py\${red_color}\" exists and that it is in the plugins dir next to the \"\${normal_color}wpa3_online_attack.sh\${red_color}\" file"
 	arr["SPANISH","wpa3_online_attack_8"]="El script de python3 requerido como parte de este plugin para ejecutar este ataque no se encuentra. Por favor, asegúrate de que existe el fichero \"\${normal_color}wpa3_online_attack.py\${red_color}\" y que está en la carpeta de plugins junto al fichero \"\${normal_color}wpa3_online_attack.sh\${red_color}\""
@@ -447,6 +456,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_8"]="Das python3-Skript, das als Teil dieses Plugins erforderlich ist, um diesen Angriff auszuführen, fehlt. Bitte stellen Sie sicher, dass die Datei \"\${normal_color}wpa3_online_attack.py\${red_color}\" vorhanden ist und dass sie sich im Plugin-Ordner neben der Datei \"\${normal_color}wpa3_online_attack.sh\${red_color}\" befindet"
 	arr["TURKISH","wpa3_online_attack_8"]="Bu saldırıyı çalıştırmak için bu eklentinin bir parçası olarak gereken python3 komutu dosyası eksik. Lütfen, eklentiler klasöründe \"\${normal_color}wpa3_online_attack.sh\${red_color}\" dosyasının yanında, \"\${normal_color}wpa3_online_attack.py\${red_color}\" dosyasının da var olduğundan emin olun"
 	arr["ARABIC","wpa3_online_attack_8"]="\"\${normal_color}wpa3_online_attack.sh\${red_color}\" موجود وأنه موجود في مجلد المكونات الإضافية بجوار الملف \"\${normal_color}wpa3_online_attack.py\${red_color}\" المطلوب كجزء من هذا البرنامج المساعد لتشغيل هذا الهجوم مفقود. يرجى التأكد من أن الملف pyhton3 سكربت"
+	arr["CHINESE","wpa3_online_attack_8"]="作为此插件的一部分运行此攻击所需的 python3 脚本丢失。请确保文件 \"\${normal_color}wpa3_online_attack.py\${red_color}\" 存在，并且位于 \"\${normal_color}wpa3_online_attack.sh\${red_color}\" 旁边的插件目录中 文件"
 
 	arr["ENGLISH","wpa3_online_attack_9"]="The precompiled custom wpa_supplicant binary file needed to execute this attack is missing. Please make sure that the binary according to your processor architecture exists in the \"\${normal_color}wpa_supplicant_binaries\${red_color}\" dir which is inside the plugins dir"
 	arr["SPANISH","wpa3_online_attack_9"]="El fichero binario personalizado y precompilado de wpa_supplicant necesario para ejecutar este ataque no se encuentra. Por favor, asegúrate de que existe el binario acorde a to arquitectura de procesador existe en la carpeta \"\${normal_color}wpa_supplicant_binaries\${red_color}\" dentro de la carpeta de plugins"
@@ -460,6 +470,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_9"]="Die vorkompilierte benutzerdefinierte Binärdatei von wpa_supplicant, die zur Ausführung dieses Angriffs benötigt wird, fehlt. Bitte stellen Sie sicher, dass die Binärdatei entsprechend Ihrer Prozessorarchitektur im Ordner \"\${normal_color}wpa_supplicant_binaries\${red_color}\" innerhalb des Plugins-Ordners vorhanden ist"
 	arr["TURKISH","wpa3_online_attack_9"]="Bu saldırıyı gerçekleştirmek için gereken wpa_supplicant'ın önceden derlenmiş özel ikili dosyası eksik. Lütfen işlemci mimarinize göre bu ikili dosyanın, eklentiler klasörünün içindeki \"\${normal_color}wpa_supplicant_binaries\${red_color}\" klasöründe bulunduğundan emin olun"
 	arr["ARABIC","wpa3_online_attack_9"]="داخل مجلد المكونات الإضافية \"\${normal_color}wpa_supplicant_binaries\${red_color}\" المطلوب لتنفيذ هذا الهجوم مفقود. الرجاء التأكد من وجود الملف الثنائي وفقًا لبنية المعالج في المجلد wpa_supplicant الملف الثنائي المخصص المترجم مسبقًا لـ"
+	arr["CHINESE","wpa3_online_attack_9"]="执行此攻击所需的预编译自定义 wpa_supplicant 二进制文件丢失。请确保符合您的处理器架构的二进制文件存在于插件目录内的 \"\${normal_color}wpa_supplicant_binaries\${red_color}\" 目录中"
 
 	arr["ENGLISH","wpa3_online_attack_10"]="To launch this attack, the card must be in \"Managed\" mode. It has been detected that your card is in \"Monitor\" mode, so airgeddon will automatically change it to be able to carry out the attack"
 	arr["SPANISH","wpa3_online_attack_10"]="Para lanzar este ataque es necesario que la tarjeta esté en modo \"Managed\". Se ha detectado que tu tarjeta está en modo \"Monitor\" por lo que airgeddon la cambiará automáticamente para poder realizar el ataque"
@@ -473,6 +484,7 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["GERMAN","wpa3_online_attack_10"]="Um diesen Angriff zu starten, muss sich die Karte im \"Managed\"-Modus befinden. Es wurde festgestellt, dass Ihre Karte im \"Monitor\"-Modus ist, also wird airgeddon sie automatisch ändern, um den Angriff ausführen zu können"
 	arr["TURKISH","wpa3_online_attack_10"]="Bu saldırıyı başlatmak için kartın \"Managed\" modunda olması gerekir. Kartınızın \"Monitor\" modunda olduğu tespit edildi, bu nedenle airgeddon saldırıyı gerçekleştirebilmek için kartı otomatik olarak değiştirecektir."
 	arr["ARABIC","wpa3_online_attack_10"]="تلقائيًا لتتمكن من تنفيذ الهجوم airgeddon لذلك سيغيرها ,\"Monitor\" تم اكتشاف أن شريحتك في وضع .\"Managed\" لبدء هذا الهجوم ، يجب أن تكون الشريحتك في وضع"
+	arr["CHINESE","wpa3_online_attack_10"]="要发起此攻击，该卡必须处于“管理”模式。检测到您的卡处于“监听”模式，因此 airgeddon 会自动更改它以能够进行攻击"
 }
 
 #Override initialize_menu_and_print_selections function to add the new WPA3 menu
@@ -552,7 +564,7 @@ function wpa3_online_attack_override_initialize_menu_and_print_selections() {
 			if [ -n "${enterprise_mode}" ]; then
 				print_all_target_vars
 			else
-				if [ ${retry_handshake_capture} -eq 1 ]; then
+				if [ "${retry_handshake_capture}" -eq 1 ]; then
 					retry_handshake_capture=0
 					retrying_handshake_capture=1
 				fi
