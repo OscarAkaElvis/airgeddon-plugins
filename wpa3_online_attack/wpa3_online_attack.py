@@ -73,6 +73,7 @@ class airgeddon_wacker(object):
 			("GERMAN", 1): "Drücken Sie die [Enter]-Taste, um fortzufahren...",
 			("TURKISH", 1): "Devam etmek için [Enter] tuşlayınız...",
 			("ARABIC", 1): "...للاستمرار [Enter] اضغط على مفتاح",
+			("CHINESE", 1): "按 [Enter] 键继续...",
 
 			("ENGLISH", 2): "Starting custom wpa_supplicant...",
 			("SPANISH", 2): "Arrancando wpa_supplicant personalizado...",
@@ -86,6 +87,7 @@ class airgeddon_wacker(object):
 			("GERMAN", 2): "Benutzerdefiniertes wpa_supplicant starten...",
 			("TURKISH", 2): "Özel wpa_supplicant başlatılıyor...",
 			("ARABIC", 2): "...جارٍ بدء wpa_supplicant المخصص",
+			("CHINESE", 2): "正在启动自定义 wpa_supplicant...",
 
 			("ENGLISH", 3): "Custom wpa_supplicant error",
 			("SPANISH", 3): "Error de wpa_supplicant personalizado",
@@ -99,6 +101,7 @@ class airgeddon_wacker(object):
 			("GERMAN", 3): "Benutzerdefinierter wpa_supplicant-Fehler",
 			("TURKISH", 3): "Özel wpa_supplicant hatası",
 			("ARABIC", 3): "خطأ wpa_supplicant المخصص",
+			("CHINESE", 3): "自定义 wpa_supplicant 错误",
 
 			("ENGLISH", 4): "Trying key: ",
 			("SPANISH", 4): "Probando contraseña: ",
@@ -112,6 +115,7 @@ class airgeddon_wacker(object):
 			("GERMAN", 4): "Passwort testen: ",
 			("TURKISH", 4): "Test şifresi: ",
 			("ARABIC", 4): "اختبار كلمة المرور: ",
+			("CHINESE", 4): "尝试关键： ",
 
 			("ENGLISH", 5): "Launching attack over WPA3 network",
 			("SPANISH", 5): "Lanzando ataque contra red WPA3",
@@ -125,6 +129,7 @@ class airgeddon_wacker(object):
 			("GERMAN", 5): "Angriff gegen WPA3-Netzwerk starten",
 			("TURKISH", 5): "WPA3 ağı üzerinden saldırı başlatılıyor",
 			("ARABIC", 5): "شن هجوم على شبكة WPA3",
+			("CHINESE", 5): "通过 WPA3 网络发起攻击",
 
 			("ENGLISH", 6): "Password found: ",
 			("SPANISH", 6): "Contraseña encontrada: ",
@@ -138,6 +143,7 @@ class airgeddon_wacker(object):
 			("GERMAN", 6): "Passwort gefunden: ",
 			("TURKISH", 6): "Şifre bulundu: ",
 			("ARABIC", 6): "تم العثور على كلمة المرور: ",
+			("CHINESE", 6): "找到密码： ",
 
 			("ENGLISH", 7): "Dictionary finished. Password not found",
 			("SPANISH", 7): "Diccionario terminado. Contraseña no encontrada",
@@ -151,6 +157,7 @@ class airgeddon_wacker(object):
 			("GERMAN", 7): "Fertiges Wörterbuch. Passwort nicht gefunden",
 			("TURKISH", 7): "Bitmiş sözlük. Şifre bulunamadı",
 			("ARABIC", 7): "القاموس انتهى. كلمة المرور لم يتم العثور عليها",
+			("CHINESE", 7): "词典完成。 未找到密码",
 
 			("ENGLISH", 8): "Write down the found password. The window will be closed after pressing the key",
 			("SPANISH", 8): "Anota la contraseña encontrada. La ventana se cerrará tras pulsar la tecla",
@@ -164,6 +171,7 @@ class airgeddon_wacker(object):
 			("GERMAN", 8): "Notieren Sie das gefundene Passwort. Das Fenster schließt sich nach Drücken der Taste",
 			("TURKISH", 8): "Bulunan şifreyi yazınız. Tuşa bastıktan sonra pencere kapanacaktır",
 			("ARABIC", 8): "اكتب كلمة المرور التي تم العثور عليها. ستغلق النافذة بعد الضغط على المفتاح",
+			("CHINESE", 8): "记下找到的密码。 按下该键后窗口将关闭",
 
 			("ENGLISH", 9): "Unexpected error. Try to launch the attack",
 			("SPANISH", 9): "Error inesperado. Intenta lanzar el ataque de nuevo",
@@ -177,6 +185,7 @@ class airgeddon_wacker(object):
 			("GERMAN", 9): "Unerwarteter Fehler. Versuchen Sie, den Angriff erneut zu starten",
 			("TURKISH", 9): "Beklenmeyen hata. Saldırıyı tekrar başlatmayı deneyin",
 			("ARABIC", 9): "خطأ غير متوقع. حاول شن الهجوم مرة أخرى",
+			("CHINESE", 9): "意外的错误。 尝试发起攻击",
 		}
 
 	def create_uds_endpoints(self):
