@@ -11,7 +11,7 @@ plugin_author="OscarAkaElvis"
 
 plugin_enabled=1
 
-plugin_minimum_ag_affected_version="11.10"
+plugin_minimum_ag_affected_version="11.30"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
 
@@ -522,9 +522,11 @@ function wpa3_online_attack_override_initialize_menu_and_print_selections() {
 			return_to_handshake_pmkid_tools_menu=0
 		;;
 		"dos_attacks_menu")
+			enterprise_mode=""
+			et_mode=""
 			dos_pursuit_mode=0
 			print_iface_selected
-			print_all_target_vars
+			print_all_target_dos_attacks_menu_vars
 		;;
 		"dos_handshake_menu")
 			print_iface_selected
@@ -534,17 +536,18 @@ function wpa3_online_attack_override_initialize_menu_and_print_selections() {
 			print_iface_selected
 		;;
 		"evil_twin_attacks_menu")
-			enterprise_mode=""
 			return_to_et_main_menu=0
 			return_to_enterprise_main_menu=0
 			retry_handshake_capture=0
 			return_to_et_main_menu_from_beef=0
 			retrying_handshake_capture=0
 			internet_interface_selected=0
+			enterprise_mode=""
 			et_mode=""
 			et_processes=()
 			secondary_wifi_interface=""
 			et_attack_adapter_prerequisites_ok=0
+			advanced_captive_portal=0
 			print_iface_selected
 			print_all_target_vars_et
 		;;
@@ -552,6 +555,7 @@ function wpa3_online_attack_override_initialize_menu_and_print_selections() {
 			return_to_enterprise_main_menu=0
 			return_to_et_main_menu=0
 			enterprise_mode=""
+			et_mode=""
 			et_processes=()
 			secondary_wifi_interface=""
 			et_enterprise_attack_adapter_prerequisites_ok=0
