@@ -138,8 +138,55 @@ function exec_wpa3_online_dictionary_attack() {
 	mkdir "${tmpdir}agwpa3" > /dev/null 2>&1
 
 	recalculate_windows_sizes
-	manage_output "+j -bg \"#000000\" -fg \"#FFC0CB\" -geometry ${g1_topright_window} -T \"wpa3 online dictionary attack\"" "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path} ${tmpdir}agwpa3 ${language}" "wpa3 online dictionary attack" "active"
+	manage_output "+j -bg \"#000000\" -fg \"#FFC0CB\" -geometry ${g1_topright_window} -T \"wpa3 online dictionary attack\"" "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path} ${tmpdir}agwpa3 ${language} | tee ${tmpdir}agwpa3/${wpa3log_file}" "wpa3 online dictionary attack" "active"
 	wait_for_process "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path} ${tmpdir}agwpa3 ${language}" "wpa3 online dictionary attack"
+
+	manage_wpa3_pot
+}
+
+#Custom function. Check if the wpa3 password was captured and manage to save it on a file
+function manage_wpa3_pot() {
+
+	debug_print
+
+	local wpa3_pass_cracked=0
+	if grep -Eq "^Password found:" "${tmpdir}agwpa3/${wpa3log_file}" 2> /dev/null; then
+		sed -ri '0,/BRUTE ATTEMPT SUCCESS/d' "${tmpdir}agwpa3/${wpa3log_file}" 2> /dev/null
+		readarray -t LINES_TO_PARSE < <(cat < "${tmpdir}agwpa3/${wpa3log_file}" 2> /dev/null)
+		for item in "${LINES_TO_PARSE[@]}"; do
+			if [[ "${item}" =~ ^Password[[:blank:]]found:[[:blank:]](.*)$ ]]; then
+				wpa3_password="${BASH_REMATCH[1]}"
+				wpa3_pass_cracked=1
+				break
+			fi
+		done
+	fi
+
+	if [ "${wpa3_pass_cracked}" -eq 1 ]; then
+		echo "" > "${wpa3potenteredpath}"
+		{
+		date +%Y-%m-%d
+		echo -e "${arr[${language},"wpa3_online_attack_12"]}"
+		echo ""
+		echo -e "BSSID: ${bssid}"
+		echo -e "${arr[${language},"wpa3_online_attack_13"]}: ${channel}"
+		echo -e "ESSID: ${essid}"
+		echo ""
+		echo "---------------"
+		echo ""
+		echo -e "${wpa3_password}"
+		echo ""
+		echo "---------------"
+		echo ""
+		echo "${footer_texts[${language},0]}"
+		} >> "${wpa3potenteredpath}"
+
+		echo
+		language_strings "${language}" 162 "yellow"
+		echo
+		language_strings "${language}" "wpa3_online_attack_14" "blue"
+		language_strings "${language}" 115 "read"
+	fi
 }
 
 #Custom function. Validate a WPA3 network
@@ -248,7 +295,10 @@ function wpa3_online_dictionary_attack_option() {
 		return 1
 	fi
 
+	wpa3log_file="ag.wpa3.log"
 	custom_channel_mappings
+
+	manage_wpa3_log
 
 	echo
 	language_strings "${language}" 32 "green"
@@ -257,6 +307,21 @@ function wpa3_online_dictionary_attack_option() {
 	language_strings "${language}" 4 "read"
 
 	exec_wpa3_online_dictionary_attack
+}
+
+#Custom function. Check if the password was captured using wpa3 online dictionary attack and manage to save it on a file
+function manage_wpa3_log() {
+
+	debug_print
+
+	wpa3_potpath="${default_save_path}"
+	wpa3pot_filename="wpa3_password-${essid}.txt"
+	wpa3_potpath="${wpa3_potpath}${wpa3pot_filename}"
+
+	validpath=1
+	while [[ "${validpath}" != "0" ]]; do
+		read_path "wpa3pot"
+	done
 }
 
 #Custom function. Create the WPA3 attacks menu
@@ -485,9 +550,65 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["TURKISH","wpa3_online_attack_10"]="Bu saldırıyı başlatmak için kartın \"Managed\" modunda olması gerekir. Kartınızın \"Monitor\" modunda olduğu tespit edildi, bu nedenle airgeddon saldırıyı gerçekleştirebilmek için kartı otomatik olarak değiştirecektir."
 	arr["ARABIC","wpa3_online_attack_10"]="تلقائيًا لتتمكن من تنفيذ الهجوم airgeddon لذلك سيغيرها ,\"Monitor\" تم اكتشاف أن شريحتك في وضع .\"Managed\" لبدء هذا الهجوم ، يجب أن تكون الشريحتك في وضع"
 	arr["CHINESE","wpa3_online_attack_10"]="要发起此攻击，该卡必须处于“管理”模式。检测到您的卡处于“监听”模式，因此 airgeddon 会自动更改它以能够进行攻击"
+
+	arr["ENGLISH","wpa3_online_attack_11"]="If the password for the wifi network is obtained with the WPA3 attack, you should decide where to save it. \${green_color}Type the path to store the file or press [Enter] to accept the default proposal \${normal_color}[\${wpa3_potpath}]"
+	arr["SPANISH","wpa3_online_attack_11"]="Si se consigue la contraseña de la red wifi con el ataque WPA3, hay que decidir donde guardarla. \${green_color}Escribe la ruta donde guardaremos el fichero o pulsa [Enter] para aceptar la propuesta por defecto \${normal_color}[\${wpa3_potpath}]"
+	arr["FRENCH","wpa3_online_attack_11"]="Si le mot de passe est obtenu par une attaque WPA3, il faut ensuite indiquer l'endroit pour la garder. \${green_color}Entrez la route vers l'endroit où vous voulez garder le fichier ou bien appuyez sur [Enter] si la route proposée par défaut vous convient \${normal_color}[\${wpa3_potpath}]"
+	arr["CATALAN","wpa3_online_attack_11"]="Si s'aconsegueix la contrasenya de la xarxa wifi amb l'atac WPA3, cal decidir on guardar-la. \${green_color}Escriu la ruta on guardarem el fitxer o prem [Enter] per acceptar la proposta per defecte \${normal_color}[\${wpa3_potpath}]"
+	arr["PORTUGUESE","wpa3_online_attack_11"]="Se a senha da rede wifi for obtida com o ataque WPA3, onde deseja salvá-la?. \${green_color}Digite o caminho onde armazenar o arquivo ou pressione [Enter] para aceitar o padrão \${normal_color}[\${wpa3_potpath}]"
+	arr["RUSSIAN","wpa3_online_attack_11"]="Если во время WPA3 атаки на Wi-Fi сеть получен пароль, вы должны решить, где его сохранить. \${green_color} Наберите путь для сохранения файла или нажмите [Enter] для принятия значения по умолчанию \${normal_color}[\${wpa3_potpath}]"
+	arr["GREEK","wpa3_online_attack_11"]="Εάν βρεθεί ο κωδικός πρόσβασης για το ασύρματο δίκτυο με την επίθεση WPA3, θα πρέπει να αποφασίσετε που θα τον αποθηκεύσετε. \${green_color}Πληκτρολογήστε το μονοπάτι για την αποθήκευση του αρχείου ή πατήστε [Enter] για την προεπιλεγμένη επιλογή \${normal_color}[\${wpa3_potpath}]"
+	arr["ITALIAN","wpa3_online_attack_11"]="Se si ottiene la password della rete wireless con l'attacco WPA3, decidere dove salvarla. \${green_color}Immettere il percorso dove memorizzare il file o premere [Enter] per accettare la proposta di default \${normal_color}[\${wpa3_potpath}]"
+	arr["POLISH","wpa3_online_attack_11"]="Jeśli hasło sieci wifi zostanie zdobyte atakiem WPA3, musisz zdecydować, gdzie je zapisać. \${green_color}Wpisz ścieżkę, w której będziemy zapisywać plik lub naciśnij [Enter], aby zaakceptować domyślną propozycję \${normal_color}[\${wpa3_potpath}]"
+	arr["GERMAN","wpa3_online_attack_11"]="Wenn Sie das WLAN-Passwort mit dem WPA3-Angriff erhalten, müssen Sie entscheiden, wo Sie es speichern möchten. \${green_color} Geben Sie den Pfad ein, unter dem die Datei gespeichert werden soll, oder drücken Sie die [Enter]-Taste, um den Standardvorschlag \${normal_color}[\${wpa3_potpath}] \${blue_color}zu akzeptieren"
+	arr["TURKISH","wpa3_online_attack_11"]="Kablosuz ağın şifresi WPA3 saldırısıyla elde edilirse, nereye kaydedeceğinize karar vermelisiniz. \${green_color}Dosyayı depolamak için yolu yazın veya varsayılan teklifi kabul etmek için [Enter] tuşuna basın \${normal_color}[\${wpa3_potpath}]"
+	arr["ARABIC","wpa3_online_attack_11"]="\${normal_color}[\${wpa3_potpath}]\${green_color} لقبول الاقتراح [Enter] فيجب أن تقرر مكان حفظها \${blue_color}.اكتب المسار لتخزين الملف أو اضغط على ،WPA3 بهجوم wifi إذا تم الحصول على كلمة المرور لشبكة\${normal_color}"
+	arr["CHINESE","wpa3_online_attack_11"]="如果 wifi 网络的密码是通过 WPA3 攻击获得的，您应该决定将其保存在何处。 \${green_color}键入存储文件的路径或按 [Enter] 接受默认建议 \${normal_color}[\${wpa3_potpath}]"
+
+	arr["ENGLISH","wpa3_online_attack_12"]="airgeddon. Decrypted password during WPA3 attack"
+	arr["SPANISH","wpa3_online_attack_12"]="airgeddon. Contraseña descifrada en ataque WPA3"
+	arr["FRENCH","wpa3_online_attack_12"]="airgeddon. Mot de passe déchiffré à l'aide de l'attaque WPA3"
+	arr["CATALAN","wpa3_online_attack_12"]="airgeddon. Contrasenya desxifrada amb l'atac WPA3"
+	arr["PORTUGUESE","wpa3_online_attack_12"]="airgeddon. Senha decifrada no ataque WPA3"
+	arr["RUSSIAN","wpa3_online_attack_12"]="airgeddon. Пароль расшифрован во время WPA3 атаки"
+	arr["GREEK","wpa3_online_attack_12"]="airgeddon. Ο κωδικός αποκρυπτογραφήθηκε κατά την επίθεση WPA3"
+	arr["ITALIAN","wpa3_online_attack_12"]="airgeddon. Password decifrata con l'attacco WPA3"
+	arr["POLISH","wpa3_online_attack_12"]="airgeddon. Hasło odszyfrowane w ataku WPA3"
+	arr["GERMAN","wpa3_online_attack_12"]="airgeddon. Passwort während WPA3-Angriff entschlüsselt"
+	arr["TURKISH","wpa3_online_attack_12"]="airgeddon. WPA3 saldırısı sırasında çözülen şifre"
+	arr["ARABIC","wpa3_online_attack_12"]="WPA3 فك تشفير كلمة السر أثناء هجوم .airgeddon"
+	arr["CHINESE","wpa3_online_attack_12"]="airgeddon WPA3 攻击期间解密的密码"
+
+	arr["ENGLISH","wpa3_online_attack_13"]="Channel"
+	arr["SPANISH","wpa3_online_attack_13"]="Canal"
+	arr["FRENCH","wpa3_online_attack_13"]="Canal"
+	arr["CATALAN","wpa3_online_attack_13"]="Canal"
+	arr["PORTUGUESE","wpa3_online_attack_13"]="Canal"
+	arr["RUSSIAN","wpa3_online_attack_13"]="Канал"
+	arr["GREEK","wpa3_online_attack_13"]="Κανάλι"
+	arr["ITALIAN","wpa3_online_attack_13"]="Canale"
+	arr["POLISH","wpa3_online_attack_13"]="Kanał"
+	arr["GERMAN","wpa3_online_attack_13"]="Kanal"
+	arr["TURKISH","wpa3_online_attack_13"]="Kanal"
+	arr["ARABIC","wpa3_online_attack_13"]="قناة"
+	arr["CHINESE","wpa3_online_attack_13"]="信道"
+
+	arr["ENGLISH","wpa3_online_attack_14"]="WPA3 key decrypted successfully. The password was saved on file [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
+	arr["SPANISH","wpa3_online_attack_14"]="Clave WPA3 descifrada con éxito. La contraseña se ha guardado en el fichero [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
+	arr["FRENCH","wpa3_online_attack_14"]="\${pending_of_translation} Clef WPA3 déchiffré. Le mot de passe est enregistré dans le fichier [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
+	arr["CATALAN","wpa3_online_attack_14"]="\${pending_of_translation} Clau WPA3 desxifrada amb èxit. La contrasenya s'ha guardat en el fitxer [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
+	arr["PORTUGUESE","wpa3_online_attack_14"]="\${pending_of_translation} Senha WPA3 descriptografada com sucesso. A senha foi salva no arquivo [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
+	arr["RUSSIAN","wpa3_online_attack_14"]="\${pending_of_translation} Ключ WPA3 расшифрован. Пароль был сохранён в файле [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
+	arr["GREEK","wpa3_online_attack_14"]="\${pending_of_translation} Το κλειδί WPA3 αποκρυπτογραφήθηκε με επιτυχία. Ο κωδικός πρόσβασης αποθηκεύτηκε σε αρχείο [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
+	arr["ITALIAN","wpa3_online_attack_14"]="\${pending_of_translation} Chiave WPA3 decifrata con successo. La password è stata salvata nel file [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
+	arr["POLISH","wpa3_online_attack_14"]="\${pending_of_translation} Klucz WPA3 odszyfrowywany prawidłowo. Hasło zostało zapisane do pliku [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
+	arr["GERMAN","wpa3_online_attack_14"]="\${pending_of_translation} WPA3-Schlüssel erfolgreich entschlüsselt. Das Passwort wurde in der Datei gespeichert [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
+	arr["TURKISH","wpa3_online_attack_14"]="\${pending_of_translation} WPA3 anahtarı başarıyla çözüldü. Şifre dosyaya kaydedildi [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
+	arr["ARABIC","wpa3_online_attack_14"]="\${pending_of_translation} [\${normal_color}\${wpa3potenteredpath}\${blue_color}] تم حفظ كلمة المرور في الملف . بنجاح WPA3 تم فك تشفير مفتاح"
+	arr["CHINESE","wpa3_online_attack_14"]="\${pending_of_translation} WPA3 密钥解密成功。密码已保存至文件 [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
 }
 
-#Override initialize_menu_and_print_selections function to add the new WPA3 menu
+#Override initialize_menu_and_print_selections function to add the WPA3 menu
 function wpa3_online_attack_override_initialize_menu_and_print_selections() {
 
 	debug_print
@@ -741,7 +862,7 @@ function wpa3_online_attack_override_print_hint() {
 	print_simple_separator
 }
 
-#Override main_menu function to add the new WPA3 attack category
+#Override main_menu function to add the WPA3 attack category
 function wpa3_online_attack_override_main_menu() {
 
 	debug_print
@@ -821,6 +942,360 @@ function wpa3_online_attack_override_main_menu() {
 	esac
 
 	main_menu
+}
+
+#Override read_path function to add the WPA3 option
+function wpa3_online_attack_override_read_path() {
+
+	debug_print
+
+	echo
+	case ${1} in
+		"wpa3pot")
+			language_strings "${language}" "wpa3_online_attack_11" "blue"
+			read_and_clean_path "wpa3potenteredpath"
+			if [ -z "${wpa3potenteredpath}" ]; then
+				wpa3potenteredpath="${wpa3_potpath}"
+			fi
+			wpa3potenteredpath=$(set_absolute_path "${wpa3potenteredpath}")
+			validate_path "${wpa3potenteredpath}" "${1}"
+		;;
+		"handshake")
+			language_strings "${language}" 148 "green"
+			read_and_clean_path "enteredpath"
+			if [ -z "${enteredpath}" ]; then
+				enteredpath="${handshakepath}"
+			fi
+			enteredpath=$(set_absolute_path "${enteredpath}")
+			validate_path "${enteredpath}" "${1}"
+		;;
+		"cleanhandshake")
+			language_strings "${language}" 154 "green"
+			read_and_clean_path "filetoclean"
+			check_file_exists "${filetoclean}"
+		;;
+		"pmkid")
+			language_strings "${language}" 674 "green"
+			read_and_clean_path "enteredpath"
+			if [ -z "${enteredpath}" ]; then
+				enteredpath="${pmkidpath}"
+			fi
+			enteredpath=$(set_absolute_path "${enteredpath}")
+			validate_path "${enteredpath}" "${1}"
+		;;
+		"pmkidcap")
+			language_strings "${language}" 686 "green"
+			read_and_clean_path "enteredpath"
+			if [ -z "${enteredpath}" ]; then
+				enteredpath="${pmkidcappath}"
+			fi
+			enteredpath=$(set_absolute_path "${enteredpath}")
+			validate_path "${enteredpath}" "${1}"
+		;;
+		"dictionary")
+			language_strings "${language}" 180 "green"
+			read_and_clean_path "DICTIONARY"
+			check_file_exists "${DICTIONARY}"
+		;;
+		"targetfilefordecrypt")
+			language_strings "${language}" 188 "green"
+			read_and_clean_path "enteredpath"
+			check_file_exists "${enteredpath}"
+		;;
+		"targethashcatpmkidfilefordecrypt")
+			language_strings "${language}" 188 "green"
+			read_and_clean_path "hashcatpmkidenteredpath"
+			check_file_exists "${hashcatpmkidenteredpath}"
+		;;
+		"targethashcatenterprisefilefordecrypt")
+			language_strings "${language}" 188 "green"
+			read_and_clean_path "hashcatenterpriseenteredpath"
+			check_file_exists "${hashcatenterpriseenteredpath}"
+		;;
+		"targetjtrenterprisefilefordecrypt")
+			language_strings "${language}" 188 "green"
+			read_and_clean_path "jtrenterpriseenteredpath"
+			check_file_exists "${jtrenterpriseenteredpath}"
+		;;
+		"rules")
+			language_strings "${language}" 242 "green"
+			read_and_clean_path "RULES"
+			check_file_exists "${RULES}"
+		;;
+		"aircrackpot")
+			language_strings "${language}" 441 "green"
+			read_and_clean_path "aircrackpotenteredpath"
+			if [ -z "${aircrackpotenteredpath}" ]; then
+				aircrackpotenteredpath="${aircrack_potpath}"
+			fi
+			aircrackpotenteredpath=$(set_absolute_path "${aircrackpotenteredpath}")
+			validate_path "${aircrackpotenteredpath}" "${1}"
+		;;
+		"jtrpot")
+			language_strings "${language}" 611 "green"
+			read_and_clean_path "jtrpotenteredpath"
+			if [ -z "${jtrpotenteredpath}" ]; then
+				jtrpotenteredpath="${jtr_potpath}"
+			fi
+			jtrpotenteredpath=$(set_absolute_path "${jtrpotenteredpath}")
+			validate_path "${jtrpotenteredpath}" "${1}"
+		;;
+		"hashcatpot")
+			language_strings "${language}" 233 "green"
+			read_and_clean_path "potenteredpath"
+			if [ -z "${potenteredpath}" ]; then
+				potenteredpath="${hashcat_potpath}"
+			fi
+			potenteredpath=$(set_absolute_path "${potenteredpath}")
+			validate_path "${potenteredpath}" "${1}"
+		;;
+		"asleappot")
+			language_strings "${language}" 555 "green"
+			read_and_clean_path "asleapenteredpath"
+			if [ -z "${asleapenteredpath}" ]; then
+				asleapenteredpath="${asleap_potpath}"
+			fi
+			asleapenteredpath=$(set_absolute_path "${asleapenteredpath}")
+			validate_path "${asleapenteredpath}" "${1}"
+		;;
+		"ettercaplog")
+			language_strings "${language}" 303 "green"
+			read_and_clean_path "ettercap_logpath"
+			if [ -z "${ettercap_logpath}" ]; then
+				ettercap_logpath="${default_ettercap_logpath}"
+			fi
+			ettercap_logpath=$(set_absolute_path "${ettercap_logpath}")
+			validate_path "${ettercap_logpath}" "${1}"
+		;;
+		"bettercaplog")
+			language_strings "${language}" 398 "green"
+			read_and_clean_path "bettercap_logpath"
+			if [ -z "${bettercap_logpath}" ]; then
+				bettercap_logpath="${default_bettercap_logpath}"
+			fi
+			bettercap_logpath=$(set_absolute_path "${bettercap_logpath}")
+			validate_path "${bettercap_logpath}" "${1}"
+		;;
+		"ethandshake")
+			language_strings "${language}" 154 "green"
+			read_and_clean_path "et_handshake"
+			check_file_exists "${et_handshake}"
+		;;
+		"writeethandshake")
+			language_strings "${language}" 148 "green"
+			read_and_clean_path "et_handshake"
+			if [ -z "${et_handshake}" ]; then
+				et_handshake="${handshakepath}"
+			fi
+			et_handshake=$(set_absolute_path "${et_handshake}")
+			validate_path "${et_handshake}" "${1}"
+		;;
+		"et_captive_portallog")
+			language_strings "${language}" 317 "blue"
+			read_and_clean_path "et_captive_portal_logpath"
+			if [ -z "${et_captive_portal_logpath}" ]; then
+				et_captive_portal_logpath="${default_et_captive_portal_logpath}"
+			fi
+			et_captive_portal_logpath=$(set_absolute_path "${et_captive_portal_logpath}")
+			validate_path "${et_captive_portal_logpath}" "${1}"
+		;;
+		"wpspot")
+			language_strings "${language}" 123 "blue"
+			read_and_clean_path "wpspotenteredpath"
+			if [ -z "${wpspotenteredpath}" ]; then
+				wpspotenteredpath="${wps_potpath}"
+			fi
+			wpspotenteredpath=$(set_absolute_path "${wpspotenteredpath}")
+			validate_path "${wpspotenteredpath}" "${1}"
+		;;
+		"weppot")
+			language_strings "${language}" 430 "blue"
+			read_and_clean_path "weppotenteredpath"
+			if [ -z "${weppotenteredpath}" ]; then
+				weppotenteredpath="${wep_potpath}"
+			fi
+			weppotenteredpath=$(set_absolute_path "${weppotenteredpath}")
+			validate_path "${weppotenteredpath}" "${1}"
+		;;
+		"enterprisepot")
+			language_strings "${language}" 525 "blue"
+			read_and_clean_path "enterprisepotenteredpath"
+			if [ -z "${enterprisepotenteredpath}" ]; then
+				enterprisepotenteredpath="${enterprise_potpath}"
+			fi
+			enterprisepotenteredpath=$(set_absolute_path "${enterprisepotenteredpath}")
+			validate_path "${enterprisepotenteredpath}" "${1}"
+		;;
+		"certificates")
+			language_strings "${language}" 643 "blue"
+			read_and_clean_path "certificatesenteredpath"
+			if [ -z "${certificatesenteredpath}" ]; then
+				certificatesenteredpath="${enterprisecertspath}"
+			fi
+			certificatesenteredpath=$(set_absolute_path "${certificatesenteredpath}")
+			validate_path "${certificatesenteredpath}" "${1}"
+		;;
+	esac
+
+	validpath="$?"
+	return "${validpath}"
+}
+
+#Override validate_path function to add the WPA3 option
+function wpa3_online_attack_override_validate_path() {
+
+	debug_print
+
+	lastcharmanualpath=${1: -1}
+
+	if [[ "${2}" = "enterprisepot" ]] || [[ "${2}" = "certificates" ]]; then
+		dirname=$(dirname "${1}")
+
+		if [ -d "${dirname}" ]; then
+			if ! check_write_permissions "${dirname}"; then
+				language_strings "${language}" 157 "red"
+				return 1
+			fi
+		else
+			if ! dir_permission_check "${1}"; then
+				language_strings "${language}" 526 "red"
+				return 1
+			fi
+		fi
+
+		if [ "${lastcharmanualpath}" != "/" ]; then
+			pathname="${1}/"
+		fi
+	else
+		dirname=${1%/*}
+
+		if [[ ! -d "${dirname}" ]] || [[ "${dirname}" = "." ]]; then
+			language_strings "${language}" 156 "red"
+			return 1
+		fi
+
+		if ! check_write_permissions "${dirname}"; then
+			language_strings "${language}" 157 "red"
+			return 1
+		fi
+	fi
+
+	if [[ "${lastcharmanualpath}" = "/" ]] || [[ -d "${1}" ]] || [[ "${2}" = "enterprisepot" ]] || [[ "${2}" = "certificates" ]]; then
+		if [ "${lastcharmanualpath}" != "/" ]; then
+			pathname="${1}/"
+		else
+			pathname="${1}"
+		fi
+
+		case ${2} in
+			"wpa3pot")
+				suggested_filename="${wpa3pot_filename}"
+				wpa3potenteredpath+="${wpa3pot_filename}"
+			;;
+			"handshake")
+				enteredpath="${pathname}${standardhandshake_filename}"
+				suggested_filename="${standardhandshake_filename}"
+			;;
+			"pmkid")
+				enteredpath="${pathname}${standardpmkid_filename}"
+				suggested_filename="${standardpmkid_filename}"
+			;;
+			"pmkidcap")
+				enteredpath="${pathname}${standardpmkidcap_filename}"
+				suggested_filename="${standardpmkidcap_filename}"
+			;;
+			"aircrackpot")
+				suggested_filename="${aircrackpot_filename}"
+				aircrackpotenteredpath+="${aircrackpot_filename}"
+			;;
+			"jtrpot")
+				suggested_filename="${jtrpot_filename}"
+				jtrpotenteredpath+="${jtrpot_filename}"
+			;;
+			"hashcatpot")
+				suggested_filename="${hashcatpot_filename}"
+				potenteredpath+="${hashcatpot_filename}"
+			;;
+			"asleappot")
+				suggested_filename="${asleappot_filename}"
+				asleapenteredpath+="${asleappot_filename}"
+			;;
+			"ettercaplog")
+				suggested_filename="${default_ettercaplogfilename}"
+				ettercap_logpath="${ettercap_logpath}${default_ettercaplogfilename}"
+			;;
+			"bettercaplog")
+				suggested_filename="${default_bettercaplogfilename}"
+				bettercap_logpath="${bettercap_logpath}${default_bettercaplogfilename}"
+			;;
+			"writeethandshake")
+				et_handshake="${pathname}${standardhandshake_filename}"
+				suggested_filename="${standardhandshake_filename}"
+			;;
+			"et_captive_portallog")
+				suggested_filename="${default_et_captive_portallogfilename}"
+				et_captive_portal_logpath+="${default_et_captive_portallogfilename}"
+			;;
+			"wpspot")
+				suggested_filename="${wpspot_filename}"
+				wpspotenteredpath+="${wpspot_filename}"
+			;;
+			"weppot")
+				suggested_filename="${weppot_filename}"
+				weppotenteredpath+="${weppot_filename}"
+			;;
+			"enterprisepot")
+				enterprise_potpath="${pathname}"
+				enterprise_basepath=$(dirname "${enterprise_potpath}")
+
+				if [ "${enterprise_basepath}" != "." ]; then
+					enterprise_dirname=$(basename "${enterprise_potpath}")
+				fi
+
+				if [ "${enterprise_basepath}" != "/" ]; then
+					enterprise_basepath+="/"
+				fi
+
+				if [ "${enterprise_dirname}" != "${enterprisepot_suggested_dirname}" ]; then
+					enterprise_completepath="${enterprise_potpath}${enterprisepot_suggested_dirname}/"
+				else
+					enterprise_completepath="${enterprise_potpath}"
+					if [ "${enterprise_potpath: -1}" != "/" ]; then
+						enterprise_completepath+="/"
+					fi
+				fi
+
+				echo
+				language_strings "${language}" 158 "yellow"
+				return 0
+			;;
+			"certificates")
+				enterprisecertspath="${pathname}"
+				enterprisecerts_basepath=$(dirname "${enterprisecertspath}")
+
+				if [ "${enterprisecerts_basepath}" != "/" ]; then
+					enterprisecerts_basepath+="/"
+				fi
+
+				enterprisecerts_completepath="${enterprisecertspath}"
+				if [ "${enterprisecertspath: -1}" != "/" ]; then
+					enterprisecerts_completepath+="/"
+				fi
+
+				echo
+				language_strings "${language}" 158 "yellow"
+				return 0
+			;;
+		esac
+
+		echo
+		language_strings "${language}" 155 "yellow"
+		return 0
+	fi
+
+	echo
+	language_strings "${language}" 158 "yellow"
+	return 0
 }
 
 #Posthook clean_tmpfiles function to remove temp wpa3 attack files on exit
