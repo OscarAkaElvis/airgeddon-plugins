@@ -138,7 +138,7 @@ function exec_wpa3_online_dictionary_attack() {
 	mkdir "${tmpdir}agwpa3" > /dev/null 2>&1
 
 	recalculate_windows_sizes
-	manage_output "+j -bg \"#000000\" -fg \"#FFC0CB\" -geometry ${g1_topright_window} -T \"wpa3 online dictionary attack\"" "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path} ${tmpdir}agwpa3 ${language} | tee ${tmpdir}agwpa3/${wpa3log_file}" "wpa3 online dictionary attack" "active"
+	manage_output "+j -bg \"#000000\" -fg \"#FFC0CB\" -geometry ${g1_topright_window} -T \"wpa3 online dictionary attack\"" "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path} ${tmpdir}agwpa3 ${language} | tee ${tmpdir}agwpa3/${wpa3log_file} ${colorize}" "wpa3 online dictionary attack" "active"
 	wait_for_process "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path} ${tmpdir}agwpa3 ${language}" "wpa3 online dictionary attack"
 
 	manage_wpa3_pot
