@@ -649,7 +649,7 @@ function wpa3_online_attack_override_initialize_menu_and_print_selections() {
 			print_iface_selected
 			print_all_target_dos_attacks_menu_vars
 		;;
-		"dos_handshake_menu")
+		"dos_handshake_decloak_menu")
 			print_iface_selected
 			print_all_target_vars
 		;;
@@ -762,12 +762,12 @@ function wpa3_online_attack_override_print_hint() {
 			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
 			strtoprint=${hints[handshake_pmkid_decloaking_hints|${randomhint}]}
 		;;
-		"dos_handshake_menu")
-			store_array hints dos_handshake_hints "${dos_handshake_hints[@]}"
-			hintlength=${#dos_handshake_hints[@]}
+		"dos_handshake_decloak_menu")
+			store_array hints dos_handshake_decloak_hints "${dos_handshake_decloak_hints[@]}"
+			hintlength=${#dos_handshake_decloak_hints[@]}
 			((hintlength--))
 			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[dos_handshake_hints|${randomhint}]}
+			strtoprint=${hints[dos_handshake_decloak_hints|${randomhint}]}
 		;;
 		"decrypt_menu")
 			store_array hints decrypt_hints "${decrypt_hints[@]}"
