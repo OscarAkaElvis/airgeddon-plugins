@@ -11,7 +11,7 @@ plugin_author="OscarAkaElvis"
 
 plugin_enabled=1
 
-plugin_minimum_ag_affected_version="11.30"
+plugin_minimum_ag_affected_version="11.40"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
 
@@ -637,10 +637,10 @@ function wpa3_online_attack_override_initialize_menu_and_print_selections() {
 			enterprise_asleap_challenge=""
 			enterprise_asleap_response=""
 		;;
-		"handshake_pmkid_tools_menu")
+		"handshake_pmkid_decloaking_tools_menu")
 			print_iface_selected
 			print_all_target_vars
-			return_to_handshake_pmkid_tools_menu=0
+			return_to_handshake_pmkid_decloaking_tools_menu=0
 		;;
 		"dos_attacks_menu")
 			enterprise_mode=""
@@ -755,12 +755,12 @@ function wpa3_online_attack_override_print_hint() {
 			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
 			strtoprint=${hints[dos_hints|${randomhint}]}
 		;;
-		"handshake_pmkid_tools_menu")
-			store_array hints handshake_pmkid_hints "${handshake_pmkid_hints[@]}"
-			hintlength=${#handshake_pmkid_hints[@]}
+		"handshake_pmkid_decloaking_tools_menu")
+			store_array hints handshake_pmkid_decloaking_hints "${handshake_pmkid_decloaking_hints[@]}"
+			hintlength=${#handshake_pmkid_decloaking_hints[@]}
 			((hintlength--))
 			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[handshake_pmkid_hints|${randomhint}]}
+			strtoprint=${hints[handshake_pmkid_decloaking_hints|${randomhint}]}
 		;;
 		"dos_handshake_menu")
 			store_array hints dos_handshake_hints "${dos_handshake_hints[@]}"
@@ -910,7 +910,7 @@ function wpa3_online_attack_override_main_menu() {
 			dos_attacks_menu
 		;;
 		5)
-			handshake_pmkid_tools_menu
+			handshake_pmkid_decloaking_tools_menu
 		;;
 		6)
 			decrypt_menu
