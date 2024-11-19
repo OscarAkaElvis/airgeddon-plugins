@@ -259,6 +259,16 @@ function wpa3_online_dictionary_attack_option() {
 
 	debug_print
 
+	aircrack_wpa3_version="1.7"
+	get_aircrack_version
+
+	if compare_floats_greater_than "${aircrack_wpa3_version}" "${aircrack_version}"; then
+		echo
+		language_strings "${language}" "wpa3_online_attack_15" "red"
+		language_strings "${language}" 115 "read"
+		return 1
+	fi
+
 	if [[ -z ${bssid} ]] || [[ -z ${essid} ]] || [[ -z ${channel} ]] || [[ "${essid}" = "(Hidden Network)" ]]; then
 		echo
 		language_strings "${language}" 125 "yellow"
@@ -606,6 +616,20 @@ function wpa3_online_attack_prehook_remove_warnings() {
 	arr["TURKISH","wpa3_online_attack_14"]="\${pending_of_translation} WPA3 anahtarı başarıyla çözüldü. Şifre dosyaya kaydedildi [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
 	arr["ARABIC","wpa3_online_attack_14"]="\${pending_of_translation} [\${normal_color}\${wpa3potenteredpath}\${blue_color}] تم حفظ كلمة المرور في الملف . بنجاح WPA3 تم فك تشفير مفتاح"
 	arr["CHINESE","wpa3_online_attack_14"]="\${pending_of_translation} WPA3 密钥解密成功。密码已保存至文件 [\${normal_color}\${wpa3potenteredpath}\${blue_color}]"
+
+	arr["ENGLISH","wpa3_online_attack_15"]="An old version of aircrack has been detected. To handle WPA3 networks correctly, at least version \${aircrack_wpa3_version} is required. Otherwise, the attack cannot be performed. Please upgrade your aircrack package to a later version"
+	arr["SPANISH","wpa3_online_attack_15"]="Se ha detectado una versión antigua de aircrack. Para manejar redes WPA3 correctamente se requiere como mínimo la versión \${aircrack_wpa3_version}. De lo contrario el ataque no se puede realizar. Actualiza tu paquete de aircrack a una versión posterior"
+	arr["FRENCH","wpa3_online_attack_15"]="\${pending_of_translation} Une ancienne version d'aircrack a été détectée. Pour gérer correctement les réseaux WPA3, au moins la version \${aircrack_wpa3_version} est requise. Dans le cas contraire, l'attaque ne pourra pas être menée. Mettez à jour votre package aircrack vers une version ultérieure"
+	arr["CATALAN","wpa3_online_attack_15"]="\${pending_of_translation} S'ha detectat una versió antiga d'aircrack. Per manejar xarxes WPA3 es requereix com a mínim la versió \${aircrack_wpa3_version} Si no, l'atac no es pot fer. Actualitza el teu paquet d'aircrack a una versió posterior"
+	arr["PORTUGUESE","wpa3_online_attack_15"]="\${pending_of_translation} Uma versão antiga do aircrack foi detectada. Para lidar corretamente com redes WPA3, é necessária pelo menos a versão \${aircrack_wpa3_version}. Caso contrário o ataque não poderá ser realizado. Atualize seu pacote aircrack para uma versão posterior"
+	arr["RUSSIAN","wpa3_online_attack_15"]="\${pending_of_translation} Обнаружена старая версия aircrack. Для правильной работы сетей WPA3 требуется как минимум версия \${aircrack_wpa3_version}. В противном случае атака не может быть осуществлена. Обновите пакет aircrack до более поздней версии"
+	arr["GREEK","wpa3_online_attack_15"]="\${pending_of_translation} Εντοπίστηκε μια παλιά έκδοση του aircrack. Για να χειριστείτε σωστά τα δίκτυα WPA3, απαιτείται τουλάχιστον η έκδοση \${aircrack_wpa3_version}. Διαφορετικά η επίθεση δεν μπορεί να πραγματοποιηθεί. Ενημερώστε το πακέτο aircrack σε νεότερη έκδοση"
+	arr["ITALIAN","wpa3_online_attack_15"]="\${pending_of_translation} È stata rilevata una vecchia versione di aircrack. Per gestire correttamente le reti WPA3, è richiesta almeno la versione \${aircrack_wpa3_version}. Altrimenti l'attacco non può essere effettuato. Aggiorna il tuo pacchetto aircrack a una versione successiva"
+	arr["POLISH","wpa3_online_attack_15"]="\${pending_of_translation} Wykryto starą wersję aircrack'a. Aby poprawnie obsługiwać sieci WPA3, wymagana jest co najmniej wersja \${aircrack_wpa3_version}. W przeciwnym razie atak nie będzie mógł zostać przeprowadzony. Zaktualizuj pakiet aircrack do nowszej wersji"
+	arr["GERMAN","wpa3_online_attack_15"]="\${pending_of_translation} Es wurde eine alte Version von Aircrack entdeckt. Für den korrekten Umgang mit WPA3-Netzwerken ist mindestens die Version \${aircrack_wpa3_version} erforderlich. Andernfalls kann der Angriff nicht durchgeführt werden. Aktualisieren Sie Ihr Aircrack-Paket auf eine neuere Version"
+	arr["TURKISH","wpa3_online_attack_15"]="\${pending_of_translation} aircrack'in eski bir sürümü tespit edildi. WPA3 ağlarını doğru şekilde yönetmek için en az \${aircrack_wpa3_version} sürümü gereklidir. Aksi takdirde saldırı gerçekleştirilemez. Aircrack paketinizi daha sonraki bir sürüme güncelleyin"
+	arr["ARABIC","wpa3_online_attack_15"]="\${pending_of_translation} تم اكتشاف نسخة قديمة من aircrack. للتعامل مع شبكات WPA3 بشكل صحيح، يلزم توفر الإصدار \${aircrack_wpa3_version} على الأقل. وإلا فلا يمكن تنفيذ الهجوم. قم بتحديث حزمة aircrack الخاصة بك إلى إصدار أحدث"
+	arr["CHINESE","wpa3_online_attack_15"]="\${pending_of_translation} 检测到旧版本的aircrack。要正确处理 WPA3 网络，至少需要版本 \${aircrack_wpa3_version}。否则无法进行攻击。将您的aircrack包更新到更高版本"
 }
 
 #Override initialize_menu_and_print_selections function to add the WPA3 menu
