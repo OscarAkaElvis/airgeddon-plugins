@@ -133,7 +133,6 @@ function exec_wpa3_online_dictionary_attack() {
 
 	freq="${channels_to_freq_correspondence[${channel}]}"
 
-	tmpfiles_toclean=1
 	rm -rf "${tmpdir}agwpa3"* > /dev/null 2>&1
 	mkdir "${tmpdir}agwpa3" > /dev/null 2>&1
 
