@@ -11,7 +11,7 @@ plugin_author="OscarAkaElvis"
 
 plugin_enabled=1
 
-plugin_minimum_ag_affected_version="11.40"
+plugin_minimum_ag_affected_version="11.41"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
 
@@ -389,8 +389,9 @@ function wpa3_online_attack_prehook_explore_for_targets_option() {
 	sed -zri 's|"WPA3"\)\n\t{4}#Only WPA3 including WPA2\/WPA3 in Mixed mode\n\t{4}#Not used yet in airgeddon\n\t{4}:|"WPA3"\)\n\t\t\t\t#Only WPA3 including WPA2/WPA3 in Mixed mode\n\t\t\t\tlanguage_strings "${language}" "wpa3_online_attack_4" "yellow"|' "${scriptfolder}${scriptname}" 2> /dev/null
 }
 
-#Prehook for remove_warnings function to modify existing strings
-function wpa3_online_attack_prehook_remove_warnings() {
+#Prehook for hookable_for_languages function to modify language strings
+#shellcheck disable=SC1111
+function wpa3_online_attack_prehook_hookable_for_languages() {
 
 	arr["ENGLISH",60]="12. About & Credits / Sponsorship mentions"
 	arr["SPANISH",60]="12. Acerca de & Créditos / Menciones de patrocinadores"
