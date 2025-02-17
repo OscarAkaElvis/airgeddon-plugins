@@ -290,6 +290,10 @@ function wpa3_online_dictionary_attack_option() {
 		return 1
 	fi
 
+	if ! validate_network_type "personal"; then
+		return 1
+	fi
+
 	manage_asking_for_dictionary_file
 
 	if ! python3_validation; then
