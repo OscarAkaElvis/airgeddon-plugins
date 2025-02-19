@@ -30,6 +30,7 @@ class airgeddon_wacker(object):
 		self.tmpdir = sys.argv[7]
 		self.language = sys.argv[8]
 
+		# noinspection PyStatementEffect
 		self.dir = f'{self.tmpdir}'
 		self.server = f'{self.dir}/{self.interface}'
 		self.conf = f'{self.server}.conf'
@@ -159,7 +160,7 @@ class airgeddon_wacker(object):
 			("ARABIC", 7): "القاموس انتهى. كلمة المرور لم يتم العثور عليها",
 			("CHINESE", 7): "词典完成。 未找到密码",
 
-			("ENGLISH", 8): "Unexpected error. Try to launch the attack again",
+			("ENGLISH", 8): "Unexpected error. Try to launch the attack",
 			("SPANISH", 8): "Error inesperado. Intenta lanzar el ataque de nuevo",
 			("FRENCH", 8): "Erreur inattendue. Essayez de relancer l'attaque",
 			("CATALAN", 8): "Error inesperat. Intenta tornar a llançar l'atac",
