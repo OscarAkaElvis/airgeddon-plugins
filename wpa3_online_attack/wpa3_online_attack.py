@@ -159,33 +159,19 @@ class airgeddon_wacker(object):
 			("ARABIC", 7): "القاموس انتهى. كلمة المرور لم يتم العثور عليها",
 			("CHINESE", 7): "词典完成。 未找到密码",
 
-			("ENGLISH", 8): "Write down the found password. The window will be closed after pressing the key",
-			("SPANISH", 8): "Anota la contraseña encontrada. La ventana se cerrará tras pulsar la tecla",
-			("FRENCH", 8): "Notez le mot de passe trouvé. La fenêtre se fermera après avoir appuyé sur la touche",
-			("CATALAN", 8): "Anota la contrasenya trobada. La finestra es tancarà després de prémer la tecla",
-			("PORTUGUESE", 8): "Anote a senha encontrada. A janela fechará após pressionar a tecla",
-			("RUSSIAN", 8): "Запишите найденный пароль. Окно закроется после нажатия клавиши",
-			("GREEK", 8): "Σημειώστε τον κωδικό πρόσβασης που βρέθηκε. Το παράθυρο θα κλείσει αφού πατήσετε το πλήκτρο",
-			("ITALIAN", 8): "Appunta la password trovata. La finestra si chiuderà dopo aver premuto il tasto",
-			("POLISH", 8): "Zapisz znalezione hasło. Okno zamknie się po naciśnięciu klawisza",
-			("GERMAN", 8): "Notieren Sie das gefundene Passwort. Das Fenster schließt sich nach Drücken der Taste",
-			("TURKISH", 8): "Bulunan şifreyi yazınız. Tuşa bastıktan sonra pencere kapanacaktır",
-			("ARABIC", 8): "اكتب كلمة المرور التي تم العثور عليها. ستغلق النافذة بعد الضغط على المفتاح",
-			("CHINESE", 8): "记下找到的密码。 按下该键后窗口将关闭",
-
-			("ENGLISH", 9): "Unexpected error. Try to launch the attack",
-			("SPANISH", 9): "Error inesperado. Intenta lanzar el ataque de nuevo",
-			("FRENCH", 9): "Erreur inattendue. Essayez de relancer l'attaque",
-			("CATALAN", 9): "Error inesperat. Intenta tornar a llançar l'atac",
-			("PORTUGUESE", 9): "Erro inesperado. Tente iniciar o ataque novamente",
-			("RUSSIAN", 9): "Неожиданная ошибка. Попробуйте еще раз",
-			("GREEK", 9): "Απρόσμενο σφάλμα. Προσπαθήστε να ξεκινήσετε ξανά την επίθεση",
-			("ITALIAN", 9): "Errore inaspettato. Prova a lanciare di nuovo l'attacco",
-			("POLISH", 9): "Niespodziewany błąd. Spróbuj ponownie przeprowadzić atak",
-			("GERMAN", 9): "Unerwarteter Fehler. Versuchen Sie, den Angriff erneut zu starten",
-			("TURKISH", 9): "Beklenmeyen hata. Saldırıyı tekrar başlatmayı deneyin",
-			("ARABIC", 9): "خطأ غير متوقع. حاول شن الهجوم مرة أخرى",
-			("CHINESE", 9): "意外的错误。 尝试发起攻击",
+			("ENGLISH", 8): "Unexpected error. Try to launch the attack again",
+			("SPANISH", 8): "Error inesperado. Intenta lanzar el ataque de nuevo",
+			("FRENCH", 8): "Erreur inattendue. Essayez de relancer l'attaque",
+			("CATALAN", 8): "Error inesperat. Intenta tornar a llançar l'atac",
+			("PORTUGUESE", 8): "Erro inesperado. Tente iniciar o ataque novamente",
+			("RUSSIAN", 8): "Неожиданная ошибка. Попробуйте еще раз",
+			("GREEK", 8): "Απρόσμενο σφάλμα. Προσπαθήστε να ξεκινήσετε ξανά την επίθεση",
+			("ITALIAN", 8): "Errore inaspettato. Prova a lanciare di nuovo l'attacco",
+			("POLISH", 8): "Niespodziewany błąd. Spróbuj ponownie przeprowadzić atak",
+			("GERMAN", 8): "Unerwarteter Fehler. Versuchen Sie, den Angriff erneut zu starten",
+			("TURKISH", 8): "Beklenmeyen hata. Saldırıyı tekrar başlatmayı deneyin",
+			("ARABIC", 8): "خطأ غير متوقع. حاول شن الهجوم مرة أخرى",
+			("CHINESE", 8): "意外的错误。 尝试发起攻击",
 		}
 
 	def create_uds_endpoints(self):
@@ -305,7 +291,7 @@ class airgeddon_wacker(object):
 			result = self.listen(count)
 			if result == self.EXIT:
 				self.kill()
-				print(self.arr[(self.language, 9)])
+				print(self.arr[(self.language, 8)])
 				input()
 				exit(1)
 			elif result != self.RETRY:
@@ -322,8 +308,6 @@ class airgeddon_wacker(object):
 					result = self.attempt(word, count)
 					if result == airgeddon_wacker.SUCCESS:
 						print(self.arr[(self.language, 6)] + word)
-						print()
-						print(self.arr[(self.language, 8)])
 						break
 					count += 1
 				else:
