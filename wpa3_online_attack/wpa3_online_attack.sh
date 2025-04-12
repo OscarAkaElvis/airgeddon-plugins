@@ -11,7 +11,7 @@ plugin_author="OscarAkaElvis"
 
 plugin_enabled=1
 
-plugin_minimum_ag_affected_version="11.41"
+plugin_minimum_ag_affected_version="11.50"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
 
@@ -681,6 +681,10 @@ function wpa3_online_attack_override_initialize_menu_and_print_selections() {
 			print_iface_selected
 			print_all_target_vars
 		;;
+		"dos_info_gathering_enterprise_menu")
+			print_iface_selected
+			print_all_target_vars
+		;;
 		"language_menu")
 			print_iface_selected
 		;;
@@ -797,6 +801,13 @@ function wpa3_online_attack_override_print_hint() {
 			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
 			strtoprint=${hints[dos_handshake_decloak_hints|${randomhint}]}
 		;;
+		"dos_info_gathering_enterprise_menu")
+			store_array hints dos_info_gathering_enterprise_hints "${dos_info_gathering_enterprise_hints[@]}"
+			hintlength=${#dos_info_gathering_enterprise_hints[@]}
+			((hintlength--))
+			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
+			strtoprint=${hints[dos_info_gathering_enterprise_hints|${randomhint}]}
+		;;
 		"decrypt_menu")
 			store_array hints decrypt_hints "${decrypt_hints[@]}"
 			hintlength=${#decrypt_hints[@]}
@@ -887,6 +898,7 @@ function wpa3_online_attack_override_print_hint() {
 		print_simple_separator
 		language_strings "${language}" "${strtoprint}" "hint"
 	fi
+
 	print_simple_separator
 }
 
