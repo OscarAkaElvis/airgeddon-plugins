@@ -636,12 +636,10 @@ function wpa3_online_attack_prehook_hookable_for_languages() {
 	arr["CHINESE","wpa3_online_attack_15"]="当前aircrack的版本已过期。如果您需要处理 WPA3 加密类型的网络，至少需要版本 \${aircrack_wpa3_version}。否则将无法进行攻击。请尝试将您的aircrack包更新到最高版本"
 }
 
-#Override initialize_menu_and_print_selections function to add the WPA3 menu
-function wpa3_online_attack_override_initialize_menu_and_print_selections() {
+#Override hookable_for_menus function to add the WPA3 menu
+function wpa3_online_attack_override_hookable_for_menus() {
 
 	debug_print
-
-	forbidden_options=()
 
 	case ${current_menu} in
 		"wpa3_attacks_menu")
@@ -650,122 +648,22 @@ function wpa3_online_attack_override_initialize_menu_and_print_selections() {
 			if [ -n "${DICTIONARY}" ]; then
 				language_strings "${language}" 182 "blue"
 			fi
-		;;
-		"main_menu")
-			print_iface_selected
-		;;
-		"decrypt_menu")
-			print_decrypt_vars
-		;;
-		"personal_decrypt_menu")
-			print_personal_decrypt_vars
-		;;
-		"enterprise_decrypt_menu")
-			print_enterprise_decrypt_vars
-			enterprise_asleap_challenge=""
-			enterprise_asleap_response=""
-		;;
-		"handshake_pmkid_decloaking_tools_menu")
-			print_iface_selected
-			print_all_target_vars
-			return_to_handshake_pmkid_decloaking_tools_menu=0
-		;;
-		"dos_attacks_menu")
-			enterprise_mode=""
-			et_mode=""
-			dos_pursuit_mode=0
-			print_iface_selected
-			print_all_target_dos_attacks_menu_vars
-		;;
-		"dos_handshake_decloak_menu")
-			print_iface_selected
-			print_all_target_vars
-		;;
-		"dos_info_gathering_enterprise_menu")
-			print_iface_selected
-			print_all_target_vars
-		;;
-		"language_menu")
-			print_iface_selected
-		;;
-		"evil_twin_attacks_menu")
-			return_to_et_main_menu=0
-			return_to_enterprise_main_menu=0
-			retry_handshake_capture=0
-			return_to_et_main_menu_from_beef=0
-			retrying_handshake_capture=0
-			internet_interface_selected=0
-			enterprise_mode=""
-			et_mode=""
-			et_processes=()
-			secondary_wifi_interface=""
-			et_attack_adapter_prerequisites_ok=0
-			advanced_captive_portal=0
-			print_iface_selected
-			print_all_target_vars_et
-		;;
-		"enterprise_attacks_menu")
-			return_to_enterprise_main_menu=0
-			return_to_et_main_menu=0
-			enterprise_mode=""
-			et_mode=""
-			et_processes=()
-			secondary_wifi_interface=""
-			et_enterprise_attack_adapter_prerequisites_ok=0
-			print_iface_selected
-			print_all_target_vars
-		;;
-		"et_dos_menu")
-			dos_pursuit_mode=0
-			print_iface_selected
-			if [ -n "${enterprise_mode}" ]; then
-				print_all_target_vars
-			else
-				if [ "${retry_handshake_capture}" -eq 1 ]; then
-					retry_handshake_capture=0
-					retrying_handshake_capture=1
-				fi
-				print_et_target_vars
-				print_iface_internet_selected
-			fi
-		;;
-		"wps_attacks_menu")
-			print_iface_selected
-			print_all_target_vars_wps
-		;;
-		"offline_pin_generation_menu")
-			print_iface_selected
-			print_all_target_vars_wps
-		;;
-		"wep_attacks_menu")
-			print_iface_selected
-			print_all_target_vars
-		;;
-		"beef_pre_menu")
-			et_attack_adapter_prerequisites_ok=0
-			print_iface_selected
-			print_all_target_vars_et
-		;;
-		"option_menu")
-			print_options
+			return 0
 		;;
 		*)
-			print_iface_selected
-			print_all_target_vars
+			return 1
 		;;
 	esac
 }
 
-#Override print_hint function to print custom messages related to WPA3 on WPA3 menu
-function wpa3_online_attack_override_print_hint() {
+#Override hookable_for_hints function to print custom messages related to WPA3 on WPA3 menu
+function wpa3_online_attack_override_hookable_for_hints() {
 
 	debug_print
 
-	declare -A hints
-
 	declare wpa3_hints=(128 134 437 438 442 445 516 590 626 660 697 699 "wpa3_online_attack_5")
 
-	case ${1} in
+	case "${current_menu}" in
 		"wpa3_attacks_menu")
 			store_array hints wpa3_hints "${wpa3_hints[@]}"
 			hintlength=${#wpa3_hints[@]}
@@ -773,133 +671,7 @@ function wpa3_online_attack_override_print_hint() {
 			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
 			strtoprint=${hints[wpa3_hints|${randomhint}]}
 		;;
-		"main_menu")
-			store_array hints main_hints "${main_hints[@]}"
-			hintlength=${#main_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[main_hints|${randomhint}]}
-		;;
-		"dos_attacks_menu")
-			store_array hints dos_hints "${dos_hints[@]}"
-			hintlength=${#dos_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[dos_hints|${randomhint}]}
-		;;
-		"handshake_pmkid_decloaking_tools_menu")
-			store_array hints handshake_pmkid_decloaking_hints "${handshake_pmkid_decloaking_hints[@]}"
-			hintlength=${#handshake_pmkid_decloaking_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[handshake_pmkid_decloaking_hints|${randomhint}]}
-		;;
-		"dos_handshake_decloak_menu")
-			store_array hints dos_handshake_decloak_hints "${dos_handshake_decloak_hints[@]}"
-			hintlength=${#dos_handshake_decloak_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[dos_handshake_decloak_hints|${randomhint}]}
-		;;
-		"dos_info_gathering_enterprise_menu")
-			store_array hints dos_info_gathering_enterprise_hints "${dos_info_gathering_enterprise_hints[@]}"
-			hintlength=${#dos_info_gathering_enterprise_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[dos_info_gathering_enterprise_hints|${randomhint}]}
-		;;
-		"decrypt_menu")
-			store_array hints decrypt_hints "${decrypt_hints[@]}"
-			hintlength=${#decrypt_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[decrypt_hints|${randomhint}]}
-		;;
-		"personal_decrypt_menu")
-			store_array hints personal_decrypt_hints "${personal_decrypt_hints[@]}"
-			hintlength=${#personal_decrypt_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[personal_decrypt_hints|${randomhint}]}
-		;;
-		"enterprise_decrypt_menu")
-			store_array hints enterprise_decrypt_hints "${enterprise_decrypt_hints[@]}"
-			hintlength=${#enterprise_decrypt_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[enterprise_decrypt_hints|${randomhint}]}
-		;;
-		"select_interface_menu")
-			store_array hints select_interface_hints "${select_interface_hints[@]}"
-			hintlength=${#select_interface_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[select_interface_hints|${randomhint}]}
-		;;
-		"language_menu")
-			store_array hints language_hints "${language_hints[@]}"
-			hintlength=${#language_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[language_hints|${randomhint}]}
-		;;
-		"option_menu")
-			store_array hints option_hints "${option_hints[@]}"
-			hintlength=${#option_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[option_hints|${randomhint}]}
-		;;
-		"evil_twin_attacks_menu")
-			store_array hints evil_twin_hints "${evil_twin_hints[@]}"
-			hintlength=${#evil_twin_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[evil_twin_hints|${randomhint}]}
-		;;
-		"et_dos_menu")
-			store_array hints evil_twin_dos_hints "${evil_twin_dos_hints[@]}"
-			hintlength=${#evil_twin_dos_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[evil_twin_dos_hints|${randomhint}]}
-		;;
-		"wps_attacks_menu"|"offline_pin_generation_menu")
-			store_array hints wps_hints "${wps_hints[@]}"
-			hintlength=${#wps_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[wps_hints|${randomhint}]}
-		;;
-		"wep_attacks_menu")
-			store_array hints wep_hints "${wep_hints[@]}"
-			hintlength=${#wep_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[wep_hints|${randomhint}]}
-		;;
-		"beef_pre_menu")
-			store_array hints beef_hints "${beef_hints[@]}"
-			hintlength=${#beef_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[beef_hints|${randomhint}]}
-		;;
-		"enterprise_attacks_menu")
-			store_array hints enterprise_hints "${enterprise_hints[@]}"
-			hintlength=${#enterprise_hints[@]}
-			((hintlength--))
-			randomhint=$(shuf -i 0-"${hintlength}" -n 1)
-			strtoprint=${hints[enterprise_hints|${randomhint}]}
-		;;
 	esac
-
-	if "${AIRGEDDON_PRINT_HINTS:-true}"; then
-		print_simple_separator
-		language_strings "${language}" "${strtoprint}" "hint"
-	fi
-
-	print_simple_separator
 }
 
 #Override main_menu function to add the WPA3 attack category
