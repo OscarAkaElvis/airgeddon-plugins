@@ -356,7 +356,7 @@ function wpa3_attacks_menu() {
 	language_strings "${language}" 49
 	language_strings "${language}" 50 "separator"
 	language_strings "${language}" "wpa3_online_attack_3"
-	print_hint ${current_menu}
+	print_hint
 
 	read -rp "> " wpa3_option
 	case ${wpa3_option} in
@@ -459,7 +459,7 @@ function wpa3_online_attack_override_main_menu() {
 	print_simple_separator
 	language_strings "${language}" 60
 	language_strings "${language}" 444
-	print_hint ${current_menu}
+	print_hint
 
 	read -rp "> " main_option
 	case ${main_option} in
