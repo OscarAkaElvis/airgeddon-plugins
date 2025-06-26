@@ -1111,6 +1111,6 @@ function wpa3_online_attack_prehook_hookable_for_languages() {
 	arr["POLISH","wpa3_online_attack_15"]="Wykryto starą wersję narzędzia aircrack. Aby poprawnie obsługiwać sieci WPA3, wymagana jest co najmniej wersja \${aircrack_wpa3_version}. Inaczej atak nie będzie możliwy. Zaktualizuj pakiet aircrack do nowszej wersji"
 	arr["GERMAN","wpa3_online_attack_15"]="Es wurde eine alte Version von Aircrack entdeckt. Für den korrekten Umgang mit WPA3-Netzwerken ist mindestens die Version \${aircrack_wpa3_version} erforderlich. Andernfalls kann der Angriff nicht durchgeführt werden. Aktualisieren Sie Ihr Aircrack-Paket auf eine neuere Version"
 	arr["TURKISH","wpa3_online_attack_15"]="aircrack'in eski bir sürümü tespit edildi. WPA3 ağlarını doğru şekilde yönetmek için en az \${aircrack_wpa3_version} sürümü gereklidir. Aksi takdirde saldırı gerçekleştirilemez. Aircrack paketinizi daha sonraki bir sürüme güncelleyin"
-	arr["ARABIC","wpa3_online_attack_15"]="إلى إصدار أحدث aircrack  بشكل صحيح. قم بتحديث  WPA3  على الأقل, للتعامل مع شبكات ال \${aircrack_wpa3_version} يلزم توفر الإصدار .aircrack تم اكتشاف نسخة قديمة من"
+	arr["ARABIC","wpa3_online_attack_15"]="إلى إصدار أحدث aircrack بشكل صحيح. قم بتحديث WPA3 على الأقل, للتعامل مع شبكات ال \${aircrack_wpa3_version} يلزم توفر الإصدار .aircrack تم اكتشاف نسخة قديمة من"
 	arr["CHINESE","wpa3_online_attack_15"]="当前aircrack的版本已过期。如果您需要处理 WPA3 加密类型的网络，至少需要版本 \${aircrack_wpa3_version}。否则将无法进行攻击。请尝试将您的aircrack包更新到最高版本"
 }
