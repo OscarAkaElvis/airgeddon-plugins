@@ -4,7 +4,7 @@
 #shellcheck disable=SC2034,SC2154
 
 plugin_name="WPA3 online attack"
-plugin_description="A plugin to perform a dictionary online attack over WPA3 wireless networks"
+plugin_description="A plugin to perform an online dictionary attack over WPA3 wireless networks"
 plugin_author="OscarAkaElvis"
 
 #This plugin is based in the Wacker script. Credits to the authors: https://github.com/blunderbuss-wctf/wacker
