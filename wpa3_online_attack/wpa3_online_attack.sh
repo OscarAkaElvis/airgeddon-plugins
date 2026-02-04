@@ -11,57 +11,9 @@ plugin_author="OscarAkaElvis"
 
 plugin_enabled=1
 
-plugin_minimum_ag_affected_version="11.61"
+plugin_minimum_ag_affected_version="11.62"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
-
-#Custom function. Channel mappings to frequency
-function custom_channel_mappings() {
-
-	debug_print
-
-	declare -gA channels_to_freq_correspondence
-
-	channels_to_freq_correspondence["1"]="2412"
-	channels_to_freq_correspondence["2"]="2417"
-	channels_to_freq_correspondence["3"]="2422"
-	channels_to_freq_correspondence["4"]="2427"
-	channels_to_freq_correspondence["5"]="2432"
-	channels_to_freq_correspondence["6"]="2437"
-	channels_to_freq_correspondence["7"]="2442"
-	channels_to_freq_correspondence["8"]="2447"
-	channels_to_freq_correspondence["9"]="2452"
-	channels_to_freq_correspondence["10"]="2457"
-	channels_to_freq_correspondence["11"]="2462"
-	channels_to_freq_correspondence["12"]="2467"
-	channels_to_freq_correspondence["13"]="2472"
-	channels_to_freq_correspondence["14"]="2484"
-	channels_to_freq_correspondence["36"]="5180"
-	channels_to_freq_correspondence["40"]="5200"
-	channels_to_freq_correspondence["44"]="5220"
-	channels_to_freq_correspondence["48"]="5240"
-	channels_to_freq_correspondence["52"]="5260"
-	channels_to_freq_correspondence["56"]="5280"
-	channels_to_freq_correspondence["60"]="5300"
-	channels_to_freq_correspondence["64"]="5320"
-	channels_to_freq_correspondence["100"]="5500"
-	channels_to_freq_correspondence["104"]="5520"
-	channels_to_freq_correspondence["108"]="5540"
-	channels_to_freq_correspondence["112"]="5560"
-	channels_to_freq_correspondence["116"]="5580"
-	channels_to_freq_correspondence["120"]="5600"
-	channels_to_freq_correspondence["124"]="5620"
-	channels_to_freq_correspondence["128"]="5640"
-	channels_to_freq_correspondence["132"]="5660"
-	channels_to_freq_correspondence["136"]="5680"
-	channels_to_freq_correspondence["140"]="5700"
-	channels_to_freq_correspondence["144"]="5720"
-	channels_to_freq_correspondence["149"]="5745"
-	channels_to_freq_correspondence["153"]="5765"
-	channels_to_freq_correspondence["157"]="5785"
-	channels_to_freq_correspondence["161"]="5805"
-	channels_to_freq_correspondence["165"]="5825"
-}
 
 #Custom function. Validate if right custom wpa_supplicant binary file exist
 function custom_wpa_supplicant_validation() {
@@ -131,7 +83,15 @@ function exec_wpa3_online_dictionary_attack() {
 
 	debug_print
 
-	freq="${channels_to_freq_correspondence[${channel}]}"
+	local freq_band=""
+	if contains_element "${channel}" "${channels_24g_list[@]}"; then
+		freq_band="24g"
+	elif contains_element "${channel}" "${channels_5g_list[@]}"; then
+		freq_band="5g"
+	elif contains_element "${channel}" "${channels_6g_list[@]}"; then
+		freq_band="6g"
+	fi
+	freq="${channels_to_freq_correspondence["${freq_band},${channel}"]}"
 
 	rm -rf "${tmpdir}agwpa3"* > /dev/null 2>&1
 	mkdir "${tmpdir}agwpa3" > /dev/null 2>&1
@@ -337,7 +297,6 @@ function wpa3_online_dictionary_attack_option() {
 	fi
 
 	wpa3log_file="ag.wpa3.log"
-	custom_channel_mappings
 
 	manage_wpa3_log
 
