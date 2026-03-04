@@ -11,7 +11,7 @@ plugin_author="OscarAkaElvis"
 
 plugin_enabled=1
 
-plugin_minimum_ag_affected_version="11.62"
+plugin_minimum_ag_affected_version="12.0"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
 
@@ -84,12 +84,22 @@ function exec_wpa3_online_dictionary_attack() {
 	debug_print
 
 	local freq_band=""
-	if contains_element "${channel}" "${channels_24g_list[@]}"; then
-		freq_band="24g"
-	elif contains_element "${channel}" "${channels_5g_list[@]}"; then
-		freq_band="5g"
-	elif contains_element "${channel}" "${channels_6g_list[@]}"; then
-		freq_band="6g"
+	if [[ -n "${target_band_id}" ]]; then
+		if [ "${target_band_id}" = "${band_24ghz}" ]; then
+			freq_band="2.4${ghz}"
+		elif [ "${target_band_id}" = "${band_5ghz}" ]; then
+			freq_band="5${ghz}"
+		elif [ "${target_band_id}" = "${band_6ghz}" ]; then
+			freq_band="6${ghz}"
+		fi
+	else
+		if contains_element "${channel}" "${channels_24ghz_list[@]}"; then
+			freq_band="2.4${ghz}"
+		elif contains_element "${channel}" "${channels_5ghz_list[@]}"; then
+			freq_band="5${ghz}"
+		elif contains_element "${channel}" "${channels_6ghz_list[@]}"; then
+			freq_band="6${ghz}"
+		fi
 	fi
 	freq="${channels_to_freq_correspondence["${freq_band},${channel}"]}"
 
