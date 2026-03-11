@@ -118,7 +118,7 @@ function wpa3_cookie_guzzler_prepare_sae_data() {
 			return 1
 		fi
 
-		if ! wpa3_cookie_guzzler_validate_secondary_band_support; then
+		if ! check_target_band_supported_by_interface "secondary_wifi_interface"; then
 			return 1
 		fi
 
@@ -176,7 +176,7 @@ function wpa3_cookie_guzzler_option() {
 		return 1
 	fi
 
-	if ! wpa3_cookie_guzzler_validate_main_band_support; then
+	if ! check_target_band_supported_by_interface "main_wifi_interface"; then
 		return 1
 	fi
 
@@ -418,54 +418,6 @@ function wpa3_cookie_guzzler_set_frequency() {
 		fi
 	fi
 	freq="${channels_to_freq_correspondence["${freq_band},${channel}"]}"
-}
-
-#Custom function. Validate main interface band support
-function wpa3_cookie_guzzler_validate_main_band_support() {
-
-	debug_print
-
-	if [ "${target_band_id}" = "${band_6ghz}" ]; then
-		if [ "${interfaces_band_info['main_wifi_interface','6Ghz_allowed']}" -eq 0 ]; then
-			echo
-			language_strings "${language}" 816 "red"
-			language_strings "${language}" 115 "read"
-			return 1
-		fi
-	elif [ "${target_band_id}" = "${band_5ghz}" ]; then
-		if [ "${interfaces_band_info['main_wifi_interface','5Ghz_allowed']}" -eq 0 ]; then
-			echo
-			language_strings "${language}" 515 "red"
-			language_strings "${language}" 115 "read"
-			return 1
-		fi
-	fi
-
-	return 0
-}
-
-#Custom function. Validate secondary interface band support
-function wpa3_cookie_guzzler_validate_secondary_band_support() {
-
-	debug_print
-
-	if [ "${target_band_id}" = "${band_6ghz}" ]; then
-		if [ "${interfaces_band_info['secondary_wifi_interface','6Ghz_allowed']}" -eq 0 ]; then
-			echo
-			language_strings "${language}" "wpa3_cookie_guzzler_16" "red"
-			language_strings "${language}" 115 "read"
-			return 1
-		fi
-	elif [ "${target_band_id}" = "${band_5ghz}" ]; then
-		if [ "${interfaces_band_info['secondary_wifi_interface','5Ghz_allowed']}" -eq 0 ]; then
-			echo
-			language_strings "${language}" "wpa3_cookie_guzzler_16" "red"
-			language_strings "${language}" 115 "read"
-			return 1
-		fi
-	fi
-
-	return 0
 }
 
 #Custom function. Read and validate the scalar and finite field element vars
@@ -768,18 +720,4 @@ function wpa3_cookie_guzzler_prehook_hookable_for_languages() {
 	arr["TURKISH","wpa3_cookie_guzzler_15"]="\${blue_color}Bu hedef için önbellekte SAE değerleri (Scalar ve Finite Field) bulundu. \${green_color}Yeniden kullanmak ister misin? \${normal_color}\${visual_choice}"
 	arr["ARABIC","wpa3_cookie_guzzler_15"]="\${normal_color}\${visual_choice} \${green_color}هل تريد استخدامها؟ \${blue_color}.لهذا الهدف Scalar and Finite Field مخزنه تشمل SAE تم العثور على قيم\${normal_color}"
 	arr["CHINESE","wpa3_cookie_guzzler_15"]="\${blue_color}已经为该目标找到缓存的 SAE 值（Scalar 和 Finite 字段）。\${green_color}是否要重新使用它们？ \${normal_color}\${visual_choice}"
-
-	arr["ENGLISH","wpa3_cookie_guzzler_16"]="The secondary adapter must support \${target_band_id} to perform this attack"
-	arr["SPANISH","wpa3_cookie_guzzler_16"]="El adaptador secundario debe soportar \${target_band_id} para realizar este ataque"
-	arr["FRENCH","wpa3_cookie_guzzler_16"]="\${pending_of_translation} L'adaptateur secondaire doit prendre en charge \${target_band_id} pour effectuer cette attaque"
-	arr["CATALAN","wpa3_cookie_guzzler_16"]="\${pending_of_translation} L'adaptador secundari ha de suportar \${target_band_id} per realitzar aquest atac"
-	arr["PORTUGUESE","wpa3_cookie_guzzler_16"]="\${pending_of_translation} O adaptador secundário deve suportar \${target_band_id} para realizar este ataque"
-	arr["RUSSIAN","wpa3_cookie_guzzler_16"]="\${pending_of_translation} Вторичный адаптер должен поддерживать \${target_band_id} для выполнения этой атаки"
-	arr["GREEK","wpa3_cookie_guzzler_16"]="\${pending_of_translation} Ο δευτερεύων προσαρμογέας πρέπει να υποστηρίζει \${target_band_id} για να εκτελεστεί αυτή η επίθεση"
-	arr["ITALIAN","wpa3_cookie_guzzler_16"]="\${pending_of_translation} L'adattatore secondario deve supportare \${target_band_id} per eseguire questo attacco"
-	arr["POLISH","wpa3_cookie_guzzler_16"]="\${pending_of_translation} Drugi adapter musi obsługiwać \${target_band_id}, aby wykonać ten atak"
-	arr["GERMAN","wpa3_cookie_guzzler_16"]="\${pending_of_translation} Der sekundäre Adapter muss \${target_band_id} unterstützen, um diesen Angriff durchzuführen"
-	arr["TURKISH","wpa3_cookie_guzzler_16"]="\${pending_of_translation} Bu saldırıyı gerçekleştirmek için ikincil adaptör \${target_band_id} desteklemelidir"
-	arr["ARABIC","wpa3_cookie_guzzler_16"]="\${pending_of_translation} يجب أن يدعم المحول الثانوي \${target_band_id} لتنفيذ هذا الهجوم"
-	arr["CHINESE","wpa3_cookie_guzzler_16"]="\${pending_of_translation} 次要适配器必须支持 \${target_band_id} 才能执行此攻击"
 }
