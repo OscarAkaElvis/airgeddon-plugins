@@ -8,6 +8,7 @@ GROUP_ID_BYTES = b"\x13\x00"
 arr = {}
 
 def language_strings():
+	pot = "\033[36mPoT\033[0m "
 	global arr
 	arr = {
 		("ENGLISH", 0): "Initializing Cookie Guzzler attack...",
@@ -38,19 +39,19 @@ def language_strings():
 		("ARABIC", 1): "WPA3 Cookie Guzzler بدء هجوم",
 		("CHINESE", 1): "启动 WPA3 Cookie Guzzler 攻击",
 
-		("ENGLISH", 2): "Target: {bssid} on channel {channel}",
-		("SPANISH", 2): "Objetivo: {bssid} en el canal {channel}",
-		("FRENCH", 2): "Cible : {bssid} sur le canal {channel}",
-		("CATALAN", 2): "Objectiu: {bssid} al canal {channel}",
-		("PORTUGUESE", 2): "Alvo: {bssid} no canal {channel}",
-		("RUSSIAN", 2): "Цель: {bssid} на канале {channel}",
-		("GREEK", 2): "Στόχος: {bssid} στο κανάλι {channel}",
-		("ITALIAN", 2): "Obiettivo: {bssid} sul canale {channel}",
-		("POLISH", 2): "Cel: {bssid} na kanale {channel}",
-		("GERMAN", 2): "Ziel: {bssid} auf Kanal {channel}",
-		("TURKISH", 2): "Hedef: {bssid} kanal {channel}",
-		("ARABIC", 2): "{channel} على القناة {bssid} :الهدف",
-		("CHINESE", 2): "目标: {bssid} 在信道 {channel}",
+		("ENGLISH", 2): "Target: {bssid} on frequency {freq} MHz (channel {channel}/band {band})",
+		("SPANISH",2): "Objetivo: {bssid} en frecuencia {freq} MHz (canal {channel}/banda {band})",
+		("FRENCH",2): f"{pot}Cible: {{bssid}} sur la fréquence {{freq}} MHz (canal {{channel}}/bande {{band}})",
+		("CATALAN",2): f"{pot}Objectiu: {{bssid}} a la freqüència {{freq}} MHz (canal {{channel}}/banda {{band}})",
+		("PORTUGUESE",2): f"{pot}Alvo: {{bssid}} na frequência {{freq}} MHz (canal {{channel}}/banda {{band}})",
+		("RUSSIAN",2): f"{pot}Цель: {{bssid}} на частоте {{freq}} MHz (канал {{channel}}/диапазон {{band}})",
+		("GREEK",2): f"{pot}Στόχος: {{bssid}} στη συχνότητα {{freq}} MHz (κανάλι {{channel}}/ζώνη {{band}})",
+		("ITALIAN",2): f"{pot}Target: {{bssid}} sulla frequenza {{freq}} MHz (canale {{channel}}/banda {{band}})",
+		("POLISH",2): f"{pot}Cel: {{bssid}} na częstotliwości {{freq}} MHz (kanał {{channel}}/pasmo {{band}})",
+		("GERMAN",2): f"{pot}Ziel: {{bssid}} auf Frequenz {{freq}} MHz (Kanal {{channel}}/Band {{band}})",
+		("TURKISH",2): f"{pot}Hedef: {{bssid}} {{freq}} MHz frekansında (kanal {{channel}}/bant {{band}})",
+		("ARABIC",2): f"{pot}(النطاق {{band}}/القناة {{channel}}) بتردد {{freq}} MHz على {{bssid}} :الهدف",
+		("CHINESE",2): f"{pot}目标: {{bssid}} 在频率 {{freq}} MHz（信道 {{channel}}/频段 {{band}}）",
 
 		("ENGLISH", 3): "Starting Cookie Guzzler flood on {interface}...",
 		("SPANISH", 3): "Iniciando flood Cookie Guzzler en {interface}...",
@@ -85,15 +86,17 @@ def get_message(language, key, **kwargs):
 	return arr.get((language, key), arr.get(("ENGLISH", key), "")).format(**kwargs)
 
 def parse_args(argv):
-	if len(argv) < 6:
-		sys.exit("Usage: wpa3_cookie_guzzler.py <bssid> <channel> <interface> <language> <scalar_hex> <finite_field_element_hex>")
+	if len(argv) < 8:
+		sys.exit("Usage: wpa3_cookie_guzzler.py <bssid> <freq> <channel> <band> <interface> <language> <scalar_hex> <finite_field_element_hex>")
 	return {
 		"bssid": argv[0],
-		"channel": argv[1],
-		"interface": argv[2],
-		"language": argv[3],
-		"scalar": bytes.fromhex(argv[4]),
-		"finite_field_element": bytes.fromhex(argv[5]),
+		"freq": argv[1],
+		"channel": argv[2],
+		"band": argv[3],
+		"interface": argv[4],
+		"language": argv[5],
+		"scalar": bytes.fromhex(argv[6]),
+		"finite_field_element": bytes.fromhex(argv[7]),
 	}
 
 def build_payload(scalar_bytes, finite_bytes):
@@ -109,7 +112,7 @@ def main():
 
 	print()
 	print(get_message(args["language"], 1), flush=True)
-	print(get_message(args["language"], 2, bssid=args["bssid"], channel=args["channel"]), flush=True)
+	print(get_message(args["language"], 2, bssid=args["bssid"], freq=args["freq"], channel=args["channel"], band=args["band"]), flush=True)
 	print(get_message(args["language"], 3, interface=args["interface"]), flush=True)
 	print()
 
