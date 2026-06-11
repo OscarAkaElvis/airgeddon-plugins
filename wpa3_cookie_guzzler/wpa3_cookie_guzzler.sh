@@ -11,7 +11,7 @@ plugin_author="OscarAkaElvis"
 
 plugin_enabled=1
 
-plugin_minimum_ag_affected_version="12.0"
+plugin_minimum_ag_affected_version="12.01"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
 
@@ -26,7 +26,9 @@ function exec_wpa3_cookie_guzzler_attack() {
 	iw dev "${interface}" set freq "${freq}" > /dev/null 2>&1
 	recalculate_windows_sizes
 	manage_output "+j -bg \"#000000\" -fg \"#FFC0CB\" -geometry ${g1_topright_window} -T \"wpa3 cookie guzzler attack\"" "${python3} ${scriptfolder}${plugins_dir}wpa3_cookie_guzzler.py ${bssid} ${freq} ${channel} ${target_band_id} ${interface} ${language} ${scalar} ${finite_field_element} ${colorize}" "wpa3 cookie guzzler attack" "active"
-	wait_for_process "${python3} ${scriptfolder}${plugins_dir}wpa3_cookie_guzzler.py ${bssid} ${freq} ${channel} ${target_band_id} ${interface} ${language} ${scalar} ${finite_field_element}" "wpa3 cookie guzzler attack"
+	if ! wait_for_process "${python3} ${scriptfolder}${plugins_dir}wpa3_cookie_guzzler.py ${bssid} ${freq} ${channel} ${target_band_id} ${interface} ${language} ${scalar} ${finite_field_element}" "wpa3 cookie guzzler attack"; then
+		return 1
+	fi
 }
 
 #Custom function. Validate if the needed plugin python file exists
