@@ -11,9 +11,12 @@ plugin_author="OscarAkaElvis"
 
 plugin_enabled=1
 
-plugin_minimum_ag_affected_version="12.0"
+plugin_minimum_ag_affected_version="12.01"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
+
+plugin_wpa3_menu_option_function="wpa3_cookie_guzzler_option"
+plugin_wpa3_menu_option_language_string="wpa3_cookie_guzzler_menu_option"
 
 declare -gA wpa3_cookie_guzzler_sae_scalar_finite_field_cache
 
@@ -26,7 +29,9 @@ function exec_wpa3_cookie_guzzler_attack() {
 	iw dev "${interface}" set freq "${freq}" > /dev/null 2>&1
 	recalculate_windows_sizes
 	manage_output "+j -bg \"#000000\" -fg \"#FFC0CB\" -geometry ${g1_topright_window} -T \"wpa3 cookie guzzler attack\"" "${python3} ${scriptfolder}${plugins_dir}wpa3_cookie_guzzler.py ${bssid} ${freq} ${channel} ${target_band_id} ${interface} ${language} ${scalar} ${finite_field_element} ${colorize}" "wpa3 cookie guzzler attack" "active"
-	wait_for_process "${python3} ${scriptfolder}${plugins_dir}wpa3_cookie_guzzler.py ${bssid} ${freq} ${channel} ${target_band_id} ${interface} ${language} ${scalar} ${finite_field_element}" "wpa3 cookie guzzler attack"
+	if ! wait_for_process "${python3} ${scriptfolder}${plugins_dir}wpa3_cookie_guzzler.py ${bssid} ${freq} ${channel} ${target_band_id} ${interface} ${language} ${scalar} ${finite_field_element}" "wpa3 cookie guzzler attack"; then
+		return 1
+	fi
 }
 
 #Custom function. Validate if the needed plugin python file exists
@@ -447,68 +452,23 @@ function wpa3_cookie_guzzler_set_scalar_finite_field_element() {
 	fi
 }
 
-#Prehook hookable_wpa3_attacks_menu function to modify wpa3 menu options
-function wpa3_cookie_guzzler_prehook_hookable_wpa3_attacks_menu() {
-
-	if [ "${arr['ENGLISH',756]}" = "6.  WPA3 Cookie Guzzler attack" ]; then
-		plugin_x="wpa3_cookie_guzzler_option"
-		plugin_x_under_construction=""
-	elif [ "${arr['ENGLISH',757]}" = "7.  WPA3 Cookie Guzzler attack" ]; then
-		plugin_y="wpa3_cookie_guzzler_option"
-		plugin_y_under_construction=""
-	elif [ "${arr['ENGLISH',812]}" = "8.  WPA3 Cookie Guzzler attack" ]; then
-		plugin_z="wpa3_cookie_guzzler_option"
-		plugin_z_under_construction=""
-	fi
-}
-
 #Prehook for hookable_for_languages function to modify language strings
 #shellcheck disable=SC1111
 function wpa3_cookie_guzzler_prehook_hookable_for_languages() {
 
-	if [ "${arr['ENGLISH',756]}" = "6.  WPA3 attack (use a plugin here)" ]; then
-		arr["ENGLISH",756]="6.  WPA3 Cookie Guzzler attack"
-		arr["SPANISH",756]="6.  Ataque Cookie Guzzler WPA3"
-		arr["FRENCH",756]="6.  Attaque WPA3 Cookie Guzzler"
-		arr["CATALAN",756]="6.  Atac WPA3 Cookie Guzzler"
-		arr["PORTUGUESE",756]="6.  Ataque WPA3 Cookie Guzzler"
-		arr["RUSSIAN",756]="6.  Атака WPA3 Cookie Guzzler"
-		arr["GREEK",756]="6.  Επίθεση WPA3 Cookie Guzzler"
-		arr["ITALIAN",756]="6.  Attacco WPA3 Cookie Guzzler"
-		arr["POLISH",756]="6.  Atak WPA3 Cookie Guzzler"
-		arr["GERMAN",756]="6.  WPA3 Cookie Guzzler Angriff"
-		arr["TURKISH",756]="6.  WPA3 Cookie Guzzler saldırısı"
-		arr["ARABIC",756]="6.  WPA3 Cookie Guzzler هجوم"
-		arr["CHINESE",756]="6.  WPA3 Cookie Guzzler 攻击"
-	elif [ "${arr['ENGLISH',757]}" = "7.  WPA3 attack (use a plugin here)" ]; then
-		arr["ENGLISH",757]="7.  WPA3 Cookie Guzzler attack"
-		arr["SPANISH",757]="7.  Ataque Cookie Guzzler WPA3"
-		arr["FRENCH",757]="7.  Attaque WPA3 Cookie Guzzler"
-		arr["CATALAN",757]="7.  Atac WPA3 Cookie Guzzler"
-		arr["PORTUGUESE",757]="7.  Ataque WPA3 Cookie Guzzler"
-		arr["RUSSIAN",757]="7.  Атака WPA3 Cookie Guzzler"
-		arr["GREEK",757]="7.  Επίθεση WPA3 Cookie Guzzler"
-		arr["ITALIAN",757]="7.  Attacco WPA3 Cookie Guzzler"
-		arr["POLISH",757]="7.  Atak WPA3 Cookie Guzzler"
-		arr["GERMAN",757]="7.  WPA3 Cookie Guzzler Angriff"
-		arr["TURKISH",757]="7.  WPA3 Cookie Guzzler saldırısı"
-		arr["ARABIC",757]="7.  WPA3 Cookie Guzzler هجوم"
-		arr["CHINESE",757]="7.  WPA3 Cookie Guzzler 攻击"
-	elif [ "${arr['ENGLISH',812]}" = "8.  WPA3 attack (use a plugin here)" ]; then
-		arr["ENGLISH",812]="8.  WPA3 Cookie Guzzler attack"
-		arr["SPANISH",812]="8.  Ataque Cookie Guzzler WPA3"
-		arr["FRENCH",812]="8.  Attaque WPA3 Cookie Guzzler"
-		arr["CATALAN",812]="8.  Atac WPA3 Cookie Guzzler"
-		arr["PORTUGUESE",812]="8.  Ataque WPA3 Cookie Guzzler"
-		arr["RUSSIAN",812]="8.  Атака WPA3 Cookie Guzzler"
-		arr["GREEK",812]="8.  Επίθεση WPA3 Cookie Guzzler"
-		arr["ITALIAN",812]="8.  Attacco WPA3 Cookie Guzzler"
-		arr["POLISH",812]="8.  Atak WPA3 Cookie Guzzler"
-		arr["GERMAN",812]="8.  WPA3 Cookie Guzzler Angriff"
-		arr["TURKISH",812]="8.  WPA3 Cookie Guzzler saldırısı"
-		arr["ARABIC",812]="8.  WPA3 Cookie Guzzler هجوم"
-		arr["CHINESE",812]="8.  WPA3 Cookie Guzzler 攻击"
-	fi
+	arr["ENGLISH","wpa3_cookie_guzzler_menu_option"]="WPA3 Cookie Guzzler attack"
+	arr["SPANISH","wpa3_cookie_guzzler_menu_option"]="Ataque Cookie Guzzler WPA3"
+	arr["FRENCH","wpa3_cookie_guzzler_menu_option"]="Attaque WPA3 Cookie Guzzler"
+	arr["CATALAN","wpa3_cookie_guzzler_menu_option"]="Atac WPA3 Cookie Guzzler"
+	arr["PORTUGUESE","wpa3_cookie_guzzler_menu_option"]="Ataque WPA3 Cookie Guzzler"
+	arr["RUSSIAN","wpa3_cookie_guzzler_menu_option"]="Атака WPA3 Cookie Guzzler"
+	arr["GREEK","wpa3_cookie_guzzler_menu_option"]="Επίθεση WPA3 Cookie Guzzler"
+	arr["ITALIAN","wpa3_cookie_guzzler_menu_option"]="Attacco WPA3 Cookie Guzzler"
+	arr["POLISH","wpa3_cookie_guzzler_menu_option"]="Atak WPA3 Cookie Guzzler"
+	arr["GERMAN","wpa3_cookie_guzzler_menu_option"]="WPA3 Cookie Guzzler Angriff"
+	arr["TURKISH","wpa3_cookie_guzzler_menu_option"]="WPA3 Cookie Guzzler saldırısı"
+	arr["ARABIC","wpa3_cookie_guzzler_menu_option"]="WPA3 Cookie Guzzler هجوم"
+	arr["CHINESE","wpa3_cookie_guzzler_menu_option"]="WPA3 Cookie Guzzler 攻击"
 
 	arr["ENGLISH","wpa3_cookie_guzzler_1"]="WPA3 Cookie Guzzler attack runs forever aiming to overload the router (DoS)"
 	arr["SPANISH","wpa3_cookie_guzzler_1"]="El ataque WPA3 Cookie Guzzler se ejecuta indefinidamente con el objetivo de sobrecargar el router (DoS)"

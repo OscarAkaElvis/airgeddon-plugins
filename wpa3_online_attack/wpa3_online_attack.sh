@@ -11,9 +11,12 @@ plugin_author="OscarAkaElvis"
 
 plugin_enabled=1
 
-plugin_minimum_ag_affected_version="12.0"
+plugin_minimum_ag_affected_version="12.01"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
+
+plugin_wpa3_menu_option_function="wpa3_online_dictionary_attack_option"
+plugin_wpa3_menu_option_language_string="wpa3_online_attack_menu_option"
 
 #Custom function. Validate if right custom wpa_supplicant binary file exist
 function custom_wpa_supplicant_validation() {
@@ -108,7 +111,9 @@ function exec_wpa3_online_dictionary_attack() {
 
 	recalculate_windows_sizes
 	manage_output "+j -bg \"#000000\" -fg \"#FFC0CB\" -geometry ${g1_topright_window} -T \"wpa3 online dictionary attack\"" "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path} ${tmpdir}agwpa3 ${language} | tee ${tmpdir}agwpa3/${wpa3log_file} ${colorize}" "wpa3 online dictionary attack" "active"
-	wait_for_process "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path} ${tmpdir}agwpa3 ${language}" "wpa3 online dictionary attack"
+	if ! wait_for_process "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path} ${tmpdir}agwpa3 ${language}" "wpa3 online dictionary attack"; then
+		return 1
+	fi
 
 	manage_wpa3_pot
 }
@@ -314,68 +319,23 @@ function wpa3_online_dictionary_attack_option() {
 	exec_wpa3_online_dictionary_attack
 }
 
-#Prehook hookable_wpa3_attacks_menu function to modify wpa3 menu options
-function wpa3_online_attack_prehook_hookable_wpa3_attacks_menu() {
-
-	if [ "${arr['ENGLISH',756]}" = "6.  WPA3 online dictionary attack" ]; then
-		plugin_x="wpa3_online_dictionary_attack_option"
-		plugin_x_under_construction=""
-	elif [ "${arr['ENGLISH',757]}" = "7.  WPA3 online dictionary attack" ]; then
-		plugin_y="wpa3_online_dictionary_attack_option"
-		plugin_y_under_construction=""
-	elif [ "${arr['ENGLISH',812]}" = "8.  WPA3 online dictionary attack" ]; then
-		plugin_z="wpa3_online_dictionary_attack_option"
-		plugin_z_under_construction=""
-	fi
-}
-
 #Prehook for hookable_for_languages function to modify language strings
 #shellcheck disable=SC1111
 function wpa3_online_attack_prehook_hookable_for_languages() {
 
-	if [ "${arr['ENGLISH',756]}" = "6.  WPA3 attack (use a plugin here)" ]; then
-		arr["ENGLISH",756]="6.  WPA3 online dictionary attack"
-		arr["SPANISH",756]="6.  Ataque de diccionario online de WPA3"
-		arr["FRENCH",756]="6.  Attaque online WPA3 avec dictionaire"
-		arr["CATALAN",756]="6.  Atac de diccionari en línia de WPA3"
-		arr["PORTUGUESE",756]="6.  Ataque online de dicionário no WPA3"
-		arr["RUSSIAN",756]="6.  Онлайн атака на WPA3 со словарём"
-		arr["GREEK",756]="6.  Διαδικτυακή επίθεση σε WPA3 με λεξικό"
-		arr["ITALIAN",756]="6.  Attacco online WPA3 con dizionario"
-		arr["POLISH",756]="6.  Atak słownikowy online WPA3"
-		arr["GERMAN",756]="6.  WPA3-Angriff auf das Online-Wörterbuch"
-		arr["TURKISH",756]="6.  WPA3 çevrimiçi sözlük saldırısı"
-		arr["ARABIC",756]="6.  WPA3 قاموس الهجوم علي الشبكة ل"
-		arr["CHINESE",756]="6.  WPA3 在线字典攻击"
-	elif [ "${arr['ENGLISH',757]}" = "7.  WPA3 attack (use a plugin here)" ]; then
-		arr["ENGLISH",757]="7.  WPA3 online dictionary attack"
-		arr["SPANISH",757]="7.  Ataque de diccionario online de WPA3"
-		arr["FRENCH",757]="7.  Attaque online WPA3 avec dictionaire"
-		arr["CATALAN",757]="7.  Atac de diccionari en línia de WPA3"
-		arr["PORTUGUESE",757]="7.  Ataque online de dicionário no WPA3"
-		arr["RUSSIAN",757]="7.  Онлайн атака на WPA3 со словарём"
-		arr["GREEK",757]="7.  Διαδικτυακή επίθεση σε WPA3 με λεξικό"
-		arr["ITALIAN",757]="7.  Attacco online WPA3 con dizionario"
-		arr["POLISH",757]="7.  Atak słownikowy online WPA3"
-		arr["GERMAN",757]="7.  WPA3-Angriff auf das Online-Wörterbuch"
-		arr["TURKISH",757]="7.  WPA3 çevrimiçi sözlük saldırısı"
-		arr["ARABIC",757]="7.  WPA3 قاموس الهجوم علي الشبكة ل"
-		arr["CHINESE",757]="7.  WPA3 在线字典攻击"
-	elif [ "${arr['ENGLISH',812]}" = "8.  WPA3 attack (use a plugin here)" ]; then
-		arr["ENGLISH",812]="8.  WPA3 online dictionary attack"
-		arr["SPANISH",812]="8.  Ataque de diccionario online de WPA3"
-		arr["FRENCH",812]="8.  Attaque online WPA3 avec dictionaire"
-		arr["CATALAN",812]="8.  Atac de diccionari en línia de WPA3"
-		arr["PORTUGUESE",812]="8.  Ataque online de dicionário no WPA3"
-		arr["RUSSIAN",812]="8.  Онлайн атака на WPA3 со словарём"
-		arr["GREEK",812]="8.  Διαδικτυακή επίθεση σε WPA3 με λεξικό"
-		arr["ITALIAN",812]="8.  Attacco online WPA3 con dizionario"
-		arr["POLISH",812]="8.  Atak słownikowy online WPA3"
-		arr["GERMAN",812]="8.  WPA3-Angriff auf das Online-Wörterbuch"
-		arr["TURKISH",812]="8.  WPA3 çevrimiçi sözlük saldırısı"
-		arr["ARABIC",812]="8.  WPA3 قاموس الهجوم علي الشبكة ل"
-		arr["CHINESE",812]="8.  WPA3 在线字典攻击"
-	fi
+	arr["ENGLISH","wpa3_online_attack_menu_option"]="WPA3 online dictionary attack"
+	arr["SPANISH","wpa3_online_attack_menu_option"]="Ataque de diccionario online de WPA3"
+	arr["FRENCH","wpa3_online_attack_menu_option"]="Attaque online WPA3 avec dictionaire"
+	arr["CATALAN","wpa3_online_attack_menu_option"]="Atac de diccionari en línia de WPA3"
+	arr["PORTUGUESE","wpa3_online_attack_menu_option"]="Ataque online de dicionário no WPA3"
+	arr["RUSSIAN","wpa3_online_attack_menu_option"]="Онлайн атака на WPA3 со словарём"
+	arr["GREEK","wpa3_online_attack_menu_option"]="Διαδικτυακή επίθεση σε WPA3 με λεξικό"
+	arr["ITALIAN","wpa3_online_attack_menu_option"]="Attacco online WPA3 con dizionario"
+	arr["POLISH","wpa3_online_attack_menu_option"]="Atak słownikowy online WPA3"
+	arr["GERMAN","wpa3_online_attack_menu_option"]="WPA3-Angriff auf das Online-Wörterbuch"
+	arr["TURKISH","wpa3_online_attack_menu_option"]="WPA3 çevrimiçi sözlük saldırısı"
+	arr["ARABIC","wpa3_online_attack_menu_option"]="WPA3 قاموس الهجوم علي الشبكة ل"
+	arr["CHINESE","wpa3_online_attack_menu_option"]="WPA3 在线字典攻击"
 
 	arr["ENGLISH","wpa3_online_attack_1"]="WPA3 online dictionary attacks take significantly longer than offline cracking, so they should be performed only against pure WPA3 networks. If the target is a WPA2/WPA3 Transitional (Mixed mode) network, prefer traditional WPA2 techniques (Handshake, PMKID) or a downgrade attack rather than attempting the slow online WPA3 attack"
 	arr["SPANISH","wpa3_online_attack_1"]="Los ataques de diccionario online contra WPA3 tardan mucho más que el cracking offline, por lo que debes realizarlos solo contra redes puramente WPA3. Si el objetivo es una WPA2/WPA3 Transitional (Mixed mode), prefiere las técnicas tradicionales de WPA2 (Handshake, PMKID) o un ataque de downgrade en lugar de intentar el lento ataque WPA3 online"
