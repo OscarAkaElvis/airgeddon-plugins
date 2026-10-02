@@ -11,7 +11,7 @@ plugin_author="OscarAkaElvis"
 
 plugin_enabled=1
 
-plugin_minimum_ag_affected_version="12.01"
+plugin_minimum_ag_affected_version="12.10"
 plugin_maximum_ag_affected_version=""
 plugin_distros_supported=("*")
 
@@ -86,6 +86,9 @@ function exec_wpa3_online_dictionary_attack() {
 
 	debug_print
 
+	local escaped_essid
+	printf -v escaped_essid "%q" "${essid}"
+
 	local freq_band=""
 	if [[ -n "${target_band_id}" ]]; then
 		if [ "${target_band_id}" = "${band_24ghz}" ]; then
@@ -110,7 +113,7 @@ function exec_wpa3_online_dictionary_attack() {
 	mkdir "${tmpdir}agwpa3" > /dev/null 2>&1
 
 	recalculate_windows_sizes
-	manage_output "+j -bg \"#000000\" -fg \"#FFC0CB\" -geometry ${g1_topright_window} -T \"wpa3 online dictionary attack\"" "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path} ${tmpdir}agwpa3 ${language} | tee ${tmpdir}agwpa3/${wpa3log_file} ${colorize}" "wpa3 online dictionary attack" "active"
+	manage_output "+j -bg \"#000000\" -fg \"#FFC0CB\" -geometry ${g1_topright_window} -T \"wpa3 online dictionary attack\"" "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${escaped_essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path} ${tmpdir}agwpa3 ${language} | tee ${tmpdir}agwpa3/${wpa3log_file} ${colorize}" "wpa3 online dictionary attack" "active"
 	if ! wait_for_process "${python3} ${scriptfolder}${plugins_dir}wpa3_online_attack.py ${DICTIONARY} ${essid} ${bssid} ${interface} ${freq} ${custom_wpa_supplicant_binary_path} ${tmpdir}agwpa3 ${language}" "wpa3 online dictionary attack"; then
 		return 1
 	fi
