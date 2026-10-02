@@ -62,13 +62,15 @@ Credits to [Nuseo1] for his help researching WPA3 DoS, and to the original autho
 
 > An airgeddon plugin to decrease security to accept any char as part of the password for Evil Twin Captive Portal attack.
 
-This plugin is for [airgeddon] tool. To avoid injections on the Captive Portal, `airgeddon` by default is filtering some dangerous chars `*&/?<>` as a part of the password while using Evil Twin Captive Portal attack. That might the attack to fail if the password of the target network is using one of these filtered chars. Using this plugin, any character will be accepted as part of the password.
+This plugin is for [airgeddon] tool. This plugin __is not needed if you are using airgeddon v12.10 or higher__ because, since that version, Captive Portal password handling securely supports printable special characters by default in the core source code of airgeddon. The plugin is kept for compatibility with older airgeddon versions.
+
+To avoid injections on the Captive Portal, `airgeddon` by default is filtering some dangerous chars `*&/?<>` as a part of the password while using Evil Twin Captive Portal attack. That might the attack to fail if the password of the target network is using one of these filtered chars. Using this plugin, any character will be accepted as part of the password.
 
 ## airgeddon. Realtek chipset fixer
 
 > An airgeddon plugin to fix some problematic Realtek chipsets.
 
-This plugin for [airgeddon] tool is to be used exactly on v10.0. This plugin __is not needed if you are using airgeddon v10.01 or higher__ because since that version, the compatibility problem was already addressed by default in the core source code of airgeddon.
+This plugin for [airgeddon] tool is to be used exactly on v10.0. This plugin __is not needed if you are using airgeddon v10.01 or higher__ because since that version, the compatibility problem was already addressed by default in the core source code of airgeddon. The plugin is kept for compatibility with older airgeddon versions.
 
 It fixes the non-standard behavior of some drivers for some Realtek chipsets used on many wireless cards.
 
