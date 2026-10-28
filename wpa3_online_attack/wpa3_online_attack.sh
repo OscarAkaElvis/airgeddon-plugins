@@ -280,7 +280,9 @@ function wpa3_online_dictionary_attack_option() {
 		echo
 		language_strings "${language}" 115 "read"
 		echo
-		managed_option "${interface}"
+		if ! managed_option "${interface}"; then
+			return 1
+		fi
 	fi
 
 	if ! check_target_band_supported_by_interface "main_wifi_interface"; then
