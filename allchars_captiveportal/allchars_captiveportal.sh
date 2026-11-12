@@ -14,7 +14,7 @@ plugin_enabled=1
 
 #Set airgeddon versions to apply this plugin (leave blank to set no limits, minimum version recommended is 10.0 on which plugins feature was added)
 plugin_minimum_ag_affected_version="10.0"
-plugin_maximum_ag_affected_version=""
+plugin_maximum_ag_affected_version="12.02"
 
 #Set only one element in the array "*" to affect all distros, otherwise add them one by one with the name which airgeddon uses for that distro (examples "BlackArch", "Parrot", "Kali")
 plugin_distros_supported=("*")
